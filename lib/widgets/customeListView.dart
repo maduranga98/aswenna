@@ -123,11 +123,11 @@ class _CustomeListViewState extends State<CustomeListView>
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 8),
         elevation: 2,
-        shadowColor: AppColors.text.withOpacity(0.1),
+        shadowColor: AppColors.text.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: AppColors.secondary.withOpacity(0.3),
+            color: AppColors.secondary.withValues(alpha: 0.3),
             width: 0.5,
           ),
         ),
@@ -144,7 +144,7 @@ class _CustomeListViewState extends State<CustomeListView>
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
-                  color: AppColors.primary.withOpacity(0.7),
+                  color: AppColors.primary.withValues(alpha: 0.7),
                 ),
               ],
             ),
@@ -159,7 +159,7 @@ class _CustomeListViewState extends State<CustomeListView>
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(

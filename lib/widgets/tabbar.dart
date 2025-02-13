@@ -45,7 +45,7 @@ class CustomTabBar extends StatelessWidget {
             color: AppColors.primary,
             border: Border(
               bottom: BorderSide(
-                color: AppColors.surface.withOpacity(0.1),
+                color: AppColors.surface.withValues(alpha: 0.1),
                 width: 1,
               ),
             ),
@@ -59,7 +59,7 @@ class CustomTabBar extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 16,
             ),
-            unselectedLabelColor: AppColors.surface.withOpacity(0.7),
+            unselectedLabelColor: AppColors.surface.withValues(alpha: 0.7),
             labelColor: AppColors.surface,
             tabs: _buildTabs(),
             labelPadding: EdgeInsets.symmetric(vertical: 12),

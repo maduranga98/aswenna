@@ -31,7 +31,10 @@ class _DistrictFilterState extends State<DistrictFilter> {
       children: [
         Text(
           label,
-          style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 16),
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.9),
+            fontSize: 16,
+          ),
         ),
         const SizedBox(height: 8),
         DropdownButtonHideUnderline(
@@ -41,7 +44,7 @@ class _DistrictFilterState extends State<DistrictFilter> {
               hintText,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white.withValues(alpha: 0.5),
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -52,15 +55,15 @@ class _DistrictFilterState extends State<DistrictFilter> {
               height: 50,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white.withOpacity(0.1)),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
               ),
             ),
             iconStyleData: IconStyleData(
               icon: Icon(
                 Icons.keyboard_arrow_down,
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white.withValues(alpha: 0.5),
               ),
               iconSize: 24,
             ),
