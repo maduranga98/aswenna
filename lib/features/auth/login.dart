@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Please enter your ID to continue',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                   ),
                   const SizedBox(height: 48),
@@ -121,10 +121,10 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.1),
+                            color: Colors.white.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.white.withValues(alpha: 0.1),
                               width: 1,
                             ),
                           ),
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                               labelText: localization.id,
                               hintText: 'Enter your ID number',
                               hintStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
+                                color: Colors.white.withValues(alpha: 0.5),
                               ),
                               labelStyle: const TextStyle(color: Colors.white),
                               prefixIcon: const Icon(

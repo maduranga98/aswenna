@@ -44,9 +44,12 @@ class _SignUpState extends State<SignUp> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1,
+        ),
       ),
       child: TextFormField(
         controller: controller,
@@ -55,7 +58,7 @@ class _SignUpState extends State<SignUp> {
         decoration: InputDecoration(
           labelText: labelText,
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
           labelStyle: const TextStyle(color: Colors.white),
           prefixIcon: Icon(icon, color: Colors.white),
           border: InputBorder.none,
@@ -176,7 +179,7 @@ class _SignUpState extends State<SignUp> {
                     'Please fill in your details',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                   ),
                   const SizedBox(height: 32),

@@ -26,6 +26,8 @@ TODO: Sub Items
 
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/data/repository/db_paths.dart';
+import 'package:aswenna/features/items%20add/itemsAdd.dart';
+import 'package:aswenna/features/items%20view/item_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -252,48 +254,38 @@ class _CustomSellingPageState extends State<CustomSellingPage>
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: AppColors.secondary.withOpacity(0.3),
+            color: AppColors.secondary.withValues(alpha: 0.3),
             width: 0.5,
           ),
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            //    Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder:
-            //         (context) => ItemViewPage(
-            //           district: doc["district"],
-            //           dso: doc["dso"],
-            //           mainNameE: mainName,
-            //           secondNameE: widget.secondLNameE,
-            //           imagelink1:
-            //               (doc["image1URL"] == null)
-            //                   ? ''
-            //                   : doc["image1URL"],
-            //           imagelink2:
-            //               (doc["image2URL"] == null)
-            //                   ? ''
-            //                   : doc["image2URL"],
-            //           arces: doc["acres"],
-            //           perches: doc["perches"],
-            //           price: doc["price"],
-            //           date:
-            //               (doc["date"] == null)
-            //                   ? ''
-            //                   : doc["date"],
-            //           details: doc["details"],
-            //           userId: 'uid',
-            //           ownerId: 'ownerid',
-            //           rates: '5',
-            //           fcmToken:
-            //               (doc["fcmToken"] == null)
-            //                   ? ''
-            //                   : doc["fcmToken"],
-            //         ),
-            //   ),
-            // )
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => ItemViewPage(
+                      district: doc["district"],
+                      dso: doc["dso"],
+                      mainNameE: mainName,
+                      secondNameE: widget.secondLNameE,
+                      imagelink1:
+                          (doc["image1URL"] == null) ? '' : doc["image1URL"],
+                      imagelink2:
+                          (doc["image2URL"] == null) ? '' : doc["image2URL"],
+                      arces: doc["acres"],
+                      perches: doc["perches"],
+                      price: doc["price"],
+                      date: (doc["date"] == null) ? '' : doc["date"],
+                      details: doc["details"],
+                      userId: 'uid',
+                      ownerId: 'ownerid',
+                      rates: '5',
+                      fcmToken: '',
+                    ),
+              ),
+            );
           },
           child: Padding(
             padding: EdgeInsets.all(12),
@@ -346,7 +338,7 @@ class _CustomSellingPageState extends State<CustomSellingPage>
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: AppColors.secondary.withOpacity(0.3),
+          color: AppColors.secondary.withValues(alpha: 0.3),
           width: 1,
         ),
       ),
@@ -424,23 +416,23 @@ class _CustomSellingPageState extends State<CustomSellingPage>
             icon: Icons.add,
             label: "Enter",
             onPressed: () {
-              //   Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder:
-              //         (context) => ItemsAddPage(
-              //           mainName: mainName,
-              //           firstLName: firstLName,
-              //           secondLName: secondLName,
-              //           lan: lan,
-              //           tabName: widget.tabName,
-              //           mainNameE: widget.mainNameE,
-              //           firstLNameE: widget.firstLNameE,
-              //           secondLNameE: widget.secondLNameE,
-              //           tabNameE: widget.tabNameE,
-              //         ),
-              //   ),
-              // )
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => ItemsAddPage(
+                        mainName: mainName,
+                        firstLName: firstLName,
+                        secondLName: secondLName,
+                        lan: lan,
+                        tabName: widget.tabName,
+                        mainNameE: widget.mainNameE,
+                        firstLNameE: widget.firstLNameE,
+                        secondLNameE: widget.secondLNameE,
+                        tabNameE: widget.tabNameE,
+                      ),
+                ),
+              );
             },
           ),
         ],
@@ -458,7 +450,7 @@ class _CustomSellingPageState extends State<CustomSellingPage>
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: AppColors.text.withOpacity(0.1),
+            color: AppColors.text.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: Offset(0, 4),
           ),

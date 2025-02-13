@@ -1,10 +1,13 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/auth/login.dart';
+import 'package:aswenna/providers/locale_provider.dart';
 import 'package:aswenna/widgets/customeListView.dart';
 import 'package:aswenna/widgets/language_selector.dart';
 import 'package:aswenna/widgets/tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +19,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String getCurrentLanguage(BuildContext context) {
+    return Provider.of<LocaleProvider>(context).locale?.languageCode ?? 'en';
+  }
 
   Widget _buildMenuCard({
     required String title,
@@ -29,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               offset: Offset(0, 2),
               blurRadius: 8,
             ),
@@ -53,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.7),
+                          Colors.black.withValues(alpha: 0.7),
                         ],
                       ),
                     ),
@@ -74,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                         Shadow(
                           offset: Offset(0, 1),
                           blurRadius: 2,
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withValues(alpha: 0.5),
                         ),
                       ],
                     ),
@@ -102,11 +108,15 @@ class _HomePageState extends State<HomePage> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+              colors: [
+                AppColors.primary,
+                AppColors.primary.withValues(alpha: 0.8),
+              ],
             ),
           ),
         ),
         elevation: 0,
+        centerTitle: true,
         title: Row(
           children: [
             Image.asset(
@@ -114,7 +124,13 @@ class _HomePageState extends State<HomePage> {
               height: 32,
             ),
             SizedBox(width: 8),
-            Text('Aswenna'),
+            Text(
+              AppLocalizations.of(context)!.harvest,
+              style: TextStyle(
+                color: AppColors.surface,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         actions: [
@@ -141,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                   end: Alignment.bottomRight,
                   colors: [
                     AppColors.primary,
-                    AppColors.primary.withOpacity(0.8),
+                    AppColors.primary.withValues(alpha: 0.8),
                   ],
                 ),
               ),
@@ -165,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           'Your Agriculture Marketplace',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontSize: 16,
                           ),
                         ),
@@ -210,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.land,
                                 titleE: 'land',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -228,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.harvest,
                                 titleE: 'harvest',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -246,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.harvest,
                                 titleE: 'harvest',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -263,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                                 listname: 'animals',
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.animals,
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                                 titleE: 'animals',
                               ),
                         ),
@@ -283,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                                 title:
                                     AppLocalizations.of(context)!.productions,
                                 titleE: 'productions',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -301,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.labour,
                                 titleE: 'labour',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -320,7 +336,7 @@ class _HomePageState extends State<HomePage> {
                                 title:
                                     AppLocalizations.of(context)!.productions,
                                 titleE: 'productions',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -339,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.vehicle,
                                 titleE: 'vehicles',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -357,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.transport,
                                 titleE: 'transport',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -376,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                                 title:
                                     AppLocalizations.of(context)!.machineries,
                                 titleE: 'machineries',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -395,7 +411,7 @@ class _HomePageState extends State<HomePage> {
                                 title:
                                     AppLocalizations.of(context)!.agriEquipment,
                                 titleE: 'agriEquipmet',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -423,14 +439,14 @@ class _HomePageState extends State<HomePage> {
                                     useAppBar: false,
                                     title: '',
                                     titleE: '',
-                                    lan: 'si',
+                                    lan: getCurrentLanguage(context),
                                   ),
                                   CustomeListView(
                                     listname: 'chemfertilizer',
                                     useAppBar: false,
                                     title: '',
                                     titleE: '',
-                                    lan: 'si',
+                                    lan: getCurrentLanguage(context),
                                   ),
                                 ],
                                 title:
@@ -452,7 +468,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.agrochems,
                                 titleE: 'agrochems',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -476,14 +492,14 @@ class _HomePageState extends State<HomePage> {
                                     useAppBar: false,
                                     title: '',
                                     titleE: '',
-                                    lan: 'si',
+                                    lan: getCurrentLanguage(context),
                                   ),
                                   CustomeListView(
                                     listname: 'export',
                                     useAppBar: false,
                                     title: '',
                                     titleE: '',
-                                    lan: 'si',
+                                    lan: getCurrentLanguage(context),
                                   ),
                                 ],
                                 title: AppLocalizations.of(context)!.market,
@@ -504,7 +520,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.advice,
                                 titleE: 'advice',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -522,7 +538,7 @@ class _HomePageState extends State<HomePage> {
                                 useAppBar: true,
                                 title: AppLocalizations.of(context)!.info,
                                 titleE: 'info',
-                                lan: 'si',
+                                lan: getCurrentLanguage(context),
                               ),
                         ),
                       ),
@@ -542,14 +558,19 @@ class _HomePageState extends State<HomePage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [AppColors.primary, AppColors.primary.withOpacity(0.9)],
+            colors: [
+              AppColors.primary,
+              AppColors.primary.withValues(alpha: 0.9),
+            ],
           ),
         ),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.2)),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.2),
+              ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Padding(
@@ -679,7 +700,7 @@ class AccountDetails extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -725,7 +746,7 @@ class AccountDetails extends StatelessWidget {
                       border: Border.all(color: Colors.white, width: 4),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 10,
                           offset: Offset(0, 4),
                         ),

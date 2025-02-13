@@ -31,7 +31,7 @@ class _IntroScreenState extends State<IntroScreen> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: Offset(0, 4),
             ),
@@ -102,14 +102,14 @@ class _IntroScreenState extends State<IntroScreen> {
         showStatusBar: true,
         dotIndicator: DotIndicator(
           selectedColor: Colors.white,
-          unselectedColor: Colors.white.withOpacity(0.3),
+          unselectedColor: Colors.white.withValues(alpha: 0.3),
           size: 10.0,
         ),
         back: Back(
           child: Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(Icons.arrow_back, color: Colors.white, size: 24),
@@ -121,7 +121,7 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(Icons.arrow_forward, color: Colors.white, size: 24),
@@ -137,7 +137,7 @@ class _IntroScreenState extends State<IntroScreen> {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 10,
                   offset: Offset(0, 4),
                 ),
