@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "169576315366",
+    "firebase_url": "https://harvest-429f1-default-rtdb.firebaseio.com",
+    "project_id": "harvest-429f1",
+    "storage_bucket": "harvest-429f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169576315366:android:97d2653cbf05f711097e27",
+        "android_client_info": {
+          "package_name": "com.example.aswanna"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCza4eio70YW1T13vtWZG0or2q75m6lhH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169576315366:android:655f1551a7d23ef7097e27",
+        "android_client_info": {
+          "package_name": "com.example.aswenna"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCza4eio70YW1T13vtWZG0or2q75m6lhH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
