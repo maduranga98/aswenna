@@ -358,7 +358,6 @@ class _ItemViewPageState extends State<ItemViewPage> {
             child: ElevatedButton.icon(
               onPressed: () {
                 // Your existing purchase logic
-                print(widget.fcmToken);
               },
               icon: Icon(Icons.shopping_cart_outlined),
               label: Text('Purchase'),

@@ -64,6 +64,9 @@ class _CustomeSubListViewState extends State<CustomeSubListView>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
+    print(
+      "2nd Level: Title: ${widget.title} FirstNameE: ${widget.firstLNameE} lastName: ${widget.listname} maninNameE: ${widget.mainNameE}",
+    );
   }
 
   @override

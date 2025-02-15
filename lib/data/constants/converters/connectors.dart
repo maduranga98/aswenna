@@ -6,7 +6,6 @@ Map<String, String> districtToDSOConnector(
   AppLocalizations localizations,
   String district,
 ) {
-  print('District Connector $district');
   switch (district) {
     case 'ampara':
       return amparaSet(localizations);
@@ -161,7 +160,6 @@ List<String> mainGridConnector(String keyword, String lan) {
 // first list step to sub grids
 
 List<String> subGridConnector(String keyword, String lan) {
-  print('keyword $keyword');
   if (lan == 'si') {
     switch (keyword) {
       case 'quadrupeds':

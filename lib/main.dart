@@ -1,4 +1,5 @@
 import 'package:aswenna/features/auth/loadingPage.dart';
+import 'package:aswenna/screens/category_list_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: const LoadingPage(),
+          // home: const CategoryListScreen(),
         );
       },
     );

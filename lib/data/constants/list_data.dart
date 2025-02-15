@@ -1101,10 +1101,13 @@ List<String> cerealCropsSin = [
   'වෙනත් ධාන්‍ය බෝග වර්‍ග',
 ];
 
+/*
+TODO: Check the name 
+*/
 List<String> cashewSin = [
   'බීජකජු',
   'පැල',
-  'රෝපණ ද්‍රව්‍ය',
+  'රෝපණ ද්‍රව්‍ය (රෝපණය සඳහා අතු)',
   'කජු ඇට',
   'වියලි කජු මද',
   'කජු ලෙලි',
@@ -1351,7 +1354,7 @@ List<String> honeyBeeSin = ['මී පැණි', 'මී මැසි පා�
 /*
 TODO: check the path 
 */
-List<String> landsCommonEn = ['Rent/Lease', 'Sale'];
+List<String> landsCommonEn = ['Rent/Lease', 'Sell'];
 List<String> vegetablesEn = [
   'Eggplant',
   'Tomatoes',
@@ -1473,14 +1476,8 @@ List<String> cerealCropsEn = [
 ];
 
 List<String> cashewEn = [
-  /*
-  TODO: Update the sinhala list
-   */
   'Cashew-Seeds',
   'Plants',
-  /*
-  TODO:Check the planting materials
-   */
   'Planting Materials (Twigs for palnting)',
   'Cashew Nuts Fresh',
   'Cashew Dried',

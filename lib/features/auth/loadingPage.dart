@@ -94,8 +94,7 @@ class _LoadingPageState extends State<LoadingPage>
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => isLoggedOut ? const LoginPage() : const HomePage(),
+        builder: (context) => isLoggedOut ? const LoginPage() : HomePage(),
       ),
     );
   }

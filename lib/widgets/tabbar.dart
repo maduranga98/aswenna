@@ -24,6 +24,7 @@ class CustomTabBar extends StatelessWidget {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
+    print("In the tab bar: tabnames: ${tabNames},title: $title");
     return AppBar(
       elevation: 0,
       backgroundColor: AppColors.primary,
