@@ -419,23 +419,15 @@ class _CustomSellingPageState extends State<CustomSellingPage>
             icon: Icons.add,
             label: "Enter",
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => ItemsAddPage(
-                        mainName: mainName,
-                        firstLName: firstLName,
-                        secondLName: secondLName,
-                        lan: lan,
-                        tabName: widget.tabName,
-                        mainNameE: widget.mainNameE,
-                        firstLNameE: widget.firstLNameE,
-                        secondLNameE: widget.secondLNameE,
-                        tabNameE: widget.tabNameE,
-                      ),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder:
+              //         (context) => ItemsAddPage(
+
+              //         ),
+              //   ),
+              // );
             },
           ),
         ],
