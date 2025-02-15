@@ -41,88 +41,172 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     super.dispose();
   }
 
+  // Update the image grid builder
   Widget _buildImageGrid() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [AppColors.primary, AppColors.primary.withOpacity(0.95)],
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Upload Images (up to 5)',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.accent.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  Icons.add_photo_alternate,
+                  color: AppColors.accent,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Upload Images',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                '(${selectedImages.where((img) => img != null).length}/5)',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.7),
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 16),
           GridView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
               childAspectRatio: 1,
             ),
             itemCount: 5,
             itemBuilder: (context, index) {
               bool hasImage = selectedImages[index] != null;
+              bool isUploading =
+                  this.isUploading && selectedImages[index] != null;
 
               return GestureDetector(
-                onTap: () => pickImage(index),
+                onTap: () => !isUploading ? pickImage(index) : null,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color:
+                        hasImage
+                            ? Colors.transparent
+                            : Colors.white.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color:
                           hasImage
-                              ? AppColors.primary
-                              : AppColors.primary.withOpacity(0.3),
+                              ? AppColors.accent
+                              : Colors.white.withOpacity(0.2),
                       width: 1.5,
                     ),
                   ),
                   child: Stack(
                     children: [
-                      // Image or Add Icon
-                      Center(
-                        child:
-                            hasImage
-                                ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(11),
-                                  child: Image.file(
-                                    selectedImages[index]!,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                  ),
-                                )
-                                : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.add_a_photo_rounded,
-                                      color: AppColors.primary,
-                                      size: 28,
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      'Add Image',
-                                      style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                      ),
-                      // Remove Button
+                      // Background
                       if (hasImage)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.file(
+                            selectedImages[index]!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                        ),
+
+                      // Upload Overlay
+                      if (isUploading)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.85),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 32,
+                                  height: 32,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      AppColors.accent,
+                                    ),
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'Uploading...',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                      // Empty State
+                      if (!hasImage)
+                        Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppColors.accent.withOpacity(0.15),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.add_a_photo,
+                                  color: AppColors.accent,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Image ${index + 1}',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.7),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      // Remove Button
+                      if (hasImage && !isUploading)
                         Positioned(
-                          top: 4,
-                          right: 4,
+                          top: 8,
+                          right: 8,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -131,15 +215,15 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                               });
                             },
                             child: Container(
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.5),
+                                color: AppColors.error.withOpacity(0.9),
                                 shape: BoxShape.circle,
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.close,
                                 color: Colors.white,
-                                size: 16,
+                                size: 14,
                               ),
                             ),
                           ),
@@ -151,10 +235,32 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
             },
           ),
           if (statusMessage.isNotEmpty) ...[
-            SizedBox(height: 12),
-            Text(
-              statusMessage,
-              style: TextStyle(color: Colors.white70, fontSize: 14),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: AppColors.accent.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: AppColors.accent.withOpacity(0.3),
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.info_outline, color: AppColors.accent, size: 16),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      statusMessage,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ],
@@ -342,41 +448,53 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     bool isMultiline = false,
     TextInputType? keyboardType,
   }) {
-    return TextFormField(
-      controller: controller,
-      maxLines: isMultiline ? 5 : 1,
-      keyboardType: keyboardType,
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        labelStyle: TextStyle(color: Colors.white70),
-        hintStyle: TextStyle(color: Colors.white30),
-        filled: true,
-        fillColor: AppColors.primary.withOpacity(0.1),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.white30),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: AppColors.text,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.white30),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          maxLines: isMultiline ? 5 : 1,
+          keyboardType: keyboardType,
+          style: TextStyle(color: AppColors.text, fontSize: 15),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(color: AppColors.textLight, fontSize: 15),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.2)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.2)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: isMultiline ? 16 : 12,
+            ),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter $label';
+            }
+            return null;
+          },
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.primary),
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: isMultiline ? 16 : 12,
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter $label';
-        }
-        return null;
-      },
+      ],
     );
   }
 
