@@ -72,7 +72,7 @@ class SubCategoryScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: baseColor.withOpacity(0.08),
+                  color: baseColor.withValues(alpha: 0.08),
                   offset: const Offset(0, 4),
                   blurRadius: 12,
                 ),
@@ -88,7 +88,7 @@ class SubCategoryScreen extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [baseColor, baseColor.withOpacity(0.9)],
+                      colors: [baseColor, baseColor.withValues(alpha: 0.9)],
                     ),
                   ),
                   child: Row(
@@ -100,7 +100,7 @@ class SubCategoryScreen extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.15),
+                                color: Colors.white.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Icon(
@@ -130,7 +130,9 @@ class SubCategoryScreen extends StatelessWidget {
                                     Text(
                                       item.nameEn,
                                       style: TextStyle(
-                                        color: Colors.white.withOpacity(0.85),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.85,
+                                        ),
                                         fontSize: 13,
                                       ),
                                     ),
@@ -143,7 +145,7 @@ class SubCategoryScreen extends StatelessWidget {
                       ),
                       Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                         size: 16,
                       ),
                     ],
@@ -158,7 +160,7 @@ class SubCategoryScreen extends StatelessWidget {
                         if (item is SubCategoryData && item.items != null)
                           _buildInfoChip(
                             '${item.items?.length ?? 0} items',
-                            baseColor.withOpacity(0.1),
+                            baseColor.withValues(alpha: 0.1),
                             baseColor,
                           ),
                         if (item is SubCategoryData && item.hasBuySell)
@@ -166,7 +168,7 @@ class SubCategoryScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8),
                             child: _buildInfoChip(
                               'Buy/Sell Available',
-                              const Color(0xFFD4B572).withOpacity(0.1),
+                              const Color(0xFFD4B572).withValues(alpha: 0.1),
                               const Color(0xFFD4B572),
                             ),
                           ),
@@ -265,7 +267,7 @@ class SubCategoryScreen extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.1),
+                                color: Colors.white.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Icon(
@@ -294,7 +296,9 @@ class SubCategoryScreen extends StatelessWidget {
                                   Text(
                                     category.nameEn,
                                     style: TextStyle(
-                                      color: Colors.white.withOpacity(0.9),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.9,
+                                      ),
                                       fontSize: 15,
                                     ),
                                   ),
@@ -310,10 +314,14 @@ class SubCategoryScreen extends StatelessWidget {
                             vertical: 8,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFD4B572).withOpacity(0.15),
+                            color: const Color(
+                              0xFFD4B572,
+                            ).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: const Color(0xFFD4B572).withOpacity(0.3),
+                              color: const Color(
+                                0xFFD4B572,
+                              ).withValues(alpha: 0.3),
                             ),
                           ),
                           child: Text(

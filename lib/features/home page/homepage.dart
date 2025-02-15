@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           color: AppColors.surface,
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.08),
+              color: AppColors.primary.withValues(alpha: 0.08),
               offset: const Offset(0, 4),
               blurRadius: 12,
             ),
@@ -86,8 +86,8 @@ class _HomePageState extends State<HomePage> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppColors.primary.withOpacity(0.0),
-                        AppColors.primary.withOpacity(0.85),
+                        AppColors.primary.withValues(alpha: 0.0),
+                        AppColors.primary.withValues(alpha: 0.85),
                       ],
                     ),
                   ),
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: AppColors.accent.withOpacity(0.85),
+                        color: AppColors.accent.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(icon, color: AppColors.surface, size: 18),
@@ -166,10 +166,10 @@ class _HomePageState extends State<HomePage> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.accent.withOpacity(0.15),
+                    color: AppColors.accent.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: AppColors.accent.withOpacity(0.3),
+                      color: AppColors.accent.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),
@@ -340,7 +340,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: AppColors.accent.withOpacity(0.1),
+                color: AppColors.accent.withValues(alpha: 0.1),
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: AppColors.surface,
@@ -359,7 +359,9 @@ class _HomePageState extends State<HomePage> {
               ),
               accountEmail: Text(
                 userData['id'] ?? '',
-                style: TextStyle(color: AppColors.surface.withOpacity(0.9)),
+                style: TextStyle(
+                  color: AppColors.surface.withValues(alpha: 0.9),
+                ),
               ),
             ),
             _buildDrawerItem(
@@ -385,7 +387,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Divider(
-                color: AppColors.surface.withOpacity(0.1),
+                color: AppColors.surface.withValues(alpha: 0.1),
                 thickness: 1,
               ),
             ),
@@ -414,7 +416,7 @@ class _HomePageState extends State<HomePage> {
     Widget? trailing,
   }) {
     return ListTile(
-      leading: Icon(icon, color: AppColors.surface.withOpacity(0.8)),
+      leading: Icon(icon, color: AppColors.surface.withValues(alpha: 0.8)),
       title: Text(
         title,
         style: TextStyle(

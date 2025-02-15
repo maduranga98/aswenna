@@ -186,6 +186,12 @@ class CategoryManager {
                   ),
                 ],
               ),
+              ItemData(
+                nameEn: 'Improved',
+                nameSi: 'වැඩිදියුණු කල',
+                dbPath: 'improved',
+                hasBuySell: true,
+              ),
             ],
           ),
           SubCategoryData(

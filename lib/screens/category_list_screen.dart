@@ -29,7 +29,7 @@ class CategoryListScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               offset: Offset(0, 2),
               blurRadius: 8,
             ),
@@ -62,7 +62,7 @@ class CategoryListScreen extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.7),
+                          Colors.black.withValues(alpha: 0.7),
                         ],
                       ),
                     ),
@@ -83,7 +83,7 @@ class CategoryListScreen extends StatelessWidget {
                         Shadow(
                           offset: Offset(0, 1),
                           blurRadius: 2,
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withValues(alpha: 0.5),
                         ),
                       ],
                     ),
@@ -135,7 +135,7 @@ class CategoryListScreen extends StatelessWidget {
                         Text(
                           'Browse all available categories',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontSize: 16,
                           ),
                         ),
