@@ -51,6 +51,9 @@ class _CustomeListViewState extends State<CustomeListView>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
+    print(
+      "1st level: Title: ${widget.title} LastName: ${widget.listname} titleE:${widget.titleE} ",
+    );
   }
 
   @override
@@ -83,14 +86,6 @@ class _CustomeListViewState extends State<CustomeListView>
       elevation: 0,
       backgroundColor: AppColors.surface,
       iconTheme: const IconThemeData(color: AppColors.primary),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.search, color: AppColors.primary),
-          onPressed: () {
-            // Implement search functionality
-          },
-        ),
-      ],
     );
   }
 

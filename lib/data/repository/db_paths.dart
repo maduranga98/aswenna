@@ -78,6 +78,7 @@ CollectionReference paths(
                 .collection('data');
           }
         } else {
+          //* Rent/Lease
           if (tabName == 'selling') {
             return FirebaseFirestore.instance
                 .collection('lands')
@@ -132,7 +133,7 @@ CollectionReference paths(
     case 'harvest':
       switch (firstName) {
         case 'Paddy':
-          switch (firstName) {
+          switch (secondName) {
             case 'Improved':
               if (tabName == 'selling') {
                 FirebaseFirestore.instance
@@ -149,6 +150,142 @@ CollectionReference paths(
                     .doc('buying')
                     .collection('data');
               }
+            case 'Suwadel':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('Suwadel')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Kurulu Thuda':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('kurulu_thuda')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Pachchaperumal':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('Pachchaperumal')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Rathdel':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('Rathdel')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Kalu Heenati':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('kalu_heenati')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Rathu Heenati':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('rathu_heenati')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Sudu Heenati':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('sudu_heenati')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Goda Heenati':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('goda_heenati')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Masuran':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('masuran')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Kahawanu':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('kahawanu')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Madathawalu':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('madathawalu')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Ma wee':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('ma_wee')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Pokkali':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('pokkali')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Hatada wee':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('hatada_wee')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Dik wee':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('dik_wee')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+
+            case 'Gonnabaru':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('gonnabaru')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+
+            case 'Dahanala':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('dahanala')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+
+            case 'Basmathi':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('basmathi')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
+            case 'Other':
+              return FirebaseFirestore.instance
+                  .collection('harvest')
+                  .doc('Paddy')
+                  .collection('other')
+                  .doc(tabName == 'selling' ? 'selling' : 'buying')
+                  .collection('data');
           }
         case 'cerealCrops':
         case 'coconut':
