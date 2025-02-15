@@ -9,22 +9,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ItemsAddPage extends StatefulWidget {
-  final String mainName, firstLName, secondLName, lan, tabName;
-  final String mainNameE, firstLNameE, secondLNameE, tabNameE;
+  final List<String>
+  paths; // This will contain the complete path including type (sell/buy)
 
-  const ItemsAddPage({
-    super.key,
-    required this.mainName,
-    required this.firstLName,
-    required this.secondLName,
-    required this.lan,
-    required this.tabName,
-    required this.mainNameE,
-    required this.firstLNameE,
-    required this.secondLNameE,
-    required this.tabNameE,
-  });
-
+  const ItemsAddPage({super.key, required this.paths});
   @override
   State<ItemsAddPage> createState() => _ItemsAddPageState();
 }
@@ -427,58 +415,58 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (widget.mainNameE != 'land') ...[
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildInputField(
-                              controller: kgController,
-                              label: AppLocalizations.of(context)!.kg,
-                              hint: 'Enter weight in kg',
-                              keyboardType: TextInputType.number,
-                            ),
+                    // if (widget.mainNameE != 'land') ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInputField(
+                            controller: kgController,
+                            label: AppLocalizations.of(context)!.kg,
+                            hint: 'Enter weight in kg',
+                            keyboardType: TextInputType.number,
                           ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: _buildInputField(
-                              controller: priceController,
-                              label: AppLocalizations.of(context)!.rs,
-                              hint: 'Enter price',
-                              keyboardType: TextInputType.number,
-                            ),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: _buildInputField(
+                            controller: priceController,
+                            label: AppLocalizations.of(context)!.rs,
+                            hint: 'Enter price',
+                            keyboardType: TextInputType.number,
                           ),
-                        ],
-                      ),
-                    ] else ...[
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildInputField(
-                              controller: acresController,
-                              label: AppLocalizations.of(context)!.acres,
-                              hint: 'Enter acres',
-                              keyboardType: TextInputType.number,
-                            ),
+                        ),
+                      ],
+                    ),
+                    // ] else ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInputField(
+                            controller: acresController,
+                            label: AppLocalizations.of(context)!.acres,
+                            hint: 'Enter acres',
+                            keyboardType: TextInputType.number,
                           ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: _buildInputField(
-                              controller: perchesController,
-                              label: AppLocalizations.of(context)!.perches,
-                              hint: 'Enter perches',
-                              keyboardType: TextInputType.number,
-                            ),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: _buildInputField(
+                            controller: perchesController,
+                            label: AppLocalizations.of(context)!.perches,
+                            hint: 'Enter perches',
+                            keyboardType: TextInputType.number,
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      _buildInputField(
-                        controller: priceController,
-                        label: AppLocalizations.of(context)!.price,
-                        hint: 'Enter price',
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    _buildInputField(
+                      controller: priceController,
+                      label: AppLocalizations.of(context)!.price,
+                      hint: 'Enter price',
+                      keyboardType: TextInputType.number,
+                    ),
+                    // ],
                     SizedBox(height: 16),
                     _buildInputField(
                       controller: detailsController,
