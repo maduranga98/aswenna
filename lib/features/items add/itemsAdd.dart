@@ -49,7 +49,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppColors.primary, AppColors.primary.withOpacity(0.95)],
+          colors: [
+            AppColors.primary,
+            AppColors.primary.withValues(alpha: 0.95),
+          ],
         ),
       ),
       child: Column(
@@ -60,7 +63,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.accent.withOpacity(0.15),
+                  color: AppColors.accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
@@ -83,7 +86,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
               Text(
                 '(${selectedImages.where((img) => img != null).length}/5)',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                   fontSize: 14,
                 ),
               ),
@@ -112,13 +115,13 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     color:
                         hasImage
                             ? Colors.transparent
-                            : Colors.white.withOpacity(0.1),
+                            : Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color:
                           hasImage
                               ? AppColors.accent
-                              : Colors.white.withOpacity(0.2),
+                              : Colors.white.withValues(alpha: 0.2),
                       width: 1.5,
                     ),
                   ),
@@ -140,7 +143,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                       if (isUploading)
                         Container(
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.85),
+                            color: AppColors.primary.withValues(alpha: 0.85),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(
@@ -180,7 +183,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: AppColors.accent.withOpacity(0.15),
+                                  color: AppColors.accent.withValues(
+                                    alpha: 0.15,
+                                  ),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
@@ -193,7 +198,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                               Text(
                                 'Image ${index + 1}',
                                 style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -217,7 +222,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                             child: Container(
                               padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                color: AppColors.error.withOpacity(0.9),
+                                color: AppColors.error.withValues(alpha: 0.9),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
@@ -239,10 +244,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: AppColors.accent.withOpacity(0.15),
+                color: AppColors.accent.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: AppColors.accent.withOpacity(0.3),
+                  color: AppColors.accent.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
@@ -254,7 +259,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     child: Text(
                       statusMessage,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                         fontSize: 13,
                       ),
                     ),
@@ -409,10 +414,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
         width: 120,
         height: 120,
         decoration: BoxDecoration(
-          color: AppColors.primary.withOpacity(0.1),
+          color: AppColors.primary.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             width: 2,
           ),
         ),
@@ -472,11 +477,15 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
             fillColor: Colors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.2)),
+              borderSide: BorderSide(
+                color: AppColors.primary.withValues(alpha: 0.2),
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.2)),
+              borderSide: BorderSide(
+                color: AppColors.primary.withValues(alpha: 0.2),
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

@@ -4,6 +4,7 @@ import 'package:aswenna/data/model/hierarchy_model.dart';
 import 'package:aswenna/data/model/item_model.dart';
 import 'package:aswenna/features/items%20add/itemsAdd.dart';
 import 'package:aswenna/screens/item_detail_screen.dart';
+import 'package:aswenna/widgets/filterBottomSheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -66,7 +67,7 @@ class _ItemListScreenState extends State<ItemListScreen>
                       color: AppColors.primary,
                       border: Border(
                         bottom: BorderSide(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                           width: 1,
                         ),
                       ),
@@ -76,7 +77,7 @@ class _ItemListScreenState extends State<ItemListScreen>
                       indicatorColor: AppColors.accent,
                       indicatorWeight: 3,
                       labelColor: Colors.white,
-                      unselectedLabelColor: Colors.white.withOpacity(0.7),
+                      unselectedLabelColor: Colors.white.withValues(alpha: 0.7),
                       tabs: [
                         Tab(
                           child: Row(
@@ -152,7 +153,7 @@ class _ItemListScreenState extends State<ItemListScreen>
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         boxShadow: [
           BoxShadow(
             color: AppColors.primary.withOpacity(0.05),
@@ -161,103 +162,76 @@ class _ItemListScreenState extends State<ItemListScreen>
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+      child: InkWell(
+        onTap: () => _showFilterBottomSheet(context),
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.secondary.withOpacity(0.2)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
             children: [
-              Icon(Icons.filter_list, color: AppColors.primary, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                AppLocalizations.of(context)!.filter,
-                style: TextStyle(
-                  color: AppColors.text,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
+              Icon(Icons.filter_list, color: AppColors.accent, size: 20),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  _getFilterLabel(context),
+                  style: const TextStyle(
+                    color: AppColors.text,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
+              ),
+              Icon(
+                Icons.keyboard_arrow_down,
+                color: AppColors.textLight,
+                size: 20,
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildFilterChip(
-                  context,
-                  'all',
-                  AppLocalizations.of(context)!.all,
-                  Icons.all_inclusive,
-                ),
-                _buildFilterChip(
-                  context,
-                  'price_low',
-                  AppLocalizations.of(context)!.priceLow,
-                  Icons.arrow_downward,
-                ),
-                _buildFilterChip(
-                  context,
-                  'price_high',
-                  AppLocalizations.of(context)!.priceHigh,
-                  Icons.arrow_upward,
-                ),
-                _buildFilterChip(
-                  context,
-                  'newest',
-                  AppLocalizations.of(context)!.newest,
-                  Icons.new_releases,
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildFilterChip(
-    BuildContext context,
-    String value,
-    String label,
-    IconData icon,
-  ) {
-    final isSelected = _selectedFilter == value;
+  void _showFilterBottomSheet(BuildContext context) {
+    final basePaths = widget.parentPath.map((item) => item.dbPath).toList();
+    final type = _tabController.index == 0 ? 'sell' : 'buy';
+    final paths = [...basePaths, widget.item.dbPath, type];
 
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: FilterChip(
-        selected: isSelected,
-        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-        avatar: Icon(
-          icon,
-          size: 16,
-          color: isSelected ? AppColors.accent : AppColors.textLight,
-        ),
-        label: Text(label),
-        onSelected: (selected) {
-          setState(() {
-            _selectedFilter = value;
-          });
-        },
-        backgroundColor: Colors.white,
-        selectedColor: AppColors.accent.withOpacity(0.1),
-        side: BorderSide(
-          color:
-              isSelected
-                  ? AppColors.accent
-                  : AppColors.textLight.withOpacity(0.3),
-          width: 1,
-        ),
-        labelStyle: TextStyle(
-          color: isSelected ? AppColors.accent : AppColors.textLight,
-          fontSize: 13,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-        ),
-        elevation: 0,
-        pressElevation: 0,
-      ),
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder:
+          (context) => FilterBottomSheet(
+            paths: paths,
+            selectedFilter: _selectedFilter,
+            onFilterChanged: (value) {
+              setState(() {
+                _selectedFilter = value;
+              });
+            },
+          ),
     );
+  }
+
+  String _getFilterLabel(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
+    switch (_selectedFilter) {
+      case 'price_low':
+        return localization.priceLow;
+      case 'price_high':
+        return localization.priceHigh;
+      case 'newest':
+        return localization.newest;
+      default:
+        return localization.all;
+    }
   }
 
   Widget _buildVariantsList(BuildContext context) {
@@ -299,7 +273,7 @@ class _ItemListScreenState extends State<ItemListScreen>
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: baseColor.withOpacity(0.1),
+                  color: baseColor.withValues(alpha: 0.1),
                   offset: Offset(0, 2),
                   blurRadius: 8,
                 ),
@@ -409,7 +383,7 @@ class _ItemListScreenState extends State<ItemListScreen>
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.08),
+            color: AppColors.primary.withValues(alpha: 0.08),
             offset: const Offset(0, 4),
             blurRadius: 12,
           ),
@@ -442,10 +416,10 @@ class _ItemListScreenState extends State<ItemListScreen>
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.accent.withOpacity(0.1),
+                              color: AppColors.accent.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: AppColors.accent.withOpacity(0.2),
+                                color: AppColors.accent.withValues(alpha: 0.2),
                               ),
                             ),
                             child: Text(
@@ -482,10 +456,10 @@ class _ItemListScreenState extends State<ItemListScreen>
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.success.withOpacity(0.1),
+                        color: AppColors.success.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: AppColors.success.withOpacity(0.2),
+                          color: AppColors.success.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Column(
@@ -502,7 +476,7 @@ class _ItemListScreenState extends State<ItemListScreen>
                           Text(
                             AppLocalizations.of(context)!.available,
                             style: TextStyle(
-                              color: AppColors.success.withOpacity(0.8),
+                              color: AppColors.success.withValues(alpha: 0.8),
                               fontSize: 12,
                             ),
                           ),
