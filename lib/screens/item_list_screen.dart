@@ -1,4 +1,5 @@
 import 'package:aswenna/core/services/firestore_service.dart';
+import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/data/model/hierarchy_model.dart';
 import 'package:aswenna/data/model/item_model.dart';
 import 'package:aswenna/features/items%20add/itemsAdd.dart';
@@ -42,40 +43,76 @@ class _ItemListScreenState extends State<ItemListScreen>
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
-        title: Text(widget.item.getLocalizedName(context)),
-        centerTitle: true,
+        backgroundColor: AppColors.primary,
         elevation: 0,
+        title: Text(
+          widget.item.getLocalizedName(context),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
         bottom:
             widget.item.hasBuySell
-                ? TabBar(
-                  controller: _tabController,
-                  tabs: [
-                    Tab(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.sell),
-                          SizedBox(width: 8),
-                          Text(localization.sell),
-                        ],
+                ? PreferredSize(
+                  preferredSize: const Size.fromHeight(60),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.white.withOpacity(0.1),
+                          width: 1,
+                        ),
                       ),
                     ),
-                    Tab(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.shopping_cart),
-                          SizedBox(width: 8),
-                          Text(localization.buy),
-                        ],
-                      ),
+                    child: TabBar(
+                      controller: _tabController,
+                      indicatorColor: AppColors.accent,
+                      indicatorWeight: 3,
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.white.withOpacity(0.7),
+                      tabs: [
+                        Tab(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.sell, size: 20),
+                              const SizedBox(width: 8),
+                              Text(
+                                localization.sell,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Tab(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.shopping_cart, size: 20),
+                              const SizedBox(width: 8),
+                              Text(
+                                localization.buy,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 )
                 : null,
       ),
@@ -87,8 +124,8 @@ class _ItemListScreenState extends State<ItemListScreen>
           widget.item.hasBuySell
               ? FloatingActionButton(
                 onPressed: () => _showAddItemDialog(context),
-                child: Icon(Icons.add),
-                backgroundColor: primaryColor,
+                backgroundColor: AppColors.accent,
+                child: const Icon(Icons.add, color: Colors.white),
               )
               : null,
     );
@@ -113,16 +150,36 @@ class _ItemListScreenState extends State<ItemListScreen>
 
   Widget _buildFilterSection(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
-      color: Colors.white,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.05),
+            offset: const Offset(0, 2),
+            blurRadius: 8,
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppLocalizations.of(context)!.filter,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Icon(Icons.filter_list, color: AppColors.primary, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                AppLocalizations.of(context)!.filter,
+                style: TextStyle(
+                  color: AppColors.text,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.3,
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 12),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -131,21 +188,25 @@ class _ItemListScreenState extends State<ItemListScreen>
                   context,
                   'all',
                   AppLocalizations.of(context)!.all,
+                  Icons.all_inclusive,
                 ),
                 _buildFilterChip(
                   context,
                   'price_low',
                   AppLocalizations.of(context)!.priceLow,
+                  Icons.arrow_downward,
                 ),
                 _buildFilterChip(
                   context,
                   'price_high',
                   AppLocalizations.of(context)!.priceHigh,
+                  Icons.arrow_upward,
                 ),
                 _buildFilterChip(
                   context,
                   'newest',
                   AppLocalizations.of(context)!.newest,
+                  Icons.new_releases,
                 ),
               ],
             ),
@@ -155,26 +216,46 @@ class _ItemListScreenState extends State<ItemListScreen>
     );
   }
 
-  Widget _buildFilterChip(BuildContext context, String value, String label) {
+  Widget _buildFilterChip(
+    BuildContext context,
+    String value,
+    String label,
+    IconData icon,
+  ) {
     final isSelected = _selectedFilter == value;
-    final primaryColor = Theme.of(context).primaryColor;
 
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: FilterChip(
         selected: isSelected,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        avatar: Icon(
+          icon,
+          size: 16,
+          color: isSelected ? AppColors.accent : AppColors.textLight,
+        ),
         label: Text(label),
         onSelected: (selected) {
           setState(() {
             _selectedFilter = value;
           });
         },
-        selectedColor: primaryColor.withOpacity(0.2),
-        checkmarkColor: primaryColor,
-        labelStyle: TextStyle(
-          color: isSelected ? primaryColor : Colors.black87,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        backgroundColor: Colors.white,
+        selectedColor: AppColors.accent.withOpacity(0.1),
+        side: BorderSide(
+          color:
+              isSelected
+                  ? AppColors.accent
+                  : AppColors.textLight.withOpacity(0.3),
+          width: 1,
         ),
+        labelStyle: TextStyle(
+          color: isSelected ? AppColors.accent : AppColors.textLight,
+          fontSize: 13,
+          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+        ),
+        elevation: 0,
+        pressElevation: 0,
       ),
     );
   }
@@ -321,18 +402,16 @@ class _ItemListScreenState extends State<ItemListScreen>
   }
 
   Widget _buildItemCard(BuildContext context, ItemData itemData) {
-    final baseColor = Theme.of(context).primaryColor;
-
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: baseColor.withOpacity(0.1),
-            offset: Offset(0, 2),
-            blurRadius: 8,
+            color: AppColors.primary.withOpacity(0.08),
+            offset: const Offset(0, 4),
+            blurRadius: 12,
           ),
         ],
       ),
@@ -350,47 +429,121 @@ class _ItemListScreenState extends State<ItemListScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '${itemData.price} ${itemData.unit}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: baseColor,
+                    // Price Section
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.accent.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: AppColors.accent.withOpacity(0.2),
+                              ),
+                            ),
+                            child: Text(
+                              '${itemData.price} ${itemData.unit}',
+                              style: TextStyle(
+                                color: AppColors.accent,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          if (itemData.description != null &&
+                              itemData.description!.isNotEmpty) ...[
+                            const SizedBox(height: 12),
+                            Text(
+                              itemData.description!,
+                              style: TextStyle(
+                                color: AppColors.textLight,
+                                fontSize: 14,
+                                height: 1.4,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ],
                       ),
                     ),
+                    const SizedBox(width: 16),
+                    // Quantity Badge
                     Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 12,
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        '${itemData.quantity} ${AppLocalizations.of(context)!.available}',
-                        style: TextStyle(
-                          color: Colors.green[700],
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+                        color: AppColors.success.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: AppColors.success.withOpacity(0.2),
                         ),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            itemData.quantity.toString(),
+                            style: TextStyle(
+                              color: AppColors.success,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            AppLocalizations.of(context)!.available,
+                            style: TextStyle(
+                              color: AppColors.success.withOpacity(0.8),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                if (itemData.description != null &&
-                    itemData.description!.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(
-                      itemData.description!,
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                const SizedBox(height: 16),
+                // Location and Date
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 16,
+                      color: AppColors.textLight,
                     ),
-                  ),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Location not specified',
+                      style: TextStyle(
+                        color: AppColors.textLight,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.access_time,
+                      size: 16,
+                      color: AppColors.textLight,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '2 days ago', // Format the actual date
+                      style: TextStyle(
+                        color: AppColors.textLight,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

@@ -696,11 +696,60 @@ class CategoryManager {
                 dbPath: 'guava',
                 hasBuySell: true,
               ),
-              ItemData(
+              DeepCategoryData(
                 nameEn: 'Banana',
                 nameSi: 'කෙසෙල්',
                 dbPath: 'banana',
-                hasBuySell: true,
+                items: [
+                  ItemData(
+                    nameEn: 'Sugar Banana',
+                    nameSi: 'සීනි කෙසෙල්',
+                    dbPath: 'sugar_banana',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Kolikuttu',
+                    nameSi: 'කෝලිකුට්ටු',
+                    dbPath: 'kolikuttu',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Ambun',
+                    nameSi: 'ඇම්බුන්',
+                    dbPath: 'ambun',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Rathambala',
+                    nameSi: 'රතඹල',
+                    dbPath: 'rathambala',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Ambul Kesel',
+                    nameSi: 'ඇඹුල්',
+                    dbPath: 'ambul_kesel',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Cavendish',
+                    nameSi: 'කැවෙන්ඩිෂ්',
+                    dbPath: 'cavendish',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Nav Kesel',
+                    nameSi: 'නැව් කෙසෙල්',
+                    dbPath: 'nav_kesel',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Nethrappalam',
+                    nameSi: 'නේත්‍රප්පලම්',
+                    dbPath: 'nethrappalam',
+                    hasBuySell: true,
+                  ),
+                ],
               ),
               ItemData(
                 nameEn: 'Papaya',
@@ -720,11 +769,60 @@ class CategoryManager {
                 dbPath: 'oranges',
                 hasBuySell: true,
               ),
-              ItemData(
+              DeepCategoryData(
                 nameEn: 'Mango',
                 nameSi: 'අඹ',
                 dbPath: 'mango',
-                hasBuySell: true,
+                items: [
+                  ItemData(
+                    nameEn: 'Atamba',
+                    nameSi: 'ඇටඹ',
+                    dbPath: 'atamba',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Gira Mango',
+                    nameSi: 'ගිරා අඹ',
+                    dbPath: 'gira_mango',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Alphonso',
+                    nameSi: 'අල්පෝන්සු',
+                    dbPath: 'alphonso',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Vilad',
+                    nameSi: 'විලාඩ්',
+                    dbPath: 'vilad',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Jaffna',
+                    nameSi: 'යාපනේ',
+                    dbPath: 'jaffna',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Rata Amba',
+                    nameSi: 'රට අඹ',
+                    dbPath: 'rata_amba',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Karta Colomban',
+                    nameSi: 'කර්ත කොලොම්බන්',
+                    dbPath: 'karta_colomban',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Other Mangoes',
+                    nameSi: 'වෙනත් අඹ',
+                    dbPath: 'other_mangoes',
+                    hasBuySell: true,
+                  ),
+                ],
               ),
               ItemData(
                 nameEn: 'Nelli',
