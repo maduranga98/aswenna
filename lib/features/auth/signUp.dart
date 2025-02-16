@@ -1,11 +1,11 @@
 import 'package:aswenna/core/utils/color_utils.dart';
-import 'package:aswenna/features/home%20page/homepage.dart';
-import 'package:aswenna/widgets/districtFilter.dart';
+import 'package:aswenna/features/auth/login.dart';
+import 'package:aswenna/features/auth/profileCompltion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -15,143 +15,196 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController mobi1Controller = TextEditingController();
-  final TextEditingController mobi2Controller = TextEditingController();
-  final TextEditingController idController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String? selectedDistrict;
-  String? selectedDSO;
+  final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _isLoading = false;
+  bool _isPasswordVisible = false;
 
-  void _handleDistrictSelection(String? district, String? dso) {
-    setState(() {
-      selectedDistrict = district;
-      selectedDSO = dso;
-    });
+  // Firebase instance
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<void> _signUpWithUsername() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+    try {
+      // Clean and sanitize username
+      String sanitizedUsername = _usernameController.text
+          .trim() // Remove leading and trailing whitespace
+          .toLowerCase() // Convert to lowercase
+          .replaceAll(
+            RegExp(r'\s+'),
+            '',
+          ) // Remove all whitespace including middle spaces
+          .replaceAll(RegExp(r'[^a-z0-9]'), ''); // Remove special characters
+
+      // Create a valid email using the sanitized username
+      final email = '$sanitizedUsername@aswenna.com';
+
+      // Create user with sanitized email
+      final UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(
+            email: email,
+            password: _passwordController.text.trim(), // Also trim password
+          );
+
+      // Update display name with original (but trimmed) username
+      await userCredential.user?.updateDisplayName(
+        _usernameController.text.trim(),
+      );
+
+      _showSuccessMessage('Account created successfully!');
+
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileCompletion()),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage =
+              'This username is already taken. Please choose another.';
+          break;
+        case 'invalid-email':
+          errorMessage =
+              'Invalid username format. Please use only letters and numbers.';
+          break;
+        case 'operation-not-allowed':
+          errorMessage =
+              'Account creation is temporarily disabled. Please try again later.';
+          break;
+        case 'weak-password':
+          errorMessage =
+              'Password is too weak. Please use a stronger password.';
+          break;
+        default:
+          errorMessage = e.message ?? 'An error occurred during signup.';
+      }
+      _showErrorMessage(errorMessage);
+    } catch (e) {
+      _showErrorMessage('An unexpected error occurred. Please try again.');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    setState(() => _isLoading = true);
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return;
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+      _showSuccessMessage('Signed in successfully!');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileCompletion()),
+      );
+    } catch (e) {
+      _showErrorMessage('Google sign in failed');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  void _showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: AppColors.error),
+    );
+  }
+
+  void _showSuccessMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: AppColors.success),
+    );
   }
 
   Widget _buildTextField({
     required TextEditingController controller,
-    required String labelText,
+    required String label,
     required IconData icon,
-    required String hintText,
-    required TextInputType keyboardType,
-    required String? Function(String?) validator,
+    bool isPassword = false,
+    String? Function(String?)? validator,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
-          width: 1,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
       ),
       child: TextFormField(
         controller: controller,
+        obscureText: isPassword && !_isPasswordVisible,
         style: const TextStyle(color: Colors.white),
-        keyboardType: keyboardType,
+        // Trim whitespace when user finishes editing
+        onChanged: (value) {
+          if (!isPassword) {
+            // Only for non-password fields
+            final trimmed = value.trim();
+            if (trimmed != value) {
+              controller.text = trimmed;
+              controller.selection = TextSelection.fromPosition(
+                TextPosition(offset: trimmed.length),
+              );
+            }
+          }
+        },
         decoration: InputDecoration(
-          labelText: labelText,
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
-          labelStyle: const TextStyle(color: Colors.white),
-          prefixIcon: Icon(icon, color: Colors.white),
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+          prefixIcon: Icon(icon, color: Colors.white.withOpacity(0.8)),
+          suffixIcon:
+              isPassword
+                  ? IconButton(
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    onPressed:
+                        () => setState(
+                          () => _isPasswordVisible = !_isPasswordVisible,
+                        ),
+                  )
+                  : null,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 16,
-          ),
+          contentPadding: const EdgeInsets.all(16),
+          hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
         ),
-        validator: validator,
+        validator: (value) {
+          // Trim the value before validation
+          final trimmedValue = value?.trim() ?? '';
+          if (validator != null) {
+            return validator(trimmedValue);
+          }
+          return null;
+        },
       ),
     );
   }
 
-  Future<void> _saveUserData() async {
-    if (!(_formKey.currentState?.validate() ?? false)) {
-      return;
-    }
-
-    if (selectedDistrict == null || selectedDSO == null) {
-      Fluttertoast.showToast(
-        msg: "Please select district and DSO",
-        backgroundColor: Colors.red,
-      );
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final docRef = FirebaseFirestore.instance.collection('users').doc();
-
-      final userDataMap = {
-        'name': nameController.text,
-        'address': addressController.text,
-        'id': idController.text,
-        'mob1': mobi1Controller.text,
-        'mob2': mobi2Controller.text.isEmpty ? '' : mobi2Controller.text,
-        'district': selectedDistrict!,
-        'dso': selectedDSO!,
-        'fcmToken': '',
-        'isRegistered': true,
-        'isLoggedOut': false,
-        'language': '',
-        'docId': docRef.id,
-      };
-
-      // Save to Firebase
-      await docRef.set(userDataMap);
-
-      // Update global userData map
-      userData.clear(); // Clear existing data
-      userData.addAll(
-        Map.fromEntries(
-          userDataMap.entries.map((e) => MapEntry(e.key, e.value.toString())),
-        ),
-      );
-
-      // Save login state
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isRegistered', true);
-
-      Fluttertoast.showToast(
-        msg: "Registration successful!",
-        backgroundColor: Colors.green,
-      );
-
-      // Navigate to home page
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    } catch (e) {
-      print('Error saving user data: $e');
-      Fluttertoast.showToast(
-        msg: "Registration failed. Please try again.",
-        backgroundColor: Colors.red,
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final localization = AppLocalizations.of(context)!;
-
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -160,14 +213,15 @@ class _SignUpState extends State<SignUp> {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Form(
+              key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 40),
                   Text(
-                    localization.register,
+                    'Create Account',
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -176,134 +230,150 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Please fill in your details',
+                    'Choose your preferred sign up method',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: Colors.white.withOpacity(0.8),
                     ),
                   ),
                   const SizedBox(height: 32),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        _buildTextField(
-                          controller: nameController,
-                          labelText: localization.name,
-                          hintText: 'Enter your full name',
-                          icon: Icons.person_outline,
-                          keyboardType: TextInputType.name,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return localization.required;
-                            }
-                            return null;
-                          },
-                        ),
-                        _buildTextField(
-                          controller: addressController,
-                          labelText: localization.address,
-                          hintText: 'Enter your address',
-                          icon: Icons.home_outlined,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return localization.required;
-                            }
-                            return null;
-                          },
-                        ),
-                        _buildTextField(
-                          controller: idController,
-                          labelText: localization.id,
-                          hintText: 'Enter your NIC number',
-                          icon: Icons.badge_outlined,
-                          keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return localization.required;
-                            }
-                            final numberRegex = RegExp(r'^[0-9]+$');
-                            if (!numberRegex.hasMatch(value)) {
-                              return 'Only numbers allowed';
-                            }
-                            return null;
-                          },
-                        ),
-                        _buildTextField(
-                          controller: mobi1Controller,
-                          labelText: localization.mob1,
-                          hintText: 'Enter your primary mobile number',
-                          icon: Icons.phone_outlined,
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return localization.required;
-                            }
-                            if (value.length != 10) {
-                              return 'Mobile number must be 10 digits';
-                            }
-                            return null;
-                          },
-                        ),
-                        _buildTextField(
-                          controller: mobi2Controller,
-                          labelText: localization.mob2,
-                          hintText:
-                              'Enter your secondary mobile number (optional)',
-                          icon: Icons.phone_outlined,
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value != null &&
-                                value.isNotEmpty &&
-                                value.length != 10) {
-                              return 'Mobile number must be 10 digits';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                        DistrictFilter(
-                          onSelectionChanged: _handleDistrictSelection,
-                        ),
-                        const SizedBox(height: 32),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : _saveUserData,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: AppColors.primary,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+
+                  // Username and Password Fields
+                  _buildTextField(
+                    controller: _usernameController,
+                    label: 'Username',
+                    icon: Icons.person_outline,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a username';
+                      }
+                      if (value!.length < 3) {
+                        return 'Username must be at least 3 characters';
+                      }
+                      // Only allow letters and numbers
+                      if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+                        return 'Username can only contain letters and numbers';
+                      }
+                      return null;
+                    },
+                  ),
+                  _buildTextField(
+                    controller: _passwordController,
+                    label: 'Password',
+                    icon: Icons.lock_outline,
+                    isPassword: true,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a password';
+                      }
+                      if (value!.length < 6) {
+                        return 'Password must be at least 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Sign Up Button
+                  ElevatedButton(
+                    onPressed: _isLoading ? null : _signUpWithUsername,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(16),
+                      backgroundColor: AppColors.accent,
+                      foregroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child:
+                        _isLoading
+                            ? SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.primary,
+                                ),
                               ),
-                              elevation: 2,
+                            )
+                            : const Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            child:
-                                _isLoading
-                                    ? SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                              AppColors.primary,
-                                            ),
-                                      ),
-                                    )
-                                    : Text(
-                                      localization.register,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(color: Colors.white.withOpacity(0.3)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'OR',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
                           ),
                         ),
-                      ],
+                      ),
+                      Expanded(
+                        child: Divider(color: Colors.white.withOpacity(0.3)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Google Sign In Button
+                  OutlinedButton.icon(
+                    onPressed: _isLoading ? null : _signInWithGoogle,
+                    icon: Icon(
+                      Icons.g_mobiledata,
+                      color: AppColors.accent,
+                      size: 24,
                     ),
+                    label: const Text('Continue with Google'),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.all(16),
+                      foregroundColor: Colors.white,
+                      side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Already have an account? ',
+                        style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColors.accent,
+                        ),
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
