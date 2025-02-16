@@ -1,4 +1,5 @@
 import 'package:aswenna/core/utils/color_utils.dart';
+import 'package:aswenna/core/utils/icon_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:aswenna/data/model/category_model.dart';
 import 'package:aswenna/data/model/hierarchy_model.dart';
@@ -27,6 +28,13 @@ class SubCategoryScreen extends StatelessWidget {
 
     final int index = text.length % colors.length;
     return colors[index];
+  }
+
+  IconData _getHeaderIcon() {
+    if (category is CategoryData) {
+      return CategoryIcons.getIconForCategory(category.dbPath);
+    }
+    return Icons.folder_outlined;
   }
 
   Widget _buildItemCard(BuildContext context, dynamic item) {
@@ -231,13 +239,18 @@ class SubCategoryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
-        title: Text(
-          category.getLocalizedName(context),
-          style: TextStyle(color: AppColors.background),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, size: 20),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
         ),
+        title: const SizedBox.shrink(), // Empty title
         centerTitle: true,
         elevation: 0,
         backgroundColor: headerColor,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ), // This ensures all icons are white
       ),
       body: CustomScrollView(
         slivers: [
@@ -271,9 +284,7 @@ class SubCategoryScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Icon(
-                                category is CategoryData
-                                    ? Icons.category
-                                    : Icons.folder,
+                                _getHeaderIcon(),
                                 color: Colors.white,
                                 size: 24,
                               ),

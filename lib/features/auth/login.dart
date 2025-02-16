@@ -1,5 +1,6 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/auth/signUp.dart';
+import 'package:aswenna/features/home%20page/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -52,6 +53,10 @@ class _LoginPageState extends State<LoginPage> {
       );
       _showToast(message: "Welcome back!", backgroundColor: AppColors.success);
       // Navigate to home page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
     } catch (e) {
       _showToast(
         message: "Invalid username or password",
