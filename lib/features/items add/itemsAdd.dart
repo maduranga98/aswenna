@@ -1,5 +1,6 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/widgets/districtFilter.dart';
+import 'package:aswenna/widgets/paddySelector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:io';
@@ -9,8 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ItemsAddPage extends StatefulWidget {
-  final List<String>
-  paths; // This will contain the complete path including type (sell/buy)
+  final List<String> paths;
 
   const ItemsAddPage({super.key, required this.paths});
   @override
@@ -30,7 +30,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   List<String> imageUrls = List.filled(5, '');
   bool isUploading = false;
   String statusMessage = "";
-
+  String? selectedPaddyCode;
+  String? selectedPaddyColor;
+  String? selectedPaddyType;
+  String? selectedPaddyVariety;
   @override
   void dispose() {
     priceController.dispose();
@@ -456,51 +459,109 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Enhanced label with better visibility
         Text(
           label,
           style: TextStyle(
-            color: AppColors.text,
-            fontSize: 14,
+            color: AppColors.accent, // Using accent color for better visibility
+            fontSize: 15,
             fontWeight: FontWeight.w600,
+            letterSpacing: 0.3,
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          controller: controller,
-          maxLines: isMultiline ? 5 : 1,
-          keyboardType: keyboardType,
-          style: TextStyle(color: AppColors.text, fontSize: 15),
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: TextStyle(color: AppColors.textLight, fontSize: 15),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: AppColors.primary.withValues(alpha: 0.2),
+        // Enhanced TextFormField with better contrast
+        StatefulBuilder(
+          builder: (context, setState) {
+            return Focus(
+              onFocusChange: (hasFocus) => setState(() {}),
+              child: Builder(
+                builder: (context) {
+                  final isFocused = Focus.of(context).hasFocus;
+                  return AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow:
+                          isFocused
+                              ? [
+                                BoxShadow(
+                                  color: AppColors.accent.withOpacity(0.25),
+                                  blurRadius: 8,
+                                  offset: Offset(0, 2),
+                                ),
+                              ]
+                              : [],
+                    ),
+                    child: TextFormField(
+                      controller: controller,
+                      maxLines: isMultiline ? 5 : 1,
+                      keyboardType: keyboardType,
+                      style: TextStyle(
+                        color: AppColors.text,
+                        fontSize: 15,
+                        letterSpacing: 0.3,
+                      ),
+                      decoration: InputDecoration(
+                        hintText: hint,
+                        hintStyle: TextStyle(
+                          color: AppColors.textLight,
+                          fontSize: 15,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: AppColors.primary.withOpacity(0.3),
+                            width: 1.5,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: AppColors.primary.withOpacity(0.3),
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: AppColors.accent,
+                            width: 2.0,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: AppColors.error,
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: AppColors.error,
+                            width: 2.0,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: isMultiline ? 16 : 12,
+                        ),
+                        isDense: true,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter $label';
+                        }
+                        return null;
+                      },
+                    ),
+                  );
+                },
               ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: AppColors.primary.withValues(alpha: 0.2),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.primary, width: 1.5),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: isMultiline ? 16 : 12,
-            ),
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter $label';
-            }
-            return null;
+            );
           },
         ),
       ],
@@ -535,6 +596,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
               ),
               child: _buildImageGrid(),
             ),
+            Text(widget.paths.join(' > ')),
             Padding(
               padding: EdgeInsets.all(16),
               child: Form(
@@ -542,58 +604,72 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // if (widget.mainNameE != 'land') ...[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildInputField(
-                            controller: kgController,
-                            label: AppLocalizations.of(context)!.kg,
-                            hint: 'Enter weight in kg',
-                            keyboardType: TextInputType.number,
+                    if (widget.paths.contains('harvest')) ...[
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInputField(
+                              controller: kgController,
+                              label: AppLocalizations.of(context)!.kg,
+                              hint: 'Enter weight in kg',
+                              keyboardType: TextInputType.number,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: _buildInputField(
-                            controller: priceController,
-                            label: AppLocalizations.of(context)!.rs,
-                            hint: 'Enter price',
-                            keyboardType: TextInputType.number,
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: _buildInputField(
+                              controller: priceController,
+                              label: AppLocalizations.of(context)!.rs,
+                              hint: 'Enter price',
+                              keyboardType: TextInputType.number,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // ] else ...[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildInputField(
-                            controller: acresController,
-                            label: AppLocalizations.of(context)!.acres,
-                            hint: 'Enter acres',
-                            keyboardType: TextInputType.number,
+                        ],
+                      ),
+                    ] else ...[
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInputField(
+                              controller: acresController,
+                              label: AppLocalizations.of(context)!.acres,
+                              hint: 'Enter acres',
+                              keyboardType: TextInputType.number,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: _buildInputField(
-                            controller: perchesController,
-                            label: AppLocalizations.of(context)!.perches,
-                            hint: 'Enter perches',
-                            keyboardType: TextInputType.number,
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: _buildInputField(
+                              controller: perchesController,
+                              label: AppLocalizations.of(context)!.perches,
+                              hint: 'Enter perches',
+                              keyboardType: TextInputType.number,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    _buildInputField(
-                      controller: priceController,
-                      label: AppLocalizations.of(context)!.price,
-                      hint: 'Enter price',
-                      keyboardType: TextInputType.number,
-                    ),
-                    // ],
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.price,
+                        hint: 'Enter price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ],
+                    if (widget.paths.contains('paddy') &&
+                        widget.paths.contains('improved'))
+                      PaddySelector(
+                        onSelectionComplete: (code, color, type, variety) {
+                          setState(() {
+                            selectedPaddyCode = code;
+                            selectedPaddyColor = color;
+                            selectedPaddyType = type;
+                            selectedPaddyVariety = variety;
+                          });
+                        },
+                      ),
+                    const SizedBox(height: 16),
+
                     SizedBox(height: 16),
                     _buildInputField(
                       controller: detailsController,
@@ -624,6 +700,13 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                                     await uploadImages();
                                     // Then save data to Firestore
                                     // ... rest of your save logic
+                                    if (selectedPaddyCode == null ||
+                                        selectedPaddyColor == null ||
+                                        selectedPaddyType == null ||
+                                        selectedPaddyVariety == null) {
+                                      // Show error or handle invalid state
+                                      return;
+                                    }
                                   }
                                 },
                         style: ElevatedButton.styleFrom(

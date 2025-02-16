@@ -258,6 +258,12 @@ class _HomePageState extends State<HomePage> {
                   icon: Icons.eco,
                 ),
                 _buildMenuCard(
+                  title: localization.seeds,
+                  imagePath: 'harvest',
+                  categoryPath: 'seeds_plants_and_planting_material',
+                  icon: Icons.eco,
+                ),
+                _buildMenuCard(
                   title: localization.animals,
                   imagePath: 'animals',
                   categoryPath: 'animal_control_and _productions',
@@ -267,6 +273,12 @@ class _HomePageState extends State<HomePage> {
                   title: localization.productions,
                   imagePath: 'productions',
                   categoryPath: 'processed_productions',
+                  icon: Icons.inventory_2,
+                ),
+                _buildMenuCard(
+                  title: localization.labour,
+                  imagePath: 'productions',
+                  categoryPath: 'service_providers',
                   icon: Icons.inventory_2,
                 ),
                 _buildMenuCard(
