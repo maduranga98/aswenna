@@ -23,7 +23,7 @@ class _DistrictFilterState extends State<DistrictFilter> {
     required String label,
     required String? value,
     required List<DropdownMenuItem<String>> items,
-    required Function(String?) onChanged,
+    required void Function(String?) onChanged,
     required String hintText,
   }) {
     return Column(
@@ -31,21 +31,20 @@ class _DistrictFilterState extends State<DistrictFilter> {
       children: [
         Text(
           label,
-          style: TextStyle(
-            color: Colors.white.withValues(alpha: 0.9),
+          style: const TextStyle(
+            color: AppColors.text,
             fontSize: 16,
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 8),
         DropdownButtonHideUnderline(
-          child: DropdownButton2(
+          child: DropdownButton2<String>(
+            // Explicitly specify String type
             isExpanded: true,
             hint: Text(
               hintText,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white.withValues(alpha: 0.5),
-              ),
+              style: const TextStyle(fontSize: 14, color: AppColors.textLight),
               overflow: TextOverflow.ellipsis,
             ),
             items: items,
@@ -55,34 +54,59 @@ class _DistrictFilterState extends State<DistrictFilter> {
               height: 50,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: AppColors.secondary.withOpacity(0.2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withOpacity(0.05),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
             ),
-            iconStyleData: IconStyleData(
+            iconStyleData: const IconStyleData(
               icon: Icon(
-                Icons.keyboard_arrow_down,
-                color: Colors.white.withValues(alpha: 0.5),
+                Icons.keyboard_arrow_down_rounded,
+                color: AppColors.secondary,
               ),
               iconSize: 24,
             ),
             dropdownStyleData: DropdownStyleData(
               maxHeight: 200,
               decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               offset: const Offset(0, -4),
               scrollbarTheme: ScrollbarThemeData(
                 radius: const Radius.circular(40),
                 thickness: MaterialStateProperty.all<double>(6),
                 thumbVisibility: MaterialStateProperty.all<bool>(true),
+                thumbColor: MaterialStateProperty.all<Color>(
+                  AppColors.secondary.withOpacity(0.3),
+                ),
               ),
             ),
             menuItemStyleData: const MenuItemStyleData(
               height: 40,
               padding: EdgeInsets.symmetric(horizontal: 16),
+            ),
+            dropdownSearchData: DropdownSearchData<String>(
+              // Explicitly specify String type
+              searchMatchFn: (item, searchValue) {
+                return (item.value?.toString().toLowerCase() ?? '').contains(
+                  searchValue.toLowerCase(),
+                );
+              },
             ),
           ),
         ),
@@ -96,61 +120,75 @@ class _DistrictFilterState extends State<DistrictFilter> {
     final districtSet = districtsSet(localizations);
     final itemsMap = Map.fromIterables(districtSet.values, districtSet.keys);
 
-    return Column(
-      children: [
-        _buildDropdown(
-          label: localizations.district,
-          value: district,
-          items:
-              itemsMap.entries
-                  .map(
-                    (e) => DropdownMenuItem<String>(
-                      value: e.value,
-                      child: Text(
-                        e.key,
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.secondary.withOpacity(0.1)),
+      ),
+      child: Column(
+        children: [
+          _buildDropdown(
+            label: localizations.district,
+            value: district,
+            items:
+                itemsMap.entries
+                    .map(
+                      (e) => DropdownMenuItem<String>(
+                        value: e.value,
+                        child: Text(
+                          e.key,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColors.text,
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              district = newValue;
-              dso = null;
-              dsoMap =
-                  newValue != null
-                      ? districtToDSOConnector(localizations, newValue)
-                      : {};
-              widget.onSelectionChanged(district, dso);
-            });
-          },
-          hintText: localizations.select,
-        ),
-        const SizedBox(height: 16),
-        _buildDropdown(
-          label: localizations.dso,
-          value: dso,
-          items:
-              dsoMap.entries
-                  .map(
-                    (e) => DropdownMenuItem<String>(
-                      value: e.key,
-                      child: Text(
-                        e.value,
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                    )
+                    .toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                district = newValue;
+                dso = null;
+                dsoMap =
+                    newValue != null
+                        ? districtToDSOConnector(localizations, newValue)
+                        : {};
+                widget.onSelectionChanged(district, dso);
+              });
+            },
+            hintText: localizations.select,
+          ),
+          const SizedBox(height: 16),
+          _buildDropdown(
+            label: localizations.dso,
+            value: dso,
+            items:
+                dsoMap.entries
+                    .map(
+                      (e) => DropdownMenuItem<String>(
+                        value: e.key,
+                        child: Text(
+                          e.value,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColors.text,
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-          onChanged: (String? value) {
-            setState(() {
-              dso = value;
-              widget.onSelectionChanged(district, dso);
-            });
-          },
-          hintText: localizations.select,
-        ),
-      ],
+                    )
+                    .toList(),
+            onChanged: (String? value) {
+              setState(() {
+                dso = value;
+                widget.onSelectionChanged(district, dso);
+              });
+            },
+            hintText: localizations.select,
+          ),
+        ],
+      ),
     );
   }
 }

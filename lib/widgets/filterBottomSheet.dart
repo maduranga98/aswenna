@@ -202,7 +202,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       decoration: BoxDecoration(
-                        color: AppColors.primary,
+                        color: AppColors.background,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: DistrictFilter(
