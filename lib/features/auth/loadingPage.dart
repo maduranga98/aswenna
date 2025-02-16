@@ -1,9 +1,12 @@
 import 'package:aswenna/core/utils/color_utils.dart';
-import 'package:aswenna/features/auth/login.dart';
+import 'package:aswenna/features/auth/profileCompltion.dart';
 import 'package:aswenna/features/auth/welcomPage.dart';
+import 'package:aswenna/features/auth/login.dart';
 import 'package:aswenna/features/home%20page/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
@@ -20,6 +23,9 @@ class _LoadingPageState extends State<LoadingPage>
 
   static const _animationDuration = Duration(seconds: 2);
   static const _loadingDelay = Duration(seconds: 3);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -52,50 +58,111 @@ class _LoadingPageState extends State<LoadingPage>
   }
 
   Future<void> _loadData() async {
-    await Future.delayed(_loadingDelay);
-    if (!mounted) return;
+    try {
+      await Future.delayed(_loadingDelay);
+      if (!mounted) return;
 
+      // Get current auth state
+      final User? currentUser = _auth.currentUser;
+      final prefs = await SharedPreferences.getInstance();
+
+      if (currentUser == null) {
+        // No user is signed in
+        final isFirstTime = !(prefs.getBool('hasSeenWelcome') ?? false);
+        if (isFirstTime) {
+          // First time user
+          await prefs.setBool('hasSeenWelcome', true);
+          _navigateToPage(const WelcomePage());
+        } else {
+          // Returning user but needs to login
+          _navigateToPage(const LoginPage());
+        }
+        return;
+      }
+
+      // User is signed in, check if profile is complete
+      final userDoc =
+          await _firestore.collection('users').doc(currentUser.uid).get();
+
+      if (!userDoc.exists || !_isProfileComplete(userDoc.data())) {
+        // Profile incomplete, navigate to profile completion
+        _navigateToPage(const ProfileCompletion());
+        return;
+      }
+
+      // Update local user data
+      if (userDoc.exists) {
+        final userData = userDoc.data() as Map<String, dynamic>;
+        await _updateLocalUserData(userData);
+      }
+
+      // Navigate to home page
+      _navigateToPage(const HomePage());
+    } catch (e) {
+      print('Error in auth check: $e');
+      // In case of error, default to login page
+      _navigateToPage(const LoginPage());
+    }
+  }
+
+  bool _isProfileComplete(Map<String, dynamic>? userData) {
+    if (userData == null) return false;
+
+    final requiredFields = [
+      'firstName',
+      'lastName',
+      'address',
+      'mobileNumber',
+      'nicNumber',
+      'district',
+      'dso',
+    ];
+
+    return requiredFields.every(
+      (field) =>
+          userData[field] != null && userData[field].toString().isNotEmpty,
+    );
+  }
+
+  Future<void> _updateLocalUserData(Map<String, dynamic> userData) async {
     final prefs = await SharedPreferences.getInstance();
 
-    // Check if user is registered using getBool instead of containsKey
-    final isRegistered = prefs.getBool('isRegistered') ?? false;
-    if (!isRegistered) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => WelcomePage()),
-      );
-    }
+    // Update shared preferences
+    await prefs.setString(
+      'name',
+      '${userData['firstName']} ${userData['lastName']}',
+    );
+    await prefs.setString('address', userData['address'] ?? '');
+    await prefs.setString('id', userData['nicNumber'] ?? '');
+    await prefs.setString('mob1', userData['mobileNumber'] ?? '');
+    await prefs.setString('mob2', userData['alternativeMobile'] ?? '');
+    await prefs.setString('district', userData['district'] ?? '');
+    await prefs.setString('dso', userData['dso'] ?? '');
+    await prefs.setBool('isRegistered', true);
+    await prefs.setBool('isLoggedOut', false);
 
-    if (!mounted) return;
-
-    // Use getBool() for boolean values
-    final isLoggedOut = prefs.getBool('isLoggout') ?? false;
-
-    // Update user data
+    // Update global userData map
     setState(() {
       userData.addAll({
-        'name': prefs.getString('name') ?? '',
-        'address': prefs.getString('address') ?? '',
-        'id': prefs.getString('id') ?? '',
-        'mob1': prefs.getString('mob1') ?? '',
-        'mob2': prefs.getString('mob2') ?? '',
-        'district': prefs.getString('district') ?? '',
-        'dso': prefs.getString('dso') ?? '',
-        'isRegistered': isRegistered.toString(), // Convert bool to string
-        'isLoggout': isLoggedOut.toString(), // Convert bool to string
-        'lan': prefs.getString('lan') ?? '',
-        'docId': prefs.getString('docId') ?? '',
+        'name': '${userData['firstName']} ${userData['lastName']}',
+        'address': userData['address'] ?? '',
+        'id': userData['nicNumber'] ?? '',
+        'mob1': userData['mobileNumber'] ?? '',
+        'mob2': userData['alternativeMobile'] ?? '',
+        'district': userData['district'] ?? '',
+        'dso': userData['dso'] ?? '',
+        'isRegistered': 'true',
+        'isLoggedOut': 'false',
+        'docId': _auth.currentUser?.uid ?? '',
       });
     });
+  }
 
+  void _navigateToPage(Widget page) {
     if (!mounted) return;
-
-    // Navigate based on login status
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (context) => isLoggedOut ? const LoginPage() : HomePage(),
-      ),
+      MaterialPageRoute(builder: (context) => page),
     );
   }
 
@@ -109,7 +176,7 @@ class _LoadingPageState extends State<LoadingPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -148,7 +215,7 @@ class _LoadingPageState extends State<LoadingPage>
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -163,8 +230,8 @@ class _LoadingPageState extends State<LoadingPage>
   Widget _buildLoadingIndicator() {
     return Opacity(
       opacity: _fadeAnimation.value,
-      child: Column(
-        children: const [
+      child: const Column(
+        children: [
           Text(
             'Aswenna',
             style: TextStyle(
