@@ -122,7 +122,7 @@
       "polonnaruwa": "පොළොන්නරුව",
       "puttalam": "පුත්තලම",
       "ratnapura": "රත්නපුර",
-      "trincomalee": "ත්රිකුණාමලය",
+      "trincomalee": "ත්‍රිකුණාමලය",
       "vavuniya": "වවුනියාව",
       "akurana": "අකුරණ",
       "delthota": "දෙල්තොට",
@@ -460,7 +460,18 @@
       "labourTabName2": "ලබාගැනීම",
       "paddyInstitue":"පර්යේෂණ ආයතනය",
       "paddyGenre":"ප්‍රභේද",
-      "main_instruct":"Select what you need"
+      "main_instruct":"Select what you need",
+      "createaccount":"ගිණුමක් තනන්න",
+      "selectPreferredMethod" :"ඔබ කැමති ලියාපදිංචි වීමේ ක්‍රමය තෝරන්න",
+      "userName":"පරිශීලක නාමය",
+      "password": "මුරපදය",
+      "signup": "ලියාපදිංචි වන්න",
+      "or": "හෝ",
+      "continueWithGoogle" : "Google සමඟ ඉදිරියට යන්න",
+      "alreadyhave" : "දැනටමත් ගිණුමක් තිබේද?",
+      "signIn": "පුරන්න",
+      "completeYourProfile" : "ඔබගේ ගිණුම සම්පූර්ණ කරන්න"
+
 
      
 }
