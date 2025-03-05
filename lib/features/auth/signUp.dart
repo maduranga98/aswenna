@@ -4,6 +4,7 @@ import 'package:aswenna/features/auth/profileCompltion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -96,6 +97,7 @@ class _SignUpState extends State<SignUp> {
   Future<void> _signInWithGoogle() async {
     setState(() => _isLoading = true);
     try {
+      print('Starting Google Sign In...'); // Debug log
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return;
 
@@ -106,16 +108,82 @@ class _SignUpState extends State<SignUp> {
         idToken: googleAuth.idToken,
       );
 
-      await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await _auth.signInWithCredential(
+        credential,
+      );
+
+      if (userCredential.user != null) {
+        print("Credentials are null");
+      }
+
+      print('Getting auth details...'); // Debug log
+      // final GoogleSignInAuthentication googleAuth =
+      //     await googleUser.authentication;
+
+      print('Checking tokens...'); // Debug log
+      print('Access Token: ${googleAuth.accessToken != null}'); // Debug log
+      print('ID Token: ${googleAuth.idToken != null}'); // Debug log
+
+      if (googleAuth.accessToken == null || googleAuth.idToken == null) {
+        throw FirebaseAuthException(
+          code: 'missing_tokens',
+          message: 'Missing Google Auth Tokens',
+        );
+      }
+
+      // final credential = GoogleAuthProvider.credential(
+      //   accessToken: googleAuth.accessToken,
+      //   idToken: googleAuth.idToken,
+      // );
+
+      print('Signing in to Firebase...'); // Debug log
+      // final UserCredential userCredential = await _auth.signInWithCredential(
+      //   credential,
+      // );
+
+      print('Sign in complete!'); // Debug log
+
+      if (userCredential.user == null) {
+        throw FirebaseAuthException(
+          code: 'sign_in_failed',
+          message: 'Failed to sign in with Google',
+        );
+      }
+
       _showSuccessMessage('Signed in successfully!');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfileCompletion()),
+
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileCompletion()),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException: ${e.code} - ${e.message}'); // Debug log
+      String errorMessage;
+      switch (e.code) {
+        case 'sign_in_canceled':
+          errorMessage = 'Sign in was canceled';
+          break;
+        case 'missing_tokens':
+          errorMessage = 'Authentication failed. Please try again';
+          break;
+        default:
+          errorMessage = 'Sign in failed. Please try again';
+      }
+      _showErrorMessage(errorMessage);
+    } on PlatformException catch (e) {
+      print('PlatformException: ${e.code} - ${e.message}'); // Debug log
+      _showErrorMessage(
+        'Failed to connect to Google Services. Please check your internet connection and try again.',
       );
     } catch (e) {
-      _showErrorMessage('Google sign in failed');
+      print('Unexpected error: $e'); // Debug log
+      _showErrorMessage('An unexpected error occurred. Please try again.');
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -141,9 +209,12 @@ class _SignUpState extends State<SignUp> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: TextFormField(
         controller: controller,
@@ -164,8 +235,8 @@ class _SignUpState extends State<SignUp> {
         },
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-          prefixIcon: Icon(icon, color: Colors.white.withOpacity(0.8)),
+          labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.8)),
+          prefixIcon: Icon(icon, color: Colors.white.withValues(alpha: 0.8)),
           suffixIcon:
               isPassword
                   ? IconButton(
@@ -173,7 +244,7 @@ class _SignUpState extends State<SignUp> {
                       _isPasswordVisible
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                     onPressed:
                         () => setState(
@@ -183,7 +254,7 @@ class _SignUpState extends State<SignUp> {
                   : null,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
-          hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
+          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
         ),
         validator: (value) {
           // Trim the value before validation
@@ -221,7 +292,7 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   const SizedBox(height: 40),
                   Text(
-                    'Create Account',
+                    AppLocalizations.of(context)!.createaccount,
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -230,10 +301,10 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Choose your preferred sign up method',
+                    AppLocalizations.of(context)!.selectPreferredMethod,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -241,7 +312,7 @@ class _SignUpState extends State<SignUp> {
                   // Username and Password Fields
                   _buildTextField(
                     controller: _usernameController,
-                    label: 'Username',
+                    label: AppLocalizations.of(context)!.userName,
                     icon: Icons.person_outline,
                     validator: (value) {
                       if (value?.isEmpty ?? true) {
@@ -259,7 +330,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   _buildTextField(
                     controller: _passwordController,
-                    label: 'Password',
+                    label: AppLocalizations.of(context)!.password,
                     icon: Icons.lock_outline,
                     isPassword: true,
                     validator: (value) {
@@ -298,8 +369,8 @@ class _SignUpState extends State<SignUp> {
                                 ),
                               ),
                             )
-                            : const Text(
-                              'Sign Up',
+                            : Text(
+                              AppLocalizations.of(context)!.signup,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -311,19 +382,23 @@ class _SignUpState extends State<SignUp> {
                   Row(
                     children: [
                       Expanded(
-                        child: Divider(color: Colors.white.withOpacity(0.3)),
+                        child: Divider(
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          'OR',
+                          AppLocalizations.of(context)!.or,
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Divider(color: Colors.white.withOpacity(0.3)),
+                        child: Divider(
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
                       ),
                     ],
                   ),
@@ -337,11 +412,15 @@ class _SignUpState extends State<SignUp> {
                       color: AppColors.accent,
                       size: 24,
                     ),
-                    label: const Text('Continue with Google'),
+                    label: Text(
+                      AppLocalizations.of(context)!.continueWithGoogle,
+                    ),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.all(16),
                       foregroundColor: Colors.white,
-                      side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                      side: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -353,8 +432,10 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already have an account? ',
-                        style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                        AppLocalizations.of(context)!.alreadyhave,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.8),
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -368,8 +449,8 @@ class _SignUpState extends State<SignUp> {
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.accent,
                         ),
-                        child: const Text(
-                          'Sign In',
+                        child: Text(
+                          AppLocalizations.of(context)!.signIn,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

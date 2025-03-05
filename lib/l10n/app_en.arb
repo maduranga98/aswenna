@@ -460,7 +460,17 @@
       "labourTabName2": "Receiving",
       "paddyInstitue": "Research Institute",
       "paddyGenre":"Varieties",
-     "main_instruct":"Select what you need"
+     "main_instruct":"Select what you need",
+     "createaccount": "Create a Account",
+     "selectPreferredMethod" : "Choose your preferred sign up method",
+     "userName": "userName",
+     "password":"Password",
+     "signup":"Sign Up",
+     "or": "OR",
+     "continueWithGoogle":"Continue with Google",
+     "alreadyhave":"Already have an account?",
+     "signIn":"Sign In",
+     "completeYourProfile" : "Complete Your Profile"
 
 
     }

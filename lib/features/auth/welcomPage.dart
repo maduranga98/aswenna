@@ -3,6 +3,8 @@ import 'package:aswenna/features/auth/introScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:aswenna/providers/locale_provider.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -12,18 +14,20 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  Locale _locale = const Locale('si');
-
   Future<void> _changeLanguage(String languageCode) async {
-    Locale newLocale = Locale(languageCode);
-    setState(() {
-      _locale = newLocale;
-    });
+    final newLocale = Locale(languageCode);
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('lan', _locale.toString());
-    userData['lan'] = _locale.toString();
+    // Update the provider
+    Provider.of<LocaleProvider>(context, listen: false).setLocale(newLocale);
 
+    // Save to SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lan', languageCode);
+
+    // Update userData if needed
+    userData['lan'] = languageCode;
+
+    // Navigate to next screen
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => IntroScreen()),
@@ -113,7 +117,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       "Select your preferred language",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withValues(alpha: 0.9),
+                        color: Colors.white.withOpacity(0.9),
                       ),
                     ),
                   ],
