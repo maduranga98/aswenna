@@ -289,7 +289,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         });
       },
       backgroundColor: Colors.white,
-      selectedColor: AppColors.accent.withOpacity(0.1),
+      selectedColor: AppColors.accent.withValues(alpha: 0.1),
       labelStyle: TextStyle(
         color: isSelected ? AppColors.accent : AppColors.textLight,
         fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
@@ -298,7 +298,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         color:
             isSelected
                 ? AppColors.accent
-                : AppColors.secondary.withOpacity(0.3),
+                : AppColors.secondary.withValues(alpha: 0.3),
       ),
       showCheckmark: false,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -359,7 +359,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 });
               },
               backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withOpacity(0.1),
+              selectedColor: AppColors.accent.withValues(alpha: 0.1),
               labelStyle: TextStyle(
                 color: isSelected ? AppColors.accent : AppColors.textLight,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
@@ -368,7 +368,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 color:
                     isSelected
                         ? AppColors.accent
-                        : AppColors.secondary.withOpacity(0.3),
+                        : AppColors.secondary.withValues(alpha: 0.3),
               ),
               showCheckmark: false,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -395,7 +395,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 });
               },
               backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withOpacity(0.1),
+              selectedColor: AppColors.accent.withValues(alpha: 0.1),
               labelStyle: TextStyle(
                 color: isSelected ? AppColors.accent : AppColors.textLight,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
@@ -404,7 +404,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 color:
                     isSelected
                         ? AppColors.accent
-                        : AppColors.secondary.withOpacity(0.3),
+                        : AppColors.secondary.withValues(alpha: 0.3),
               ),
               showCheckmark: false,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -433,7 +433,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 });
               },
               backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withOpacity(0.1),
+              selectedColor: AppColors.accent.withValues(alpha: 0.1),
               labelStyle: TextStyle(
                 color: isSelected ? AppColors.accent : AppColors.textLight,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
@@ -442,7 +442,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 color:
                     isSelected
                         ? AppColors.accent
-                        : AppColors.secondary.withOpacity(0.3),
+                        : AppColors.secondary.withValues(alpha: 0.3),
               ),
               showCheckmark: false,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -470,7 +470,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 });
               },
               backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withOpacity(0.1),
+              selectedColor: AppColors.accent.withValues(alpha: 0.1),
               labelStyle: TextStyle(
                 color: isSelected ? AppColors.accent : AppColors.textLight,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
@@ -479,7 +479,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 color:
                     isSelected
                         ? AppColors.accent
-                        : AppColors.secondary.withOpacity(0.3),
+                        : AppColors.secondary.withValues(alpha: 0.3),
               ),
               showCheckmark: false,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -541,7 +541,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                             });
                           },
                           backgroundColor: Colors.white,
-                          selectedColor: AppColors.accent.withOpacity(0.1),
+                          selectedColor: AppColors.accent.withValues(
+                            alpha: 0.1,
+                          ),
                           labelStyle: TextStyle(
                             color:
                                 isSelected
@@ -556,7 +558,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                             color:
                                 isSelected
                                     ? AppColors.accent
-                                    : AppColors.secondary.withOpacity(0.3),
+                                    : AppColors.secondary.withValues(
+                                      alpha: 0.3,
+                                    ),
                           ),
                           showCheckmark: false,
                           padding: const EdgeInsets.symmetric(
@@ -655,7 +659,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: AppColors.secondary.withOpacity(0.3),
+            color: AppColors.secondary.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(2),
           ),
         ),
@@ -691,7 +695,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.secondary.withOpacity(0.2)),
+        border: Border.all(color: AppColors.secondary.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -794,7 +798,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             borderRadius: BorderRadius.circular(8),
             color:
                 isSelected
-                    ? AppColors.accent.withOpacity(0.1)
+                    ? AppColors.accent.withValues(alpha: 0.1)
                     : Colors.transparent,
           ),
           child: Row(
@@ -936,7 +940,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   onSelected:
                       (selected) => onSelected(selected ? option : null),
                   backgroundColor: Colors.white,
-                  selectedColor: AppColors.accent.withOpacity(0.1),
+                  selectedColor: AppColors.accent.withValues(alpha: 0.1),
                   labelStyle: TextStyle(
                     color: isSelected ? AppColors.accent : AppColors.textLight,
                     fontWeight:
@@ -946,7 +950,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     color:
                         isSelected
                             ? AppColors.accent
-                            : AppColors.secondary.withOpacity(0.3),
+                            : AppColors.secondary.withValues(alpha: 0.3),
                   ),
                   showCheckmark: false,
                 );

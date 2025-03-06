@@ -44,9 +44,12 @@ class _ProfileCompletionState extends State<ProfileCompletion> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: TextFormField(
         controller: controller,
@@ -54,10 +57,10 @@ class _ProfileCompletionState extends State<ProfileCompletion> {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           labelText: label + (isOptional ? ' (Optional)' : ''),
-          labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+          labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.8)),
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
-          prefixIcon: Icon(icon, color: Colors.white.withOpacity(0.8)),
+          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
+          prefixIcon: Icon(icon, color: Colors.white.withValues(alpha: 0.8)),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
         ),
@@ -173,7 +176,7 @@ class _ProfileCompletionState extends State<ProfileCompletion> {
                     'Please provide your personal information',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                   ),
                   const SizedBox(height: 32),

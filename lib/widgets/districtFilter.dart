@@ -56,10 +56,12 @@ class _DistrictFilterState extends State<DistrictFilter> {
               decoration: BoxDecoration(
                 color: AppColors.surface,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.secondary.withOpacity(0.2)),
+                border: Border.all(
+                  color: AppColors.secondary.withValues(alpha: 0.2),
+                ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.05),
+                    color: AppColors.primary.withValues(alpha: 0.05),
                     blurRadius: 4,
                     offset: const Offset(0, 2),
                   ),
@@ -80,7 +82,7 @@ class _DistrictFilterState extends State<DistrictFilter> {
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -92,7 +94,7 @@ class _DistrictFilterState extends State<DistrictFilter> {
                 thickness: MaterialStateProperty.all<double>(6),
                 thumbVisibility: MaterialStateProperty.all<bool>(true),
                 thumbColor: MaterialStateProperty.all<Color>(
-                  AppColors.secondary.withOpacity(0.3),
+                  AppColors.secondary.withValues(alpha: 0.3),
                 ),
               ),
             ),
@@ -125,7 +127,7 @@ class _DistrictFilterState extends State<DistrictFilter> {
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.secondary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.secondary.withValues(alpha: 0.1)),
       ),
       child: Column(
         children: [

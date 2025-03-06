@@ -105,9 +105,12 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: TextFormField(
         controller: controller,
@@ -115,8 +118,8 @@ class _LoginPageState extends State<LoginPage> {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-          prefixIcon: Icon(icon, color: Colors.white.withOpacity(0.8)),
+          labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.8)),
+          prefixIcon: Icon(icon, color: Colors.white.withValues(alpha: 0.8)),
           suffixIcon:
               isPassword
                   ? IconButton(
@@ -124,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       _isPasswordVisible
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                     onPressed:
                         () => setState(
@@ -134,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                   : null,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
-          hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
+          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
         ),
         validator: validator,
       ),
@@ -172,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -195,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                   'Please sign in to continue',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -268,17 +271,23 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: Divider(color: Colors.white.withOpacity(0.3)),
+                      child: Divider(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         'OR',
-                        style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.8),
+                        ),
                       ),
                     ),
                     Expanded(
-                      child: Divider(color: Colors.white.withOpacity(0.3)),
+                      child: Divider(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
                     ),
                   ],
                 ),
@@ -290,7 +299,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.all(16),
                     foregroundColor: Colors.white,
-                    side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                    side: BorderSide(
+                      color: Colors.white.withValues(alpha: 0.3),
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -303,7 +314,9 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Text(
                     'Forgot Password?',
-                    style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.8),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -312,7 +325,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
                     ),
                     TextButton(
                       onPressed: () {

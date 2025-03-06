@@ -198,8 +198,8 @@ class _PaddySelectorState extends State<PaddySelector> {
             border: Border.all(
               color:
                   isEnabled
-                      ? AppColors.primary.withOpacity(0.3)
-                      : AppColors.textLight.withOpacity(0.3),
+                      ? AppColors.primary.withValues(alpha: 0.3)
+                      : AppColors.textLight.withValues(alpha: 0.3),
               width: 1.5,
             ),
           ),

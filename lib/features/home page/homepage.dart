@@ -71,10 +71,7 @@ class _HomePageState extends State<HomePage> {
                   'assets/img/$imagePath.webp',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      'assets/img/placeholder.webp',
-                      fit: BoxFit.cover,
-                    );
+                    return Image.asset('assets/images.webp', fit: BoxFit.cover);
                   },
                 ),
               ),

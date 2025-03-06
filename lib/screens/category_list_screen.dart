@@ -48,7 +48,7 @@ class CategoryListScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
-                        'assets/img/placeholder.webp',
+                        'assets/images.webp',
                         fit: BoxFit.cover,
                       );
                     },
