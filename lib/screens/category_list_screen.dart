@@ -44,7 +44,7 @@ class CategoryListScreen extends StatelessWidget {
                 // Image with gradient overlay
                 Positioned.fill(
                   child: Image.asset(
-                    'assets/img/${imagePath}.webp',
+                    'assets/img/$imagePath.webp',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(

@@ -1,4 +1,3 @@
-import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/core/utils/icon_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:aswenna/data/model/category_model.dart';

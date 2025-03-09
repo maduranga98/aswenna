@@ -928,7 +928,7 @@ class CategoryManager {
               ),
               ItemData(
                 nameEn: 'Sapodilla',
-                nameSi: 'සඵදිල්ල',
+                nameSi: 'සැපදිල්ල',
                 dbPath: 'sapodilla',
                 hasBuySell: true,
               ),
@@ -1568,27 +1568,155 @@ class CategoryManager {
                 nameSi: 'බීජ',
                 dbPath: 'seeds',
                 items: [
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Paddy Seeds',
                     nameSi: 'බිත්තර වී',
                     dbPath: 'paddy_seeds',
-                    hasBuySell: true,
+                    items: [
+                      DeepCategoryData(
+                        nameEn: 'Local',
+                        nameSi: 'දේශීය',
+                        dbPath: 'local',
+                        items: [
+                          ItemData(
+                            nameEn: 'Suwadel',
+                            nameSi: 'සුවඳැල්',
+                            dbPath: 'suwadel',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Kurulu Thuda',
+                            nameSi: 'කුරුළු තුඩ',
+                            dbPath: 'kurulu_thuda',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Pachchaperumal',
+                            nameSi: 'පච්චපෙරුමාල්',
+                            dbPath: 'pachchaperumal',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Rathdel',
+                            nameSi: 'රත්දැල්',
+                            dbPath: 'rathdel',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Kalu Heenati',
+                            nameSi: 'කළු හීනටි',
+                            dbPath: 'kalu_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Rathu Heenati',
+                            nameSi: 'රතුහීනටි',
+                            dbPath: 'rathu_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Sudu Heenati',
+                            nameSi: 'සුදු හීනටි',
+                            dbPath: 'sudu_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Goda Heenati',
+                            nameSi: 'ගොඩ හීනටි',
+                            dbPath: 'goda_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Masuran',
+                            nameSi: 'මසුරං',
+                            dbPath: 'masuran',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Kahawanu',
+                            nameSi: 'කහවනු',
+                            dbPath: 'kahawanu',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Madathawalu',
+                            nameSi: 'මඩතවාලු',
+                            dbPath: 'madathawalu',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Ma wee',
+                            nameSi: 'මා වී',
+                            dbPath: 'ma_wee',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Pokkali',
+                            nameSi: 'පොක්කාලි',
+                            dbPath: 'pokkali',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Hatada wee',
+                            nameSi: 'හැටදා වී',
+                            dbPath: 'hatada_wee',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Dik wee',
+                            nameSi: 'දික් වී',
+                            dbPath: 'dik_wee',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Gonnabaru',
+                            nameSi: 'ගෝනබරු',
+                            dbPath: 'gonnabaru',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Dahanala',
+                            nameSi: 'දහනල',
+                            dbPath: 'dahanala',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Basmathi',
+                            nameSi: 'බාස්මතී',
+                            dbPath: 'basmathi',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Other',
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      ItemData(
+                        nameEn: 'Improved',
+                        nameSi: 'වැඩිදියුණු කල',
+                        dbPath: 'improved',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
                   ItemData(
                     nameEn: 'Seed Grain',
-                    nameSi: 'බීජ ධාන්‍ය',
+                    nameSi: 'ධාන්‍ය බීජ',
                     dbPath: 'seed_grain',
                     hasBuySell: true,
                   ),
                   ItemData(
                     nameEn: 'Seed Vegetables',
-                    nameSi: 'බීජ එළවලු',
+                    nameSi: 'එළවලු බීජ',
                     dbPath: 'seed_vegetables',
                     hasBuySell: true,
                   ),
                   ItemData(
                     nameEn: 'Seed Coconuts',
-                    nameSi: 'බීජ පොල්',
+                    nameSi: 'පොල් බීජ',
                     dbPath: 'seed_coconuts',
                     hasBuySell: true,
                   ),
@@ -1641,11 +1769,42 @@ class CategoryManager {
                       ),
                     ],
                   ),
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Seed Fruit',
-                    nameSi: 'බීජ පළතුරු',
+                    nameSi: 'පළතුරු බීජ',
                     dbPath: 'seed_fruit',
-                    hasBuySell: true,
+                    items: [
+                      ItemData(
+                        nameEn: 'Guava',
+                        nameSi: 'පේර',
+                        dbPath: 'guava',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Papaya',
+                        nameSi: 'පැපොල්',
+                        dbPath: 'papaya',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Vine Oranges',
+                        nameSi: 'වැල් දොඩම්',
+                        dbPath: 'vine_orange',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Oranges',
+                        nameSi: 'දොඩම්',
+                        dbPath: 'oranges',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Mango',
+                        nameSi: 'අඹ',
+                        dbPath: 'mango',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
                   ItemData(
                     nameEn: 'Seed Cashew',
@@ -2953,35 +3112,324 @@ class CategoryManager {
                 nameSi: 'කුකුලු',
                 dbPath: 'poultry',
                 items: [
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Gumkukulu',
                     nameSi: 'ගම්කුකුළු',
                     dbPath: 'gumkukulu',
-                    hasBuySell: true,
+                    items: [
+                      ItemData(
+                        nameEn: 'Calf',
+                        nameSi: 'පැටව්',
+                        dbPath: 'calf',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Eggs',
+                        nameSi: 'බිත්තර',
+                        dbPath: 'eggs',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Adult Animals',
+                        nameSi: 'වැඩුණු සතුන්',
+                        dbPath: 'adult_animals',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Feed',
+                        nameSi: 'ආහාර',
+                        dbPath: 'feed',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Medicine and Vitamins',
+                        nameSi: 'බෙහෙත් සහ විටමින්',
+                        dbPath: 'medicine_vitamins',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Equipments',
+                        nameSi: 'ආම්පන්න',
+                        dbPath: 'equipments',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Layers',
                     nameSi: 'ලේයර්ස්',
                     dbPath: 'layers',
-                    hasBuySell: true,
+                    items: [
+                      DeepCategoryData(
+                        nameEn: 'Calf',
+                        nameSi: 'පැටව්',
+                        dbPath: 'calf',
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      ItemData(
+                        nameEn: 'Eggs',
+                        nameSi: 'බිත්තර',
+                        dbPath: 'eggs',
+                        hasBuySell: true,
+                      ),
+                      DeepCategoryData(
+                        nameEn: 'Adult Animals',
+                        nameSi: 'වැඩුණු සතුන්',
+                        dbPath: 'adult_animals',
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      ItemData(
+                        nameEn: 'Feed',
+                        nameSi: 'ආහාර',
+                        dbPath: 'feed',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Medicine and Vitamins',
+                        nameSi: 'බෙහෙත් සහ විටමින්',
+                        dbPath: 'medicine_vitamins',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Equipments',
+                        nameSi: 'ආම්පන්න',
+                        dbPath: 'equipments',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Broilers',
                     nameSi: 'බ්‍රොයිලර්ස්',
                     dbPath: 'broilers',
-                    hasBuySell: true,
+                    items: [
+                      DeepCategoryData(
+                        nameEn: 'Calf',
+                        nameSi: 'පැටව්',
+                        dbPath: 'calf',
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+
+                      DeepCategoryData(
+                        nameEn: 'Adult Animals',
+                        nameSi: 'වැඩුණු සතුන්',
+                        dbPath: 'adult_animals',
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      ItemData(
+                        nameEn: 'Feed',
+                        nameSi: 'ආහාර',
+                        dbPath: 'feed',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Medicine and Vitamins',
+                        nameSi: 'බෙහෙත් සහ විටමින්',
+                        dbPath: 'medicine_vitamins',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Equipments',
+                        nameSi: 'ආම්පන්න',
+                        dbPath: 'equipments',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Parents',
                     nameSi: 'පේරන්ට්ස්',
                     dbPath: 'parents',
-                    hasBuySell: true,
+                    items: [
+                      ItemData(
+                        nameEn: 'Calf',
+                        nameSi: 'පැටව්',
+                        dbPath: 'calf',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Eggs',
+                        nameSi: 'බිත්තර',
+                        dbPath: 'eggs',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Adult Animals',
+                        nameSi: 'වැඩුණු සතුන්',
+                        dbPath: 'adult_animals',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Feed',
+                        nameSi: 'ආහාර',
+                        dbPath: 'feed',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Medicine and Vitamins',
+                        nameSi: 'බෙහෙත් සහ විටමින්',
+                        dbPath: 'medicine_vitamins',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Equipments',
+                        nameSi: 'ආම්පන්න',
+                        dbPath: 'equipments',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Cockres',
                     nameSi: 'කොකරස්',
                     dbPath: 'cockres',
-                    hasBuySell: true,
+                    items: [
+                      DeepCategoryData(
+                        nameEn: 'Calf',
+                        nameSi: 'පැටව්',
+                        dbPath: 'calf',
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+
+                      DeepCategoryData(
+                        nameEn: 'Adult Animals',
+                        nameSi: 'වැඩුණු සතුන්',
+                        dbPath: 'adult_animals',
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      ItemData(
+                        nameEn: 'Feed',
+                        nameSi: 'ආහාර',
+                        dbPath: 'feed',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Medicine and Vitamins',
+                        nameSi: 'බෙහෙත් සහ විටමින්',
+                        dbPath: 'medicine_vitamins',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Equipments',
+                        nameSi: 'ආම්පන්න',
+                        dbPath: 'equipments',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -4096,6 +4544,12 @@ class CategoryManager {
                 nameEn: 'Honey',
                 nameSi: 'මී පැණි',
                 dbPath: 'honey',
+                hasBuySell: true,
+              ),
+              ItemData(
+                nameEn: 'Bee Colony',
+                nameSi: 'මී මැසි ජනපදය',
+                dbPath: 'beecolony',
                 hasBuySell: true,
               ),
               ItemData(

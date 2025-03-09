@@ -1,15 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/widgets/districtFilter.dart';
 import 'package:aswenna/widgets/paddySelector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:googleapis/androidmanagement/v1.dart';
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ItemsAddPage extends StatefulWidget {
   final List<String> paths;
@@ -26,6 +27,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   final acresController = TextEditingController();
   final perchesController = TextEditingController();
   final detailsController = TextEditingController();
+  final qunatityController = TextEditingController();
 
   String? selectedDistrict, selectedDso;
   List<File?> selectedImages = List.filled(5, null);
@@ -46,6 +48,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     acresController.dispose();
     perchesController.dispose();
     detailsController.dispose();
+    qunatityController.dispose();
     super.dispose();
   }
 
@@ -127,7 +130,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     try {
       for (int i = 0; i < selectedImages.length; i++) {
         if (selectedImages[i] != null) {
-          String path = '${widget.paths.join('/')}';
+          String path = widget.paths.join('/');
           final url = await _firestoreService.uploadImage(
             selectedImages[i]!,
             path,
@@ -189,7 +192,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
       }
 
       // Add Paddy details if applicable
-      if (widget.paths.contains('paddy') && widget.paths.contains('improved')) {
+      if (widget.paths.contains('paddy') ||
+          widget.paths.contains('paddy_seeds') &&
+              widget.paths.contains('improved')) {
         if (selectedPaddyCode == null ||
             selectedPaddyColor == null ||
             selectedPaddyType == null ||
@@ -686,8 +691,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     SizedBox(height: 16),
 
                     // Paddy selector for improved paddy
-                    if (widget.paths.contains('paddy') &&
-                        widget.paths.contains('improved'))
+                    if (widget.paths.contains('paddy') ||
+                        widget.paths.contains('paddy_seeds') &&
+                            widget.paths.contains('improved'))
                       PaddySelector(
                         onSelectionComplete: (code, color, type, variety) {
                           setState(() {
@@ -700,7 +706,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                       ),
 
                     // Different fields based on category
-                    if (widget.paths.contains('harvest')) ...[
+                    if (widget.paths.contains('harvest') ||
+                        widget.paths.contains('paddy_seeds')) ...[
                       Row(
                         children: [
                           Expanded(
@@ -715,8 +722,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           Expanded(
                             child: _buildInputField(
                               controller: priceController,
-                              label: AppLocalizations.of(context)!.rs,
-                              hint: 'Enter price',
+                              label:
+                                  AppLocalizations.of(context)!.priceForOnekg,
+                              hint: 'Enter price for a kg',
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -751,6 +759,118 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         hint: 'Enter price',
                         keyboardType: TextInputType.number,
                       ),
+                    ] else if (widget.paths.contains('medicine')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: AppLocalizations.of(context)!.quantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.unitPrice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('medicine')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: AppLocalizations.of(context)!.quantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.unitPrice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('equipments')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: AppLocalizations.of(context)!.quantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.unitPrice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('eggs')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: AppLocalizations.of(context)!.quantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.eggprice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('beecolony')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: AppLocalizations.of(context)!.colonyquantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.colonyprice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('beecolony')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: AppLocalizations.of(context)!.colonyquantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.colonyprice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('honey')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label:
+                            AppLocalizations.of(context)!.honeybottlesquantity,
+                        hint: 'Enter Quantity',
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.honeybottlesprice,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('seed_grain')) ...[
+                      _buildInputField(
+                        controller: kgController,
+                        label: AppLocalizations.of(context)!.kg,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: priceController,
+                        label: AppLocalizations.of(context)!.priceForOnekg,
+                        hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
                     ] else ...[
                       _buildInputField(
                         controller: priceController,
@@ -765,7 +885,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     // Details field for all categories
                     _buildInputField(
                       controller: detailsController,
-                      label: AppLocalizations.of(context)!.damana,
+                      label: AppLocalizations.of(context)!.otherdetails,
                       hint: 'Enter item details',
                       isMultiline: true,
                     ),
