@@ -470,7 +470,15 @@
      "continueWithGoogle":"Continue with Google",
      "alreadyhave":"Already have an account?",
      "signIn":"Sign In",
-     "completeYourProfile" : "Complete Your Profile"
+     "completeYourProfile" : "Complete Your Profile",
+     "unitPrice"  : "Unit Price",
+     "quantity" : "Quantity",
+     "eggprice" : "An Egg Price",
+     "colonyprice" : "The price of a colony",
+     "colonyquantity" : "Colony Quantity",
+      "honeybottlesprice" : "Honney bottles price",
+      "honeybottlesquantity" : "Honney bottles quantity"
+
 
 
     }
