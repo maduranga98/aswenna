@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -147,8 +147,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Welcome to Aswenna',
+                Text(
+                  AppLocalizations.of(context)!.welcomeText,
                   style: TextStyle(
                     color: AppColors.surface,
                     fontSize: 26,
@@ -170,8 +170,8 @@ class _HomePageState extends State<HomePage> {
                       width: 1,
                     ),
                   ),
-                  child: const Text(
-                    'Your Agriculture Marketplace',
+                  child: Text(
+                    AppLocalizations.of(context)!.marketPlace,
                     style: TextStyle(
                       color: AppColors.surface,
                       fontSize: 15,
@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage> {
       drawer: _buildDrawer(context, localization),
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(child: _buildHeader()),
+          SliverToBoxAdapter(child: _buildHeader(context)),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             sliver: SliverGrid(
@@ -248,12 +248,7 @@ class _HomePageState extends State<HomePage> {
                   categoryPath: 'harvest',
                   icon: Icons.eco_outlined,
                 ),
-                _buildMenuCard(
-                  title: localization.culitivation,
-                  imagePath: 'harvest',
-                  categoryPath: 'cultivation',
-                  icon: Icons.yard_outlined,
-                ),
+
                 _buildMenuCard(
                   title: localization.seeds,
                   imagePath: 'harvest',
@@ -284,12 +279,12 @@ class _HomePageState extends State<HomePage> {
                   categoryPath: 'vehicles',
                   icon: Icons.agriculture_outlined,
                 ),
-                _buildMenuCard(
-                  title: localization.transport,
-                  imagePath: 'transport',
-                  categoryPath: 'transport',
-                  icon: Icons.local_shipping_outlined,
-                ),
+                // _buildMenuCard(
+                //   title: localization.transport,
+                //   imagePath: 'transport',
+                //   categoryPath: 'transport',
+                //   icon: Icons.local_shipping_outlined,
+                // ),
                 _buildMenuCard(
                   title: localization.machineries,
                   imagePath: 'machineries',
@@ -308,30 +303,30 @@ class _HomePageState extends State<HomePage> {
                   categoryPath: 'fertilizer',
                   icon: Icons.sanitizer_outlined,
                 ),
-                _buildMenuCard(
-                  title: localization.agrochems,
-                  imagePath: 'chems',
-                  categoryPath: 'agrochemicals',
-                  icon: Icons.science_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.market,
-                  imagePath: 'market',
-                  categoryPath: 'foreign_market',
-                  icon: Icons.storefront_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.advice,
-                  imagePath: 'advice',
-                  categoryPath: 'advice',
-                  icon: Icons.tips_and_updates_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.info,
-                  imagePath: 'info',
-                  categoryPath: 'information',
-                  icon: Icons.help_outline,
-                ),
+                // _buildMenuCard(
+                //   title: localization.agrochems,
+                //   imagePath: 'chems',
+                //   categoryPath: 'agrochemicals',
+                //   icon: Icons.science_outlined,
+                // ),
+                // _buildMenuCard(
+                //   title: localization.market,
+                //   imagePath: 'market',
+                //   categoryPath: 'foreign_market',
+                //   icon: Icons.storefront_outlined,
+                // ),
+                // _buildMenuCard(
+                //   title: localization.advice,
+                //   imagePath: 'advice',
+                //   categoryPath: 'advice',
+                //   icon: Icons.tips_and_updates_outlined,
+                // ),
+                // _buildMenuCard(
+                //   title: localization.info,
+                //   imagePath: 'info',
+                //   categoryPath: 'information',
+                //   icon: Icons.help_outline,
+                // ),
               ]),
             ),
           ),

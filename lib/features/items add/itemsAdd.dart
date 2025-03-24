@@ -192,9 +192,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
       }
 
       // Add Paddy details if applicable
-      if (widget.paths.contains('paddy') ||
-          widget.paths.contains('paddy_seeds') &&
-              widget.paths.contains('improved')) {
+      if (widget.paths.contains('paddy_seeds') &&
+              widget.paths.contains('improved') ||
+          widget.paths.contains('improved')) {
         if (selectedPaddyCode == null ||
             selectedPaddyColor == null ||
             selectedPaddyType == null ||
@@ -691,9 +691,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     SizedBox(height: 16),
 
                     // Paddy selector for improved paddy
-                    if (widget.paths.contains('paddy') ||
-                        widget.paths.contains('paddy_seeds') &&
-                            widget.paths.contains('improved'))
+                    if (widget.paths.contains('paddy_seeds') &&
+                            widget.paths.contains('improved') ||
+                        widget.paths.contains('improved'))
                       PaddySelector(
                         onSelectionComplete: (code, color, type, variety) {
                           setState(() {

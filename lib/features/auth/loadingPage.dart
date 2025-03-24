@@ -31,6 +31,11 @@ class _LoadingPageState extends State<LoadingPage>
   void initState() {
     super.initState();
     _initializeAnimations();
+
+    // Start animation immediately
+    _controller.forward();
+
+    // Delay the navigation, not the animation
     _loadData();
   }
 
@@ -183,19 +188,32 @@ class _LoadingPageState extends State<LoadingPage>
             colors: [AppColors.primary, AppColors.secondary],
           ),
         ),
-        child: Center(
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder:
-                (context, child) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildLogo(),
-                    const SizedBox(height: 40),
-                    _buildLoadingIndicator(),
-                  ],
-                ),
-          ),
+        child: Stack(
+          children: [
+            Center(
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder:
+                    (context, child) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildLogo(),
+                        const SizedBox(height: 40),
+                        _buildLoadingIndicator(),
+                      ],
+                    ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 30,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) => Center(child: _buildCompanyName()),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -206,22 +224,26 @@ class _LoadingPageState extends State<LoadingPage>
       opacity: _fadeAnimation.value,
       child: Transform.scale(
         scale: _scaleAnimation.value,
-        child: Container(
-          width: 200,
-          height: 200,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-            ],
+        child: Center(
+          child: Container(
+            width: 200,
+            height: 200,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black, // Changed to black
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Center(
+              child: Image.asset('assets/logo.png', fit: BoxFit.contain),
+            ),
           ),
-          child: Image.asset('assets/logo.png', fit: BoxFit.contain),
         ),
       ),
     );
@@ -260,6 +282,26 @@ class _LoadingPageState extends State<LoadingPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCompanyName() {
+    // Remove the Opacity widget since we're controlling animation elsewhere
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Text(
+        'Powered by LUMORA VENTURES PVT LTD',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          letterSpacing: 0.5,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

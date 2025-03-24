@@ -477,7 +477,10 @@
      "colonyprice" : "The price of a colony",
      "colonyquantity" : "Colony Quantity",
       "honeybottlesprice" : "Honney bottles price",
-      "honeybottlesquantity" : "Honney bottles quantity"
+      "honeybottlesquantity" : "Honney bottles quantity",
+      "welcomeText" : "Welcome to Aswenna",
+      "marketPlace": "Your Agriculture  MarketPlace",
+      "loading" : "Loading"
 
 
 
