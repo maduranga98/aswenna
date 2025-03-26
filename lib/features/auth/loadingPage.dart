@@ -234,7 +234,7 @@ class _LoadingPageState extends State<LoadingPage>
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -291,7 +291,7 @@ class _LoadingPageState extends State<LoadingPage>
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(20),
       ),
       child: const Text(
