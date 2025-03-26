@@ -137,14 +137,23 @@ class FirestoreService {
     int pageSize = 10,
     Map<String, dynamic>? filters,
     String? orderBy,
-    bool descending = false,
+    bool descending = true,
   }) async {
     try {
+      // Use your existing path construction method
       final String collectionPath = FirestorePaths.getItemPath(pathSegments);
+
+      // Validate the path before proceeding
+      if (collectionPath.isEmpty || !collectionPath.contains('/')) {
+        throw ArgumentError(
+          'Invalid collection path: $collectionPath from segments: $pathSegments',
+        );
+      }
+
       Query query = _firestore.collection(collectionPath);
 
       // Apply filters if provided
-      if (filters != null) {
+      if (filters != null && filters.isNotEmpty) {
         filters.forEach((key, value) {
           if (value != null) {
             query = query.where(key, isEqualTo: value);
@@ -152,13 +161,11 @@ class FirestoreService {
         });
       }
 
-      // Apply ordering if provided
-      if (orderBy != null) {
-        query = query.orderBy(orderBy, descending: descending);
-      } else {
-        // Default ordering by creation date
-        query = query.orderBy('createdAt', descending: true);
-      }
+      // Apply ordering
+      query = query.orderBy(orderBy ?? 'createdAt', descending: descending);
+
+      // Add secondary sort for stable pagination
+      query = query.orderBy(FieldPath.documentId, descending: descending);
 
       // Apply pagination
       if (lastDocument != null) {
@@ -170,6 +177,14 @@ class FirestoreService {
       return await query.get();
     } catch (e) {
       print('Error getting paginated items: $e');
+
+      // Log more details about the error
+      if (e is ArgumentError) {
+        print('Path construction error: ${e.message}');
+      } else if (e is FirebaseException) {
+        print('Firebase error: ${e.code} - ${e.message}');
+      }
+
       throw e;
     }
   }

@@ -1,5 +1,6 @@
 import 'package:aswenna/data/model/category_model.dart';
 import 'package:aswenna/features/auth/login.dart';
+import 'package:aswenna/features/purchase%20history/PurchaseHistoryScreen.dart';
 import 'package:aswenna/widgets/language_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -371,7 +372,13 @@ class _HomePageState extends State<HomePage> {
             _buildDrawerItem(
               icon: Icons.shopping_bag_outlined,
               title: localization.purchased,
-              onTap: () {},
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PurchaseHistoryScreen(),
+                    ),
+                  ),
             ),
             _buildDrawerItem(
               icon: Icons.sell_outlined,

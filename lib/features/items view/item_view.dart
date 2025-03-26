@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
+import 'package:aswenna/features/items%20view/item_purchase_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -107,6 +108,55 @@ class _ItemViewPageState extends State<ItemViewPage> {
       setState(() {
         isOwner = itemData['userId'] == _firestoreService.currentUserId;
       });
+    }
+  }
+
+  Future<void> _navigateToPurchasePage() async {
+    // Make sure we have a document ID and path segments
+    if (widget.documentId == null || widget.pathSegments == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Cannot process this purchase due to missing information',
+          ),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
+    // Make sure the item has a quantity field
+    final currentQuantity =
+        int.tryParse(itemData['kg']?.toString() ?? '0') ?? 0;
+    if (currentQuantity <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('This item is out of stock'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
+    // Navigate to the purchase page
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => ItemPurchasePage(
+              documentId: widget.documentId!,
+              pathSegments: widget.pathSegments!,
+              itemData: itemData,
+              currentQuantity: currentQuantity,
+            ),
+      ),
+    );
+
+    // If the purchase was successful, refresh data or return to previous screen
+    if (result == true) {
+      // If you want to refresh the item data, you could do it here
+      // Otherwise just pass the result back to the previous screen
+      Navigator.pop(context, true);
     }
   }
 
@@ -518,10 +568,18 @@ class _ItemViewPageState extends State<ItemViewPage> {
     );
   }
 
-  // This code focuses on the key improvements needed in your _processPurchase method
-
   Future<void> _processPurchase() async {
-    int quantity = 1;
+    // Check if we have kg information (required for purchases)
+    if (itemData['kg'] == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('This item cannot be purchased'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
     // Check if user is trying to buy their own item
     if (itemData['userId'] == _firestoreService.currentUserId) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -544,12 +602,8 @@ class _ItemViewPageState extends State<ItemViewPage> {
       return;
     }
 
-    // Determine maximum available quantity - FIXED: default to 1 if not present
-    final int availableQuantity =
-        itemData['quantity'] != null
-            ? int.tryParse(itemData['quantity'].toString()) ?? 1
-            : 1;
-
+    // Check if there's available quantity
+    final int availableQuantity = int.tryParse(itemData['kg'].toString()) ?? 0;
     if (availableQuantity <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -560,104 +614,7 @@ class _ItemViewPageState extends State<ItemViewPage> {
       return;
     }
 
-    // Rest of your implementation is good, including the quantity dialog...
-
-    // After the quantity selection and confirmation, when saving to Firestore:
-    try {
-      // Your code for getting user IDs and preparing transaction data...
-
-      // IMPORTANT FIX: Use a consistent approach for seller ID
-      final String buyerId = _firestoreService.currentUserId ?? '';
-      final String sellerId = itemData['userId'] ?? widget.ownerId ?? '';
-
-      if (buyerId.isEmpty || sellerId.isEmpty) {
-        throw Exception('Invalid buyer or seller ID');
-      }
-
-      // Verify that the item still exists and has sufficient quantity
-      final docPath =
-          'products/${sellerId}/${widget.mainNameE.toLowerCase()}/${widget.documentId}';
-      final DocumentSnapshot productDoc =
-          await FirebaseFirestore.instance.doc(docPath).get();
-
-      if (!productDoc.exists) {
-        throw Exception('Product no longer exists');
-      }
-
-      // Check if quantity is still available (could have changed while user was deciding)
-      final Map<String, dynamic> productData =
-          productDoc.data() as Map<String, dynamic>;
-      final int currentAvailableQuantity =
-          int.tryParse(productData['quantity']?.toString() ?? '0') ?? 0;
-
-      if (currentAvailableQuantity < quantity) {
-        throw Exception('Only $currentAvailableQuantity item(s) available');
-      }
-
-      // Create a batch write to ensure all operations succeed or fail together
-      final batch = FirebaseFirestore.instance.batch();
-
-      // 1. Update product quantity in original listing
-      final newQuantity = currentAvailableQuantity - quantity;
-      final DocumentReference productRef = FirebaseFirestore.instance
-          .collection('products')
-          .doc(sellerId)
-          .collection(widget.mainNameE.toLowerCase())
-          .doc(widget.documentId);
-
-      batch.update(productRef, {'quantity': newQuantity.toString()});
-
-      // 2. Add to buyer's purchases
-      final DocumentReference buyerRef =
-          FirebaseFirestore.instance
-              .collection('products')
-              .doc(buyerId)
-              .collection('purchases')
-              .doc();
-
-      // batch.set(buyerRef, transactionData);
-
-      // 3. Add to seller's sales
-      final DocumentReference sellerRef =
-          FirebaseFirestore.instance
-              .collection('products')
-              .doc(sellerId)
-              .collection('sales')
-              .doc();
-
-      // batch.set(sellerRef, transactionData);
-
-      // Commit the batch
-      await batch.commit();
-
-      // Update local state to reflect changes
-      setState(() {
-        itemData['quantity'] = newQuantity.toString();
-      });
-
-      // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Purchase successful!'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } catch (e) {
-      // Show error message with cleaner formatting
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Error: ${e.toString().replaceAll(RegExp(r'Exception: '), '')}',
-          ),
-          backgroundColor: AppColors.error,
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } finally {
-      // Make sure to close the loading dialog in all cases
-      Navigator.of(context, rootNavigator: true).pop();
-    }
+    await _navigateToPurchasePage();
   }
 
   @override

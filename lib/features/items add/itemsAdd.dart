@@ -2,11 +2,10 @@
 
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
-import 'package:aswenna/widgets/districtFilter.dart';
+import 'package:aswenna/widgets/LocalizedDistrictFilter.dart';
 import 'package:aswenna/widgets/paddySelector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:googleapis/androidmanagement/v1.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,7 +28,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   final detailsController = TextEditingController();
   final qunatityController = TextEditingController();
 
-  String? selectedDistrict, selectedDso;
+  String? selectedDistrictEn, selectedDistrictLocalized;
+  String? selectedDsoEn, selectedDsoLocalized;
   List<File?> selectedImages = List.filled(5, null);
   List<String> imageUrls = List.filled(5, '');
   bool isUploading = false;
@@ -93,7 +93,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
       final compressedFile = await compressAndFormatImage(imageFile);
       return compressedFile;
     } catch (e) {
-      print('Error processing image: $e');
       return imageFile;
     }
   }
@@ -160,7 +159,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   Future<void> saveItem() async {
     if (!_formKey.currentState!.validate()) return;
 
-    if (selectedDistrict == null || selectedDso == null) {
+    if (selectedDistrictEn == null || selectedDsoEn == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please select district and DSO'),
@@ -180,8 +179,14 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
 
       // Prepare data for Firestore
       Map<String, dynamic> itemData = {
-        'district': selectedDistrict,
-        'dso': selectedDso,
+        // English values for database queries
+        'district': selectedDistrictEn,
+        'dso': selectedDsoEn,
+
+        // Localized values for display (optional but recommended)
+        'districtLocalized': selectedDistrictLocalized,
+        'dsoLocalized': selectedDsoLocalized,
+
         'details': detailsController.text.trim(),
         'date': DateTime.now().toIso8601String(),
       };
@@ -680,11 +685,18 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     SizedBox(height: 16),
 
                     // District and DSO selector
-                    DistrictFilter(
-                      onSelectionChanged: (district, dso) {
+                    LocalizedDistrictFilter(
+                      onSelectionChanged: (
+                        districtEn,
+                        districtLocalized,
+                        dsoEn,
+                        dsoLocalized,
+                      ) {
                         setState(() {
-                          selectedDistrict = district;
-                          selectedDso = dso;
+                          selectedDistrictEn = districtEn;
+                          selectedDistrictLocalized = districtLocalized;
+                          selectedDsoEn = dsoEn;
+                          selectedDsoLocalized = dsoLocalized;
                         });
                       },
                     ),
