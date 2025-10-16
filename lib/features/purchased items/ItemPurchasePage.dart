@@ -1,9 +1,9 @@
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ItemPurchasePage extends StatefulWidget {
@@ -61,11 +61,10 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
   Future<void> _prefillUserData() async {
     if (_firestoreService.currentUserId != null) {
       try {
-        final userDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(_firestoreService.currentUserId)
-                .get();
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_firestoreService.currentUserId)
+            .get();
 
         if (userDoc.exists) {
           final userData = userDoc.data();
@@ -177,19 +176,19 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
         batch.update(itemRef, {'kg': updatedQuantity});
 
         // 2. Create purchase record
-        final purchaseRef =
-            FirebaseFirestore.instance.collection('purchases').doc();
+        final purchaseRef = FirebaseFirestore.instance
+            .collection('purchases')
+            .doc();
 
         batch.set(purchaseRef, purchaseData);
 
         // 3. Add to user's purchases if user is logged in
         if (_firestoreService.currentUserId != null) {
-          final userPurchaseRef =
-              FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(_firestoreService.currentUserId)
-                  .collection('purchases')
-                  .doc();
+          final userPurchaseRef = FirebaseFirestore.instance
+              .collection('users')
+              .doc(_firestoreService.currentUserId)
+              .collection('purchases')
+              .doc();
 
           batch.set(userPurchaseRef, {
             ...purchaseData,
@@ -199,12 +198,11 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
 
         // 4. Add notification for seller
         if (widget.itemData?['userId'] != null) {
-          final notificationRef =
-              FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(widget.itemData!['userId'])
-                  .collection('notifications')
-                  .doc();
+          final notificationRef = FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.itemData!['userId'])
+              .collection('notifications')
+              .doc();
 
           batch.set(notificationRef, {
             'type': 'purchase',
@@ -410,10 +408,9 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body:
-          _isLoading
-              ? _buildLoadingIndicator()
-              : _buildPurchaseForm(context, localization),
+      body: _isLoading
+          ? _buildLoadingIndicator()
+          : _buildPurchaseForm(context, localization),
     );
   }
 
@@ -481,10 +478,9 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
                     Text(
                       'Remaining after purchase: $_remainingQuantity kg',
                       style: TextStyle(
-                        color:
-                            _remainingQuantity < 5
-                                ? Colors.orange
-                                : AppColors.textLight,
+                        color: _remainingQuantity < 5
+                            ? Colors.orange
+                            : AppColors.textLight,
                         fontStyle: FontStyle.italic,
                         fontSize: 13,
                       ),
@@ -599,22 +595,21 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
-                  children:
-                      _paymentMethods
-                          .map(
-                            (method) => RadioListTile<String>(
-                              title: Text(method),
-                              value: method,
-                              groupValue: _selectedPaymentMethod,
-                              activeColor: AppColors.primary,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedPaymentMethod = value!;
-                                });
-                              },
-                            ),
-                          )
-                          .toList(),
+                  children: _paymentMethods
+                      .map(
+                        (method) => RadioListTile<String>(
+                          title: Text(method),
+                          value: method,
+                          groupValue: _selectedPaymentMethod,
+                          activeColor: AppColors.primary,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedPaymentMethod = value!;
+                            });
+                          },
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
 

@@ -1,11 +1,11 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/auth/signUp.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_slider/source/presentation/pages/introduction_slider.dart';
 import 'package:introduction_slider/source/presentation/widgets/buttons.dart';
 import 'package:introduction_slider/source/presentation/widgets/dot_indicator.dart';
 import 'package:introduction_slider/source/presentation/widgets/introduction_slider_item.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});

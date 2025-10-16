@@ -1,9 +1,9 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/data/constants/converters/connectors.dart';
 import 'package:aswenna/data/constants/list_data.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DistrictFilter extends StatefulWidget {
   final void Function(String?, String?) onSelectionChanged;
@@ -134,29 +134,27 @@ class _DistrictFilterState extends State<DistrictFilter> {
           _buildDropdown(
             label: localizations.district,
             value: district,
-            items:
-                itemsMap.entries
-                    .map(
-                      (e) => DropdownMenuItem<String>(
-                        value: e.value,
-                        child: Text(
-                          e.key,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: AppColors.text,
-                          ),
-                        ),
+            items: itemsMap.entries
+                .map(
+                  (e) => DropdownMenuItem<String>(
+                    value: e.value,
+                    child: Text(
+                      e.key,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.text,
                       ),
-                    )
-                    .toList(),
+                    ),
+                  ),
+                )
+                .toList(),
             onChanged: (String? newValue) {
               setState(() {
                 district = newValue;
                 dso = null;
-                dsoMap =
-                    newValue != null
-                        ? districtToDSOConnector(localizations, newValue)
-                        : {};
+                dsoMap = newValue != null
+                    ? districtToDSOConnector(localizations, newValue)
+                    : {};
                 widget.onSelectionChanged(district, dso);
               });
             },
@@ -166,21 +164,20 @@ class _DistrictFilterState extends State<DistrictFilter> {
           _buildDropdown(
             label: localizations.dso,
             value: dso,
-            items:
-                dsoMap.entries
-                    .map(
-                      (e) => DropdownMenuItem<String>(
-                        value: e.key,
-                        child: Text(
-                          e.value,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: AppColors.text,
-                          ),
-                        ),
+            items: dsoMap.entries
+                .map(
+                  (e) => DropdownMenuItem<String>(
+                    value: e.key,
+                    child: Text(
+                      e.value,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.text,
                       ),
-                    )
-                    .toList(),
+                    ),
+                  ),
+                )
+                .toList(),
             onChanged: (String? value) {
               setState(() {
                 dso = value;

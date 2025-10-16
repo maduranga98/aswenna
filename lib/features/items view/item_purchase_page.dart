@@ -1,9 +1,9 @@
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ItemPurchasePage extends StatefulWidget {
   final String documentId;
@@ -173,175 +173,162 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
         ),
         centerTitle: true,
       ),
-      body:
-          _isProcessing
-              ? _buildLoadingIndicator()
-              : SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Item Information Card
-                      _buildItemInfoCard(),
+      body: _isProcessing
+          ? _buildLoadingIndicator()
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Item Information Card
+                    _buildItemInfoCard(),
 
-                      const SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
-                      // Purchase Information Form
-                      Text(
-                        'Purchase Details',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.text,
+                    // Purchase Information Form
+                    Text(
+                      'Purchase Details',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.text,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Quantity Field
+                    TextFormField(
+                      controller: _quantityController,
+                      decoration: InputDecoration(
+                        labelText: 'Quantity (kg)',
+                        hintText: 'Enter purchase quantity',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        prefixIcon: Icon(Icons.scale, color: AppColors.primary),
+                        suffixText: 'kg',
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      validator: _validateQuantity,
+                      onChanged: (value) {
+                        // Optional: Update a preview of remaining quantity
+                        final purchaseQuantity = int.tryParse(value) ?? 0;
+                        if (purchaseQuantity <= widget.currentQuantity) {
+                          setState(() {
+                            _remainingQuantity =
+                                widget.currentQuantity - purchaseQuantity;
+                          });
+                        }
+                      },
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    // Remaining Quantity Indicator
+                    Text(
+                      'Remaining after purchase: $_remainingQuantity kg',
+                      style: TextStyle(
+                        color: _remainingQuantity < 5
+                            ? Colors.orange
+                            : AppColors.textLight,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Buyer Name Field
+                    TextFormField(
+                      controller: _buyerNameController,
+                      decoration: InputDecoration(
+                        labelText: 'Buyer Name',
+                        hintText: 'Enter buyer\'s name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.primary,
                         ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter buyer name';
+                        }
+                        return null;
+                      },
+                    ),
 
-                      const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                      // Quantity Field
-                      TextFormField(
-                        controller: _quantityController,
-                        decoration: InputDecoration(
-                          labelText: 'Quantity (kg)',
-                          hintText: 'Enter purchase quantity',
-                          border: OutlineInputBorder(
+                    // Buyer Contact Field
+                    TextFormField(
+                      controller: _buyerContactController,
+                      decoration: InputDecoration(
+                        labelText: 'Contact Number',
+                        hintText: 'Enter buyer\'s contact number',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        prefixIcon: Icon(Icons.phone, color: AppColors.primary),
+                      ),
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter contact number';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Notes Field
+                    TextFormField(
+                      controller: _notesController,
+                      decoration: InputDecoration(
+                        labelText: 'Notes (Optional)',
+                        hintText: 'Enter any additional notes',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        prefixIcon: Icon(Icons.note, color: AppColors.primary),
+                      ),
+                      maxLines: 3,
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // Purchase Button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _processPurchase,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.accent,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          prefixIcon: Icon(
-                            Icons.scale,
-                            color: AppColors.primary,
-                          ),
-                          suffixText: 'kg',
                         ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        validator: _validateQuantity,
-                        onChanged: (value) {
-                          // Optional: Update a preview of remaining quantity
-                          final purchaseQuantity = int.tryParse(value) ?? 0;
-                          if (purchaseQuantity <= widget.currentQuantity) {
-                            setState(() {
-                              _remainingQuantity =
-                                  widget.currentQuantity - purchaseQuantity;
-                            });
-                          }
-                        },
-                      ),
-
-                      const SizedBox(height: 8),
-
-                      // Remaining Quantity Indicator
-                      Text(
-                        'Remaining after purchase: $_remainingQuantity kg',
-                        style: TextStyle(
-                          color:
-                              _remainingQuantity < 5
-                                  ? Colors.orange
-                                  : AppColors.textLight,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // Buyer Name Field
-                      TextFormField(
-                        controller: _buyerNameController,
-                        decoration: InputDecoration(
-                          labelText: 'Buyer Name',
-                          hintText: 'Enter buyer\'s name',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter buyer name';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // Buyer Contact Field
-                      TextFormField(
-                        controller: _buyerContactController,
-                        decoration: InputDecoration(
-                          labelText: 'Contact Number',
-                          hintText: 'Enter buyer\'s contact number',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.phone,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        keyboardType: TextInputType.phone,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter contact number';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // Notes Field
-                      TextFormField(
-                        controller: _notesController,
-                        decoration: InputDecoration(
-                          labelText: 'Notes (Optional)',
-                          hintText: 'Enter any additional notes',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.note,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        maxLines: 3,
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Purchase Button
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _processPurchase,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.accent,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            'Complete Purchase',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        child: Text(
+                          'Complete Purchase',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
     );
   }
 

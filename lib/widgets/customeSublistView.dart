@@ -7,10 +7,10 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/data/constants/converters/connectors.dart';
 import 'package:aswenna/data/constants/converters/converters.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/widgets/sellinPage.dart';
 import 'package:aswenna/widgets/tabbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomeSubListView extends StatefulWidget {
   final String listname, title, lan, mainName, mainNameE, firstLNameE;
@@ -228,15 +228,14 @@ class _CustomeSubListViewState extends State<CustomeSubListView>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CustomeSubListView(
-              mainName: widget.mainName,
-              lan: widget.lan,
-              listname: EnList[index],
-              title: list[index],
-              mainNameE: widget.mainNameE,
-              firstLNameE: widget.firstLNameE,
-            ),
+        builder: (context) => CustomeSubListView(
+          mainName: widget.mainName,
+          lan: widget.lan,
+          listname: EnList[index],
+          title: list[index],
+          mainNameE: widget.mainNameE,
+          firstLNameE: widget.firstLNameE,
+        ),
       ),
     );
   }
@@ -245,12 +244,11 @@ class _CustomeSubListViewState extends State<CustomeSubListView>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CustomTabBar(
-              tabNames: _getTabNames(index, context),
-              tabWidgets: _buildTabWidgets(index, context),
-              title: list[index],
-            ),
+        builder: (context) => CustomTabBar(
+          tabNames: _getTabNames(index, context),
+          tabWidgets: _buildTabWidgets(index, context),
+          title: list[index],
+        ),
       ),
     );
   }

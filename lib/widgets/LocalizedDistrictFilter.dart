@@ -1,6 +1,6 @@
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/data/constants/list_data.dart';
 import 'package:aswenna/data/constants/converters/connectors.dart';
@@ -161,32 +161,30 @@ class _LocalizedDistrictFilterState extends State<LocalizedDistrictFilter> {
     final districtsMap = districtsSet(localizations);
 
     // For district dropdown, we show localized values
-    List<DropdownMenuItem<String>> districtItems =
-        districtsMap.entries
-            .map(
-              (e) => DropdownMenuItem<String>(
-                value: e.value, // Display and select the localized value
-                child: Text(
-                  e.value,
-                  style: const TextStyle(fontSize: 14, color: AppColors.text),
-                ),
-              ),
-            )
-            .toList();
+    List<DropdownMenuItem<String>> districtItems = districtsMap.entries
+        .map(
+          (e) => DropdownMenuItem<String>(
+            value: e.value, // Display and select the localized value
+            child: Text(
+              e.value,
+              style: const TextStyle(fontSize: 14, color: AppColors.text),
+            ),
+          ),
+        )
+        .toList();
 
     // For DSO dropdown, use the same pattern as your existing code
-    List<DropdownMenuItem<String>> dsoItems =
-        dsoMap.entries
-            .map(
-              (e) => DropdownMenuItem<String>(
-                value: e.value, // Display and select the localized value
-                child: Text(
-                  e.value,
-                  style: const TextStyle(fontSize: 14, color: AppColors.text),
-                ),
-              ),
-            )
-            .toList();
+    List<DropdownMenuItem<String>> dsoItems = dsoMap.entries
+        .map(
+          (e) => DropdownMenuItem<String>(
+            value: e.value, // Display and select the localized value
+            child: Text(
+              e.value,
+              style: const TextStyle(fontSize: 14, color: AppColors.text),
+            ),
+          ),
+        )
+        .toList();
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -213,10 +211,9 @@ class _LocalizedDistrictFilterState extends State<LocalizedDistrictFilter> {
                   dsoEn = null;
                   dsoLocalized = null;
                   // Get DSO mapping for this district
-                  dsoMap =
-                      newEnValue != null
-                          ? districtToDSOConnector(localizations, newEnValue)
-                          : {};
+                  dsoMap = newEnValue != null
+                      ? districtToDSOConnector(localizations, newEnValue)
+                      : {};
                 });
 
                 // Notify parent with both English and localized values

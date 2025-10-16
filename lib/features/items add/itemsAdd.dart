@@ -2,10 +2,10 @@
 
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/widgets/LocalizedDistrictFilter.dart';
 import 'package:aswenna/widgets/paddySelector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -337,16 +337,14 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                 onTap: () => !isUploading ? pickImage(index) : null,
                 child: Container(
                   decoration: BoxDecoration(
-                    color:
-                        hasImage
-                            ? Colors.transparent
-                            : Colors.white.withValues(alpha: 0.1),
+                    color: hasImage
+                        ? Colors.transparent
+                        : Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color:
-                          hasImage
-                              ? AppColors.accent
-                              : Colors.white.withValues(alpha: 0.2),
+                      color: hasImage
+                          ? AppColors.accent
+                          : Colors.white.withValues(alpha: 0.2),
                       width: 1.5,
                     ),
                   ),
@@ -532,18 +530,15 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     duration: Duration(milliseconds: 200),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow:
-                          isFocused
-                              ? [
-                                BoxShadow(
-                                  color: AppColors.accent.withValues(
-                                    alpha: 0.25,
-                                  ),
-                                  blurRadius: 8,
-                                  offset: Offset(0, 2),
-                                ),
-                              ]
-                              : [],
+                      boxShadow: isFocused
+                          ? [
+                              BoxShadow(
+                                color: AppColors.accent.withValues(alpha: 0.25),
+                                blurRadius: 8,
+                                offset: Offset(0, 2),
+                              ),
+                            ]
+                          : [],
                     ),
                     child: TextFormField(
                       controller: controller,
@@ -686,19 +681,15 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
 
                     // District and DSO selector
                     LocalizedDistrictFilter(
-                      onSelectionChanged: (
-                        districtEn,
-                        districtLocalized,
-                        dsoEn,
-                        dsoLocalized,
-                      ) {
-                        setState(() {
-                          selectedDistrictEn = districtEn;
-                          selectedDistrictLocalized = districtLocalized;
-                          selectedDsoEn = dsoEn;
-                          selectedDsoLocalized = dsoLocalized;
-                        });
-                      },
+                      onSelectionChanged:
+                          (districtEn, districtLocalized, dsoEn, dsoLocalized) {
+                            setState(() {
+                              selectedDistrictEn = districtEn;
+                              selectedDistrictLocalized = districtLocalized;
+                              selectedDsoEn = dsoEn;
+                              selectedDsoLocalized = dsoLocalized;
+                            });
+                          },
                     ),
                     SizedBox(height: 16),
 
@@ -734,8 +725,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           Expanded(
                             child: _buildInputField(
                               controller: priceController,
-                              label:
-                                  AppLocalizations.of(context)!.priceForOnekg,
+                              label: AppLocalizations.of(
+                                context,
+                              )!.priceForOnekg,
                               hint: 'Enter price for a kg',
                               keyboardType: TextInputType.number,
                             ),
@@ -858,8 +850,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     ] else if (widget.paths.contains('honey')) ...[
                       _buildInputField(
                         controller: qunatityController,
-                        label:
-                            AppLocalizations.of(context)!.honeybottlesquantity,
+                        label: AppLocalizations.of(
+                          context,
+                        )!.honeybottlesquantity,
                         hint: 'Enter Quantity',
                         keyboardType: TextInputType.number,
                       ),
@@ -917,27 +910,26 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           ),
                           elevation: 0,
                         ),
-                        child:
-                            isSaving
-                                ? SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white,
-                                    ),
-                                    strokeWidth: 2,
+                        child: isSaving
+                            ? SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.white,
                                   ),
-                                )
-                                : Text(
-                                  AppLocalizations.of(context)!.addItems,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.5,
-                                  ),
+                                  strokeWidth: 2,
                                 ),
+                              )
+                            : Text(
+                                AppLocalizations.of(context)!.addItems,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
                       ),
                     ),
                   ],

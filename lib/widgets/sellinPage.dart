@@ -30,7 +30,7 @@ import 'package:aswenna/features/items%20add/itemsAdd.dart';
 import 'package:aswenna/features/items%20view/item_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -143,11 +143,10 @@ class _CustomSellingPageState extends State<CustomSellingPage>
   }
 
   Future<void> sendNotification(String sellerId, String message) async {
-    DocumentSnapshot sellerDoc =
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(sellerId)
-            .get();
+    DocumentSnapshot sellerDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(sellerId)
+        .get();
 
     String? sellerToken = sellerDoc.get('fcmToken');
     const String serverKey = 'YOUR_SERVER_KEY';
@@ -267,26 +266,27 @@ class _CustomSellingPageState extends State<CustomSellingPage>
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder:
-                    (context) => ItemViewPage(
-                      district: doc["district"],
-                      dso: doc["dso"],
-                      mainNameE: mainName,
-                      secondNameE: widget.secondLNameE,
-                      imagelink1:
-                          (doc["image1URL"] == null) ? '' : doc["image1URL"],
-                      imagelink2:
-                          (doc["image2URL"] == null) ? '' : doc["image2URL"],
-                      arces: doc["acres"],
-                      perches: doc["perches"],
-                      price: doc["price"],
-                      date: (doc["date"] == null) ? '' : doc["date"],
-                      details: doc["details"],
-                      userId: 'uid',
-                      ownerId: 'ownerid',
-                      rates: '5',
-                      fcmToken: '',
-                    ),
+                builder: (context) => ItemViewPage(
+                  district: doc["district"],
+                  dso: doc["dso"],
+                  mainNameE: mainName,
+                  secondNameE: widget.secondLNameE,
+                  imagelink1: (doc["image1URL"] == null)
+                      ? ''
+                      : doc["image1URL"],
+                  imagelink2: (doc["image2URL"] == null)
+                      ? ''
+                      : doc["image2URL"],
+                  arces: doc["acres"],
+                  perches: doc["perches"],
+                  price: doc["price"],
+                  date: (doc["date"] == null) ? '' : doc["date"],
+                  details: doc["details"],
+                  userId: 'uid',
+                  ownerId: 'ownerid',
+                  rates: '5',
+                  fcmToken: '',
+                ),
               ),
             );
           },
@@ -346,13 +346,12 @@ class _CustomSellingPageState extends State<CustomSellingPage>
         ),
       ),
       clipBehavior: Clip.antiAlias,
-      child:
-          doc["image1URL"] != 'image1Url'
-              ? Image.network(doc["image1URL"], fit: BoxFit.cover)
-              : Image(
-                image: AssetImage("assets/img/lands.webp"),
-                fit: BoxFit.cover,
-              ),
+      child: doc["image1URL"] != 'image1Url'
+          ? Image.network(doc["image1URL"], fit: BoxFit.cover)
+          : Image(
+              image: AssetImage("assets/img/lands.webp"),
+              fit: BoxFit.cover,
+            ),
     );
   }
 
