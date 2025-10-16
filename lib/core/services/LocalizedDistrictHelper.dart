@@ -1,5 +1,5 @@
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:aswenna/data/constants/list_data.dart';
 import 'package:aswenna/data/constants/converters/connectors.dart';
 
@@ -56,8 +56,8 @@ class LocalizedDistrictHelper {
       String districtDisplay = item['districtLocalized'];
       String dsoDisplay =
           item.containsKey('dsoLocalized') && item['dsoLocalized'] != null
-              ? item['dsoLocalized']
-              : getLocalizedDSO(context, item['district'], item['dso']);
+          ? item['dsoLocalized']
+          : getLocalizedDSO(context, item['district'], item['dso']);
 
       return '$districtDisplay - $dsoDisplay';
     }

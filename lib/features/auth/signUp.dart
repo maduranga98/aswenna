@@ -1,12 +1,12 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/auth/login.dart';
 import 'package:aswenna/features/auth/profileCompltion.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -237,21 +237,18 @@ class _SignUpState extends State<SignUp> {
           labelText: label,
           labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.8)),
           prefixIcon: Icon(icon, color: Colors.white.withValues(alpha: 0.8)),
-          suffixIcon:
-              isPassword
-                  ? IconButton(
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Colors.white.withValues(alpha: 0.8),
-                    ),
-                    onPressed:
-                        () => setState(
-                          () => _isPasswordVisible = !_isPasswordVisible,
-                        ),
-                  )
-                  : null,
+          suffixIcon: isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: Colors.white.withValues(alpha: 0.8),
+                  ),
+                  onPressed: () =>
+                      setState(() => _isPasswordVisible = !_isPasswordVisible),
+                )
+              : null,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
           hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
@@ -357,25 +354,24 @@ class _SignUpState extends State<SignUp> {
                       ),
                       elevation: 0,
                     ),
-                    child:
-                        _isLoading
-                            ? SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  AppColors.primary,
-                                ),
-                              ),
-                            )
-                            : Text(
-                              AppLocalizations.of(context)!.signup,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                    child: _isLoading
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColors.primary,
                               ),
                             ),
+                          )
+                        : Text(
+                            AppLocalizations.of(context)!.signup,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
 
                   const SizedBox(height: 24),

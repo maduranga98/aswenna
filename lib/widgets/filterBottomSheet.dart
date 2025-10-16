@@ -3,8 +3,8 @@ import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/data/constants/converters/connectors.dart';
 import 'package:aswenna/data/constants/list_data.dart';
 import 'package:aswenna/data/model/filterdata_model.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class FilterBottomSheet extends StatefulWidget {
@@ -274,32 +274,30 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     final districtsMap = districtsSet(localizations);
 
     // For district dropdown, we show localized values
-    List<DropdownMenuItem<String>> districtItems =
-        districtsMap.entries
-            .map(
-              (e) => DropdownMenuItem<String>(
-                value: e.value, // Display and select the localized value
-                child: Text(
-                  e.value,
-                  style: const TextStyle(fontSize: 14, color: AppColors.text),
-                ),
-              ),
-            )
-            .toList();
+    List<DropdownMenuItem<String>> districtItems = districtsMap.entries
+        .map(
+          (e) => DropdownMenuItem<String>(
+            value: e.value, // Display and select the localized value
+            child: Text(
+              e.value,
+              style: const TextStyle(fontSize: 14, color: AppColors.text),
+            ),
+          ),
+        )
+        .toList();
 
     // For DSO dropdown, use the same pattern as your existing code
-    List<DropdownMenuItem<String>> dsoItems =
-        dsoMap.entries
-            .map(
-              (e) => DropdownMenuItem<String>(
-                value: e.value, // Display and select the localized value
-                child: Text(
-                  e.value,
-                  style: const TextStyle(fontSize: 14, color: AppColors.text),
-                ),
-              ),
-            )
-            .toList();
+    List<DropdownMenuItem<String>> dsoItems = dsoMap.entries
+        .map(
+          (e) => DropdownMenuItem<String>(
+            value: e.value, // Display and select the localized value
+            child: Text(
+              e.value,
+              style: const TextStyle(fontSize: 14, color: AppColors.text),
+            ),
+          ),
+        )
+        .toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -321,10 +319,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   selectedDsoEn = null;
                   selectedDsoLocalized = null;
                   // Get DSO mapping for this district
-                  dsoMap =
-                      newEnValue != null
-                          ? districtToDSOConnector(localizations, newEnValue)
-                          : {};
+                  dsoMap = newEnValue != null
+                      ? districtToDSOConnector(localizations, newEnValue)
+                      : {};
                 });
               }
             },
@@ -515,10 +512,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
       ),
       side: BorderSide(
-        color:
-            isSelected
-                ? AppColors.accent
-                : AppColors.secondary.withValues(alpha: 0.3),
+        color: isSelected
+            ? AppColors.accent
+            : AppColors.secondary.withValues(alpha: 0.3),
       ),
       showCheckmark: false,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -566,34 +562,32 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children:
-          paddyCodes.map((code) {
-            final isSelected = selectedPaddyCode == code;
-            return FilterChip(
-              label: Text(code),
-              selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  selectedPaddyCode = selected ? code : null;
-                  selectedPaddyVariety = null;
-                });
-              },
-              backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withValues(alpha: 0.1),
-              labelStyle: TextStyle(
-                color: isSelected ? AppColors.accent : AppColors.textLight,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-              ),
-              side: BorderSide(
-                color:
-                    isSelected
-                        ? AppColors.accent
-                        : AppColors.secondary.withValues(alpha: 0.3),
-              ),
-              showCheckmark: false,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            );
-          }).toList(),
+      children: paddyCodes.map((code) {
+        final isSelected = selectedPaddyCode == code;
+        return FilterChip(
+          label: Text(code),
+          selected: isSelected,
+          onSelected: (selected) {
+            setState(() {
+              selectedPaddyCode = selected ? code : null;
+              selectedPaddyVariety = null;
+            });
+          },
+          backgroundColor: Colors.white,
+          selectedColor: AppColors.accent.withValues(alpha: 0.1),
+          labelStyle: TextStyle(
+            color: isSelected ? AppColors.accent : AppColors.textLight,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
+          side: BorderSide(
+            color: isSelected
+                ? AppColors.accent
+                : AppColors.secondary.withValues(alpha: 0.3),
+          ),
+          showCheckmark: false,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        );
+      }).toList(),
     );
   }
 
@@ -601,35 +595,33 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children:
-          paddyColors.map((color) {
-            final isSelected = selectedPaddyColor == color;
-            return FilterChip(
-              label: Text(color),
-              selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  selectedPaddyColor = selected ? color : null;
-                  selectedPaddyType = null;
-                  selectedPaddyVariety = null;
-                });
-              },
-              backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withValues(alpha: 0.1),
-              labelStyle: TextStyle(
-                color: isSelected ? AppColors.accent : AppColors.textLight,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-              ),
-              side: BorderSide(
-                color:
-                    isSelected
-                        ? AppColors.accent
-                        : AppColors.secondary.withValues(alpha: 0.3),
-              ),
-              showCheckmark: false,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            );
-          }).toList(),
+      children: paddyColors.map((color) {
+        final isSelected = selectedPaddyColor == color;
+        return FilterChip(
+          label: Text(color),
+          selected: isSelected,
+          onSelected: (selected) {
+            setState(() {
+              selectedPaddyColor = selected ? color : null;
+              selectedPaddyType = null;
+              selectedPaddyVariety = null;
+            });
+          },
+          backgroundColor: Colors.white,
+          selectedColor: AppColors.accent.withValues(alpha: 0.1),
+          labelStyle: TextStyle(
+            color: isSelected ? AppColors.accent : AppColors.textLight,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
+          side: BorderSide(
+            color: isSelected
+                ? AppColors.accent
+                : AppColors.secondary.withValues(alpha: 0.3),
+          ),
+          showCheckmark: false,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        );
+      }).toList(),
     );
   }
 
@@ -640,34 +632,32 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children:
-          types.map((type) {
-            final isSelected = selectedPaddyType == type;
-            return FilterChip(
-              label: Text(type),
-              selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  selectedPaddyType = selected ? type : null;
-                  selectedPaddyVariety = null;
-                });
-              },
-              backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withValues(alpha: 0.1),
-              labelStyle: TextStyle(
-                color: isSelected ? AppColors.accent : AppColors.textLight,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-              ),
-              side: BorderSide(
-                color:
-                    isSelected
-                        ? AppColors.accent
-                        : AppColors.secondary.withValues(alpha: 0.3),
-              ),
-              showCheckmark: false,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            );
-          }).toList(),
+      children: types.map((type) {
+        final isSelected = selectedPaddyType == type;
+        return FilterChip(
+          label: Text(type),
+          selected: isSelected,
+          onSelected: (selected) {
+            setState(() {
+              selectedPaddyType = selected ? type : null;
+              selectedPaddyVariety = null;
+            });
+          },
+          backgroundColor: Colors.white,
+          selectedColor: AppColors.accent.withValues(alpha: 0.1),
+          labelStyle: TextStyle(
+            color: isSelected ? AppColors.accent : AppColors.textLight,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
+          side: BorderSide(
+            color: isSelected
+                ? AppColors.accent
+                : AppColors.secondary.withValues(alpha: 0.3),
+          ),
+          showCheckmark: false,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        );
+      }).toList(),
     );
   }
 
@@ -678,33 +668,31 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children:
-          varieties.map((variety) {
-            final isSelected = selectedPaddyVariety == variety;
-            return FilterChip(
-              label: Text(variety),
-              selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  selectedPaddyVariety = selected ? variety : null;
-                });
-              },
-              backgroundColor: Colors.white,
-              selectedColor: AppColors.accent.withValues(alpha: 0.1),
-              labelStyle: TextStyle(
-                color: isSelected ? AppColors.accent : AppColors.textLight,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-              ),
-              side: BorderSide(
-                color:
-                    isSelected
-                        ? AppColors.accent
-                        : AppColors.secondary.withValues(alpha: 0.3),
-              ),
-              showCheckmark: false,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            );
-          }).toList(),
+      children: varieties.map((variety) {
+        final isSelected = selectedPaddyVariety == variety;
+        return FilterChip(
+          label: Text(variety),
+          selected: isSelected,
+          onSelected: (selected) {
+            setState(() {
+              selectedPaddyVariety = selected ? variety : null;
+            });
+          },
+          backgroundColor: Colors.white,
+          selectedColor: AppColors.accent.withValues(alpha: 0.1),
+          labelStyle: TextStyle(
+            color: isSelected ? AppColors.accent : AppColors.textLight,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
+          side: BorderSide(
+            color: isSelected
+                ? AppColors.accent
+                : AppColors.secondary.withValues(alpha: 0.3),
+          ),
+          showCheckmark: false,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        );
+      }).toList(),
     );
   }
 
@@ -727,73 +715,62 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-          varietiesByCode.entries.map((entry) {
-            final code = entry.key;
-            final varieties = entry.value;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    code,
-                    style: const TextStyle(
-                      color: AppColors.text,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
+      children: varietiesByCode.entries.map((entry) {
+        final code = entry.key;
+        final varieties = entry.value;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                code,
+                style: const TextStyle(
+                  color: AppColors.text,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: varieties.map((variety) {
+                final isSelected = selectedPaddyVariety == variety;
+                return FilterChip(
+                  label: Text(variety),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    setState(() {
+                      selectedPaddyVariety = selected ? variety : null;
+                      selectedPaddyCode = selected ? code : null;
+                    });
+                  },
+                  backgroundColor: Colors.white,
+                  selectedColor: AppColors.accent.withValues(alpha: 0.1),
+                  labelStyle: TextStyle(
+                    color: isSelected ? AppColors.accent : AppColors.textLight,
+                    fontWeight: isSelected
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                   ),
-                ),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children:
-                      varieties.map((variety) {
-                        final isSelected = selectedPaddyVariety == variety;
-                        return FilterChip(
-                          label: Text(variety),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            setState(() {
-                              selectedPaddyVariety = selected ? variety : null;
-                              selectedPaddyCode = selected ? code : null;
-                            });
-                          },
-                          backgroundColor: Colors.white,
-                          selectedColor: AppColors.accent.withValues(
-                            alpha: 0.1,
-                          ),
-                          labelStyle: TextStyle(
-                            color:
-                                isSelected
-                                    ? AppColors.accent
-                                    : AppColors.textLight,
-                            fontWeight:
-                                isSelected
-                                    ? FontWeight.w600
-                                    : FontWeight.normal,
-                          ),
-                          side: BorderSide(
-                            color:
-                                isSelected
-                                    ? AppColors.accent
-                                    : AppColors.secondary.withValues(
-                                      alpha: 0.3,
-                                    ),
-                          ),
-                          showCheckmark: false,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                        );
-                      }).toList(),
-                ),
-                const SizedBox(height: 12),
-              ],
-            );
-          }).toList(),
+                  side: BorderSide(
+                    color: isSelected
+                        ? AppColors.accent
+                        : AppColors.secondary.withValues(alpha: 0.3),
+                  ),
+                  showCheckmark: false,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 12),
+          ],
+        );
+      }).toList(),
     );
   }
 
@@ -887,10 +864,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color:
-                isSelected
-                    ? AppColors.accent.withValues(alpha: 0.1)
-                    : Colors.transparent,
+            color: isSelected
+                ? AppColors.accent.withValues(alpha: 0.1)
+                : Colors.transparent,
           ),
           child: Row(
             children: [
@@ -906,8 +882,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   style: TextStyle(
                     fontSize: 16,
                     color: isSelected ? AppColors.text : AppColors.textLight,
-                    fontWeight:
-                        isSelected ? FontWeight.w600 : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

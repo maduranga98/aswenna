@@ -1,6 +1,5 @@
 import 'package:aswenna/data/constants/list_data.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 
 Map<String, String> districtToDSOConnector(
   AppLocalizations localizations,

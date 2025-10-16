@@ -1,10 +1,10 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/home%20page/homepage.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/widgets/districtFilter.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileCompletion extends StatefulWidget {
   const ProfileCompletion({super.key});
@@ -268,25 +268,24 @@ class _ProfileCompletionState extends State<ProfileCompletion> {
                         ),
                         elevation: 0,
                       ),
-                      child:
-                          _isLoading
-                              ? SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.primary,
-                                  ),
-                                ),
-                              )
-                              : const Text(
-                                'Complete Profile',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                      child: _isLoading
+                          ? SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.primary,
                                 ),
                               ),
+                            )
+                          : const Text(
+                              'Complete Profile',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                   ),
                 ],

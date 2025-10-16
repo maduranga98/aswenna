@@ -1,9 +1,9 @@
 import 'package:aswenna/data/model/category_model.dart';
 import 'package:aswenna/features/auth/login.dart';
 import 'package:aswenna/features/purchase%20history/PurchaseHistoryScreen.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/widgets/language_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:aswenna/data/managers/category_manager.dart';
 import 'package:aswenna/screens/sub_category_screen.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
@@ -30,23 +30,19 @@ class _HomePageState extends State<HomePage> {
         final categories = CategoryManager.getCategories();
         final category = categories.firstWhere(
           (cat) => cat.dbPath.toLowerCase() == categoryPath.toLowerCase(),
-          orElse:
-              () => CategoryData(
-                nameEn: title,
-                nameSi: title,
-                dbPath: categoryPath,
-                subCategories: [],
-              ),
+          orElse: () => CategoryData(
+            nameEn: title,
+            nameSi: title,
+            dbPath: categoryPath,
+            subCategories: [],
+          ),
         );
 
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder:
-                (context) => SubCategoryScreen(
-                  category: category,
-                  parentPath: [category],
-                ),
+            builder: (context) =>
+                SubCategoryScreen(category: category, parentPath: [category]),
           ),
         );
       },
@@ -372,13 +368,12 @@ class _HomePageState extends State<HomePage> {
             _buildDrawerItem(
               icon: Icons.shopping_bag_outlined,
               title: localization.purchased,
-              onTap:
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PurchaseHistoryScreen(),
-                    ),
-                  ),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PurchaseHistoryScreen(),
+                ),
+              ),
             ),
             _buildDrawerItem(
               icon: Icons.sell_outlined,

@@ -7,10 +7,10 @@ import 'package:aswenna/data/model/hierarchy_model.dart';
 import 'package:aswenna/data/model/item_model.dart';
 import 'package:aswenna/features/items%20add/itemsAdd.dart';
 import 'package:aswenna/features/items%20view/item_view.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/widgets/filterBottomSheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ItemListScreen extends StatefulWidget {
@@ -97,8 +97,9 @@ class _ItemListScreenState extends State<ItemListScreen>
   }
 
   List<String> _getPathSegments(String type) {
-    final List<String> pathSegments =
-        widget.parentPath.map((item) => item.dbPath).toList();
+    final List<String> pathSegments = widget.parentPath
+        .map((item) => item.dbPath)
+        .toList();
     pathSegments.add(type);
 
     return pathSegments;
@@ -271,35 +272,34 @@ class _ItemListScreenState extends State<ItemListScreen>
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder:
-          (context) => FilterBottomSheet(
-            paths: pathSegments,
-            selectedFilter: _selectedFilter,
-            onFilterChanged: (jsonString) {
-              try {
-                // Parse the JSON string into a Map
-                final Map<String, dynamic> filterJson = jsonDecode(jsonString);
+      builder: (context) => FilterBottomSheet(
+        paths: pathSegments,
+        selectedFilter: _selectedFilter,
+        onFilterChanged: (jsonString) {
+          try {
+            // Parse the JSON string into a Map
+            final Map<String, dynamic> filterJson = jsonDecode(jsonString);
 
-                // Create FilterData from the parsed Map
-                final filterData = FilterData.fromJson(filterJson);
+            // Create FilterData from the parsed Map
+            final filterData = FilterData.fromJson(filterJson);
 
-                setState(() {
-                  // Update filter state
-                  _selectedFilter = filterData.sortBy ?? 'all';
-                  _activeFilter = filterData;
+            setState(() {
+              // Update filter state
+              _selectedFilter = filterData.sortBy ?? 'all';
+              _activeFilter = filterData;
 
-                  // Reload items with new filters
-                  _loadInitialItems('sell');
-                  if (_tabController.index == 1 || _itemsBuy.isNotEmpty) {
-                    _loadInitialItems('buy');
-                  }
-                });
-              } catch (e) {
-                print("Error parsing filter data: $e");
-                _showErrorSnackbar('Error applying filters');
+              // Reload items with new filters
+              _loadInitialItems('sell');
+              if (_tabController.index == 1 || _itemsBuy.isNotEmpty) {
+                _loadInitialItems('buy');
               }
-            },
-          ),
+            });
+          } catch (e) {
+            print("Error parsing filter data: $e");
+            _showErrorSnackbar('Error applying filters');
+          }
+        },
+      ),
     );
   }
 
@@ -331,14 +331,13 @@ class _ItemListScreenState extends State<ItemListScreen>
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => ItemViewPage(
-              documentId: document.id,
-              pathSegments: _getPathSegments(type),
-              mainNameE: widget.parentPath.first.nameEn,
-              secondNameE: widget.item.nameEn,
-              itemData: data,
-            ),
+        builder: (context) => ItemViewPage(
+          documentId: document.id,
+          pathSegments: _getPathSegments(type),
+          mainNameE: widget.parentPath.first.nameEn,
+          secondNameE: widget.item.nameEn,
+          itemData: data,
+        ),
       ),
     );
 
@@ -365,213 +364,209 @@ class _ItemListScreenState extends State<ItemListScreen>
           ),
         ),
         centerTitle: true,
-        bottom:
-            widget.item.hasBuySell
-                ? PreferredSize(
-                  preferredSize: const Size.fromHeight(100),
-                  child: Column(
-                    children: [
-                      // TabBar
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.white.withValues(alpha: 0.1),
-                              width: 1,
-                            ),
+        bottom: widget.item.hasBuySell
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(100),
+                child: Column(
+                  children: [
+                    // TabBar
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.white.withValues(alpha: 0.1),
+                            width: 1,
                           ),
-                        ),
-                        child: TabBar(
-                          controller: _tabController,
-                          indicatorColor: AppColors.accent,
-                          indicatorWeight: 3,
-                          labelColor: Colors.white,
-                          unselectedLabelColor: Colors.white.withValues(
-                            alpha: 0.7,
-                          ),
-                          tabs: [
-                            Tab(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.sell, size: 20),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    localization.sell,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Tab(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.shopping_cart, size: 20),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    localization.buy,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
                         ),
                       ),
-
-                      // Filter Row
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                      child: TabBar(
+                        controller: _tabController,
+                        indicatorColor: AppColors.accent,
+                        indicatorWeight: 3,
+                        labelColor: Colors.white,
+                        unselectedLabelColor: Colors.white.withValues(
+                          alpha: 0.7,
                         ),
-                        color: AppColors.background,
-                        child: Row(
-                          children: [
-                            // Main Filter Button
-                            Expanded(
-                              child: InkWell(
-                                onTap: _showFilterBottomSheet,
-                                borderRadius: BorderRadius.circular(8),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 8,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: AppColors.secondary.withValues(
-                                        alpha: 0.2,
-                                      ),
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: AppColors.primary.withValues(
-                                          alpha: 0.05,
-                                        ),
-                                        offset: const Offset(0, 2),
-                                        blurRadius: 4,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.filter_list,
-                                        color: AppColors.accent,
-                                        size: 20,
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Expanded(
-                                        child: Text(
-                                          _getFilterLabel(context),
-                                          style: const TextStyle(
-                                            color: AppColors.text,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: AppColors.textLight,
-                                        size: 20,
-                                      ),
-                                    ],
+                        tabs: [
+                          Tab(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.sell, size: 20),
+                                const SizedBox(width: 8),
+                                Text(
+                                  localization.sell,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
+                          ),
+                          Tab(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.shopping_cart, size: 20),
+                                const SizedBox(width: 8),
+                                Text(
+                                  localization.buy,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
-                            // Clear Button - only show when filters are active
-                            if (_activeFilter != null ||
-                                _selectedFilter != 'all')
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: Material(
-                                  color: Colors.transparent,
+                    // Filter Row
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      color: AppColors.background,
+                      child: Row(
+                        children: [
+                          // Main Filter Button
+                          Expanded(
+                            child: InkWell(
+                              onTap: _showFilterBottomSheet,
+                              borderRadius: BorderRadius.circular(8),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _activeFilter = null;
-                                        _selectedFilter = 'all';
-                                        _loadInitialItems('sell');
-                                        if (_tabController.index == 1 ||
-                                            _itemsBuy.isNotEmpty) {
-                                          _loadInitialItems('buy');
-                                        }
-                                      });
-                                    },
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 8,
+                                  border: Border.all(
+                                    color: AppColors.secondary.withValues(
+                                      alpha: 0.2,
+                                    ),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.05,
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.primary.withValues(
-                                          alpha: 0.1,
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.filter_list,
+                                      color: AppColors.accent,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        _getFilterLabel(context),
+                                        style: const TextStyle(
+                                          color: AppColors.text,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
                                         ),
-                                        borderRadius: BorderRadius.circular(8),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(
-                                            Icons.clear_all,
+                                    ),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.textLight,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          // Clear Button - only show when filters are active
+                          if (_activeFilter != null || _selectedFilter != 'all')
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Material(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(8),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _activeFilter = null;
+                                      _selectedFilter = 'all';
+                                      _loadInitialItems('sell');
+                                      if (_tabController.index == 1 ||
+                                          _itemsBuy.isNotEmpty) {
+                                        _loadInitialItems('buy');
+                                      }
+                                    });
+                                  },
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 8,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.clear_all,
+                                          color: AppColors.primary,
+                                          size: 20,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          'Clear',
+                                          style: TextStyle(
                                             color: AppColors.primary,
-                                            size: 20,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
                                           ),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            'Clear',
-                                            style: TextStyle(
-                                              color: AppColors.primary,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                          ],
-                        ),
+                            ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
-                : null,
-      ),
-      body:
-          widget.item.variants != null && widget.item.variants!.isNotEmpty
-              ? _buildVariantsList(context)
-              : TabBarView(
-                controller: _tabController,
-                children: [_buildTabContent('sell'), _buildTabContent('buy')],
-              ),
-      floatingActionButton:
-          widget.item.hasBuySell
-              ? FloatingActionButton(
-                onPressed: _navigateToAddItem,
-                backgroundColor: AppColors.accent,
-                child: const Icon(Icons.add, color: Colors.white),
+                    ),
+                  ],
+                ),
               )
-              : null,
+            : null,
+      ),
+      body: widget.item.variants != null && widget.item.variants!.isNotEmpty
+          ? _buildVariantsList(context)
+          : TabBarView(
+              controller: _tabController,
+              children: [_buildTabContent('sell'), _buildTabContent('buy')],
+            ),
+      floatingActionButton: widget.item.hasBuySell
+          ? FloatingActionButton(
+              onPressed: _navigateToAddItem,
+              backgroundColor: AppColors.accent,
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : null,
     );
   }
 
@@ -619,8 +614,9 @@ class _ItemListScreenState extends State<ItemListScreen>
     final isLoadingItems = type == 'sell' ? _isLoadingSell : _isLoadingBuy;
     final hasMoreItems = type == 'sell' ? _hasMoreItemsSell : _hasMoreItemsBuy;
     final items = type == 'sell' ? _itemsSell : _itemsBuy;
-    final scrollController =
-        type == 'sell' ? _scrollControllerSell : _scrollControllerBuy;
+    final scrollController = type == 'sell'
+        ? _scrollControllerSell
+        : _scrollControllerBuy;
 
     if (isLoadingItems && items.isEmpty) {
       return _buildLoadingIndicator();
@@ -1240,19 +1236,18 @@ class _ItemListScreenState extends State<ItemListScreen>
         ),
       ),
       clipBehavior: Clip.antiAlias,
-      child:
-          imageUrl != null && imageUrl.isNotEmpty
-              ? _buildSafeNetworkImage(imageUrl)
-              : Container(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                child: Center(
-                  child: Icon(
-                    Icons.image_outlined,
-                    color: AppColors.primary.withValues(alpha: 0.5),
-                    size: 24,
-                  ),
+      child: imageUrl != null && imageUrl.isNotEmpty
+          ? _buildSafeNetworkImage(imageUrl)
+          : Container(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              child: Center(
+                child: Icon(
+                  Icons.image_outlined,
+                  color: AppColors.primary.withValues(alpha: 0.5),
+                  size: 24,
                 ),
               ),
+            ),
     );
   }
 

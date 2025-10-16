@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/items%20view/item_purchase_page.dart';
+import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:intl/intl.dart';
@@ -142,13 +142,12 @@ class _ItemViewPageState extends State<ItemViewPage> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => ItemPurchasePage(
-              documentId: widget.documentId!,
-              pathSegments: widget.pathSegments!,
-              itemData: itemData,
-              currentQuantity: currentQuantity,
-            ),
+        builder: (context) => ItemPurchasePage(
+          documentId: widget.documentId!,
+          pathSegments: widget.pathSegments!,
+          itemData: itemData,
+          currentQuantity: currentQuantity,
+        ),
       ),
     );
 
@@ -401,17 +400,15 @@ class _ItemViewPageState extends State<ItemViewPage> {
               );
             },
             itemCount: imageUrls.length,
-            loadingBuilder:
-                (context, event) => Center(
-                  child: CircularProgressIndicator(
-                    value:
-                        event == null
-                            ? 0
-                            : event.cumulativeBytesLoaded /
-                                (event.expectedTotalBytes ?? 1),
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white70),
-                  ),
-                ),
+            loadingBuilder: (context, event) => Center(
+              child: CircularProgressIndicator(
+                value: event == null
+                    ? 0
+                    : event.cumulativeBytesLoaded /
+                          (event.expectedTotalBytes ?? 1),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white70),
+              ),
+            ),
             backgroundDecoration: BoxDecoration(color: Colors.black),
             pageController: PageController(initialPage: initialIndex),
             onPageChanged: (index) {
@@ -453,11 +450,11 @@ class _ItemViewPageState extends State<ItemViewPage> {
       ),
       bottomNavigationBar:
           widget.mainNameE == 'Lands' ||
-                  itemData['acres'] != null ||
-                  widget.mainNameE == 'Harvest' ||
-                  itemData['kg'] != null
-              ? _buildBottomBar()
-              : null,
+              itemData['acres'] != null ||
+              widget.mainNameE == 'Harvest' ||
+              itemData['kg'] != null
+          ? _buildBottomBar()
+          : null,
     );
   }
 
@@ -659,43 +656,43 @@ class _ItemViewPageState extends State<ItemViewPage> {
                 children: [
                   imageUrls.isEmpty
                       ? Container(
-                        color: AppColors.primary.withValues(alpha: 0.1),
-                        child: Center(
-                          child: Icon(
-                            Icons.image_not_supported_outlined,
-                            size: 64,
-                            color: AppColors.primary.withValues(alpha: 0.5),
-                          ),
-                        ),
-                      )
-                      : PageView.builder(
-                        itemCount: imageUrls.length,
-                        onPageChanged: (index) {
-                          setState(() {
-                            currentImageIndex = index;
-                          });
-                        },
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (_) => _buildFullScreenGallery(index),
-                                ),
-                              );
-                            },
-                            child: Hero(
-                              tag: 'image_$index',
-                              child: _buildSafeNetworkImage(
-                                imageUrls[index],
-                                fit: BoxFit.cover,
-                              ),
+                          color: AppColors.primary.withValues(alpha: 0.1),
+                          child: Center(
+                            child: Icon(
+                              Icons.image_not_supported_outlined,
+                              size: 64,
+                              color: AppColors.primary.withValues(alpha: 0.5),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        )
+                      : PageView.builder(
+                          itemCount: imageUrls.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              currentImageIndex = index;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        _buildFullScreenGallery(index),
+                                  ),
+                                );
+                              },
+                              child: Hero(
+                                tag: 'image_$index',
+                                child: _buildSafeNetworkImage(
+                                  imageUrls[index],
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
 
                   // Image Counter Indicator
                   if (imageUrls.length > 1)
@@ -1168,11 +1165,11 @@ class _ItemViewPageState extends State<ItemViewPage> {
       ),
       bottomNavigationBar:
           widget.mainNameE == 'Lands' ||
-                  itemData['acres'] != null ||
-                  widget.mainNameE == 'Harvest' ||
-                  itemData['kg'] != null
-              ? _buildBottomBar()
-              : null,
+              itemData['acres'] != null ||
+              widget.mainNameE == 'Harvest' ||
+              itemData['kg'] != null
+          ? _buildBottomBar()
+          : null,
     );
   }
 }

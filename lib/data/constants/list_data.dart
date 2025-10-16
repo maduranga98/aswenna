@@ -1,6 +1,6 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 // District Selector data
+import 'package:aswenna/l10n/app_localizations.dart';
+
 Map<String, String> districtsSet(AppLocalizations localizations) {
   return {
     "ampara": localizations.ampara,
