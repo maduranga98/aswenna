@@ -1,20 +1,16 @@
-import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
-import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ItemPurchasePage extends StatefulWidget {
   final String documentId;
-  final List<String> pathSegments;
   final Map<String, dynamic> itemData;
   final int currentQuantity;
 
   const ItemPurchasePage({
     Key? key,
     required this.documentId,
-    required this.pathSegments,
     required this.itemData,
     required this.currentQuantity,
   }) : super(key: key);
@@ -24,7 +20,6 @@ class ItemPurchasePage extends StatefulWidget {
 }
 
 class _ItemPurchasePageState extends State<ItemPurchasePage> {
-  final _firestoreService = FirestoreService();
   final _formKey = GlobalKey<FormState>();
   final _quantityController = TextEditingController();
   final _buyerNameController = TextEditingController();
@@ -38,7 +33,6 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
   void initState() {
     super.initState();
     _remainingQuantity = widget.currentQuantity;
-    // Initialize with 1 as default purchase quantity
     _quantityController.text = '1';
   }
 
@@ -51,7 +45,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
     super.dispose();
   }
 
-  // Validates if the purchase quantity is valid
+  /// Validates if the purchase quantity is valid
   String? _validateQuantity(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a quantity';
@@ -73,7 +67,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
     return null;
   }
 
-  // Updates the quantity in Firestore
+  /// Process the purchase and update Firestore
   Future<void> _processPurchase() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -87,7 +81,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
       final purchaseQuantity = int.parse(_quantityController.text);
       final updatedQuantity = widget.currentQuantity - purchaseQuantity;
 
-      // Create a map for the purchase transaction record
+      // Create purchase transaction record
       final purchaseData = {
         'itemId': widget.documentId,
         'quantity': purchaseQuantity,
@@ -100,26 +94,37 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
           'price': widget.itemData['price'],
           'district': widget.itemData['district'],
           'dso': widget.itemData['dso'],
+          'pathSegments': widget.itemData['pathSegments'],
         },
       };
 
       // Start a batch write
       final batch = FirebaseFirestore.instance.batch();
 
-      // 1. Update the item quantity
-      final itemDocRef = FirebaseFirestore.instance.doc(
-        widget.pathSegments.join('/') + '/' + widget.documentId,
-      );
+      // 1. Update the item quantity in the items collection
+      final itemDocRef = FirebaseFirestore.instance
+          .collection('items')
+          .doc(widget.documentId);
 
-      // Update the item document with new quantity
       batch.update(itemDocRef, {'kg': updatedQuantity});
 
-      // 2. Create a purchase record (optional)
+      // 2. Create a purchase record
       final purchaseCollectionRef = FirebaseFirestore.instance.collection(
         'purchases',
       );
 
       batch.set(purchaseCollectionRef.doc(), purchaseData);
+
+      // 3. Add to user's purchase history (if seller info available)
+      if (widget.itemData['userId'] != null) {
+        final userPurchaseRef = FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.itemData['userId'])
+            .collection('sales')
+            .doc();
+
+        batch.set(userPurchaseRef, {...purchaseData, 'type': 'sale'});
+      }
 
       // Commit the batch
       await batch.commit();
@@ -132,7 +137,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
 
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Purchase completed successfully'),
           backgroundColor: Colors.green,
         ),
@@ -157,19 +162,14 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
 
   @override
   Widget build(BuildContext context) {
-    final localization = AppLocalizations.of(context)!;
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Purchase Item',
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -215,7 +215,6 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: _validateQuantity,
                       onChanged: (value) {
-                        // Optional: Update a preview of remaining quantity
                         final purchaseQuantity = int.tryParse(value) ?? 0;
                         if (purchaseQuantity <= widget.currentQuantity) {
                           setState(() {
@@ -316,7 +315,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Complete Purchase',
                           style: TextStyle(
                             fontSize: 16,
@@ -351,7 +350,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
             Row(
               children: [
                 Icon(Icons.location_on, size: 16, color: AppColors.primary),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   "${widget.itemData['district'] ?? ''}-${widget.itemData['dso'] ?? ''}",
                   style: TextStyle(
@@ -440,7 +439,7 @@ class _ItemPurchasePageState extends State<ItemPurchasePage> {
           CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             'Processing purchase...',
             style: TextStyle(color: AppColors.textLight, fontSize: 16),
