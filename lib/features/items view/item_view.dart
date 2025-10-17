@@ -4,7 +4,6 @@ import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/items%20view/item_purchase_page.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -144,7 +143,7 @@ class _ItemViewPageState extends State<ItemViewPage> {
       MaterialPageRoute(
         builder: (context) => ItemPurchasePage(
           documentId: widget.documentId!,
-          pathSegments: widget.pathSegments!,
+
           itemData: itemData,
           currentQuantity: currentQuantity,
         ),
@@ -166,7 +165,7 @@ class _ItemViewPageState extends State<ItemViewPage> {
 
     try {
       final docSnap = await _firestoreService.getItemById(
-        pathSegments: widget.pathSegments!,
+        // pathSegments: widget.pathSegments!,
         documentId: widget.documentId!,
       );
 

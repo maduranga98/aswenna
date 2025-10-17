@@ -3,9 +3,11 @@
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
+import 'package:aswenna/providers/items_provider.dart';
 import 'package:aswenna/widgets/LocalizedDistrictFilter.dart';
 import 'package:aswenna/widgets/paddySelector.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -235,22 +237,31 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
         itemData['price'] = priceController.text.trim();
       }
 
-      // Save to Firestore
-      await _firestoreService.addItem(
+      // *** KEY CHANGE: Add path info to data ***
+      itemData['pathSegments'] = widget.paths; // Store the path array
+      itemData['collectionPath'] =
+          widget.paths.join('/') + '/data'; // Store full path
+
+      // Save using provider instead of direct service call
+      final docId = await context.read<ItemsProvider>().addItem(
         pathSegments: widget.paths,
         itemData: itemData,
       );
 
-      // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Item added successfully'),
-          backgroundColor: AppColors.success,
-        ),
-      );
+      if (docId != null) {
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Item added successfully'),
+            backgroundColor: AppColors.success,
+          ),
+        );
 
-      // Navigate back
-      Navigator.pop(context);
+        // Navigate back
+        Navigator.pop(context, true);
+      } else {
+        throw Exception('Failed to add item');
+      }
     } catch (e) {
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
@@ -511,7 +522,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
         Text(
           label,
           style: TextStyle(
-            color: AppColors.accent, // Using accent color for better visibility
+            color: AppColors.accent,
             fontSize: 15,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.3,
@@ -777,20 +788,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         hint: 'Enter unit price',
                         keyboardType: TextInputType.number,
                       ),
-                    ] else if (widget.paths.contains('medicine')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: AppLocalizations.of(context)!.quantity,
-                        hint: 'Enter Quantity',
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(height: 16),
-                      _buildInputField(
-                        controller: priceController,
-                        label: AppLocalizations.of(context)!.unitPrice,
-                        hint: 'Enter unit price',
-                        keyboardType: TextInputType.number,
-                      ),
                     ] else if (widget.paths.contains('equipments')) ...[
                       _buildInputField(
                         controller: qunatityController,
@@ -816,20 +813,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                       _buildInputField(
                         controller: priceController,
                         label: AppLocalizations.of(context)!.eggprice,
-                        hint: 'Enter unit price',
-                        keyboardType: TextInputType.number,
-                      ),
-                    ] else if (widget.paths.contains('beecolony')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: AppLocalizations.of(context)!.colonyquantity,
-                        hint: 'Enter Quantity',
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(height: 16),
-                      _buildInputField(
-                        controller: priceController,
-                        label: AppLocalizations.of(context)!.colonyprice,
                         hint: 'Enter unit price',
                         keyboardType: TextInputType.number,
                       ),

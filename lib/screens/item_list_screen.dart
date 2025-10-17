@@ -8,10 +8,13 @@ import 'package:aswenna/data/model/item_model.dart';
 import 'package:aswenna/features/items%20add/itemsAdd.dart';
 import 'package:aswenna/features/items%20view/item_view.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
+import 'package:aswenna/providers/items_provider.dart';
+import 'package:aswenna/providers/product_provider.dart';
 import 'package:aswenna/widgets/filterBottomSheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ItemListScreen extends StatefulWidget {
   final ItemData item;
@@ -314,8 +317,13 @@ class _ItemListScreenState extends State<ItemListScreen>
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ItemsAddPage(paths: _getPathSegments(type)),
+        builder: (_) => Provider<ItemsProvider>.value(
+          value: context.read<ItemsProvider>(),
+          child: ItemsAddPage(paths: _getPathSegments(type)),
+        ),
       ),
+
+      // builder: (_) => ItemsAddPage(paths: _getPathSegments(type)),
     );
 
     // Refresh the list if an item was added
