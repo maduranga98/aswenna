@@ -1,13 +1,11 @@
 import 'package:aswenna/data/model/category_model.dart';
-import 'package:aswenna/features/auth/login.dart';
-import 'package:aswenna/features/purchase%20history/PurchaseHistoryScreen.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
+import 'package:aswenna/widgets/app_drawer.dart';
 import 'package:aswenna/widgets/language_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:aswenna/data/managers/category_manager.dart';
 import 'package:aswenna/screens/sub_category_screen.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -198,6 +196,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: AppColors.background,
+      // ✅ UPDATED: Using new AppDrawer with profile integration
+      drawer: const AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 0,
@@ -219,7 +219,6 @@ class _HomePageState extends State<HomePage> {
         iconTheme: const IconThemeData(color: AppColors.surface),
         actions: [LanguageSelector()],
       ),
-      drawer: _buildDrawer(context, localization),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(child: _buildHeader(context)),
@@ -245,7 +244,6 @@ class _HomePageState extends State<HomePage> {
                   categoryPath: 'harvest',
                   icon: Icons.eco_outlined,
                 ),
-
                 _buildMenuCard(
                   title: localization.seeds,
                   imagePath: 'harvest',
@@ -276,12 +274,6 @@ class _HomePageState extends State<HomePage> {
                   categoryPath: 'vehicles',
                   icon: Icons.agriculture_outlined,
                 ),
-                // _buildMenuCard(
-                //   title: localization.transport,
-                //   imagePath: 'transport',
-                //   categoryPath: 'transport',
-                //   icon: Icons.local_shipping_outlined,
-                // ),
                 _buildMenuCard(
                   title: localization.machineries,
                   imagePath: 'machineries',
@@ -300,139 +292,11 @@ class _HomePageState extends State<HomePage> {
                   categoryPath: 'fertilizer',
                   icon: Icons.sanitizer_outlined,
                 ),
-                // _buildMenuCard(
-                //   title: localization.agrochems,
-                //   imagePath: 'chems',
-                //   categoryPath: 'agrochemicals',
-                //   icon: Icons.science_outlined,
-                // ),
-                // _buildMenuCard(
-                //   title: localization.market,
-                //   imagePath: 'market',
-                //   categoryPath: 'foreign_market',
-                //   icon: Icons.storefront_outlined,
-                // ),
-                // _buildMenuCard(
-                //   title: localization.advice,
-                //   imagePath: 'advice',
-                //   categoryPath: 'advice',
-                //   icon: Icons.tips_and_updates_outlined,
-                // ),
-                // _buildMenuCard(
-                //   title: localization.info,
-                //   imagePath: 'info',
-                //   categoryPath: 'information',
-                //   icon: Icons.help_outline,
-                // ),
               ]),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDrawer(BuildContext context, AppLocalizations localization) {
-    return Drawer(
-      child: Container(
-        color: AppColors.primary,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: AppColors.accent.withValues(alpha: 0.1),
-              ),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: AppColors.surface,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Image.asset('assets/profile.png'),
-                ),
-              ),
-              accountName: Text(
-                userData['name'] ?? '',
-                style: const TextStyle(
-                  color: AppColors.surface,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              accountEmail: Text(
-                userData['id'] ?? '',
-                style: TextStyle(
-                  color: AppColors.surface.withValues(alpha: 0.9),
-                ),
-              ),
-            ),
-            _buildDrawerItem(
-              icon: Icons.shopping_bag_outlined,
-              title: localization.purchased,
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PurchaseHistoryScreen(),
-                ),
-              ),
-            ),
-            _buildDrawerItem(
-              icon: Icons.sell_outlined,
-              title: localization.sold,
-              onTap: () {},
-            ),
-            _buildDrawerItem(
-              icon: Icons.contact_support_outlined,
-              title: localization.contactUs,
-              onTap: () {},
-            ),
-            _buildDrawerItem(
-              icon: Icons.language_outlined,
-              title: localization.language,
-              trailing: LanguageSelector(isDark: true),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Divider(
-                color: AppColors.surface.withValues(alpha: 0.1),
-                thickness: 1,
-              ),
-            ),
-            _buildDrawerItem(
-              icon: Icons.logout_outlined,
-              title: localization.signOut,
-              onTap: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.setString('isLogout', 'true');
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDrawerItem({
-    required IconData icon,
-    required String title,
-    VoidCallback? onTap,
-    Widget? trailing,
-  }) {
-    return ListTile(
-      leading: Icon(icon, color: AppColors.surface.withValues(alpha: 0.8)),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: AppColors.surface,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      trailing: trailing,
-      onTap: onTap,
     );
   }
 }

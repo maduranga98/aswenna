@@ -1406,4 +1406,199 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get loading => 'භාරණය';
+
+  @override
+  String get animalquantity => 'සතුන් ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get animalprice => 'සතෙකු සඳහා මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get numberofliters => 'ලීටර් ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get priceforaliter => 'ලීටරයක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get lifeweight => 'සතෙකුගේ ජීව බර';
+
+  @override
+  String get priceofbushal => 'බුසලක මිල';
+
+  @override
+  String get numberofbushal => 'බුසල් ගණන';
+
+  @override
+  String get amountofseedsinapacket => 'පැකට්ටුවේ බීජ ප්‍රමාණය';
+
+  @override
+  String get numberofpackets => 'පැකට් ගණන';
+
+  @override
+  String get priceforapack => 'පැකට්ටුවක මිල';
+
+  @override
+  String get priceofanut => 'ගෙඩියක මිල';
+
+  @override
+  String get noofnuts => 'No of Nuts';
+
+  @override
+  String get priceof1kgofseeds => 'බීජ කිලෝග්‍රෑම් 1 ක මිල';
+
+  @override
+  String get numberofseedkg => 'බීජ ගණන කිලෝග්‍රෑම්';
+
+  @override
+  String get priceofaplant => 'ශාකයක මිල';
+
+  @override
+  String get numberofplants => 'ශාක ගණන';
+
+  @override
+  String get priceofawirerool => 'කම්බි රෝලයක මිල';
+
+  @override
+  String get lengthofaroll => 'රෝලයක දිග';
+
+  @override
+  String get weightofaroll => 'රෝලයක බර';
+
+  @override
+  String get numberofrolls => 'රෝල් ගණන';
+
+  @override
+  String get lengthofapipe => 'නලයක දිග';
+
+  @override
+  String get diameterofapipe => 'නලයක විෂ්කම්භය';
+
+  @override
+  String get thicknessofapipe => 'නලයක ඝණකම';
+
+  @override
+  String get weightofapipe => 'නලයේ බර';
+
+  @override
+  String get numberofpipe => 'නල ගණන';
+
+  @override
+  String get highofamesh => 'දැලෙහි උස';
+
+  @override
+  String get priceofaroll => 'රෝලයක මිල';
+
+  @override
+  String get thickness => 'ඝණකම';
+
+  @override
+  String get hintKg => 'බර කිලෝග්‍රෑම් වලින් ඇතුළත් කරන්න';
+
+  @override
+  String get hintkgPrice => 'කිලෝග්‍රෑමයකට මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get hintarcs => 'අක්කර ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintperches => 'පර්චස් ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintlandPrice => 'මුළු ඉඩමේ මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintquantity => 'ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintunitprice => 'ඒකක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintcolony => 'ජනපද ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintcolonyprice => 'ජනපදයක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hinthoneybottlequantity => 'මී පැණි බෝතල් ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintpriceofahoneybottle => 'මී පැණි බෝතලයක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get hintliters => 'ලීටර් ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintliterprice => 'ලීටරයක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get hintliveweight => 'සතෙකුගේ ජීව බර ඇතුළත් කරන්න.';
+
+  @override
+  String get hintanimalquantity => 'සතුන් ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintpriceofaanimal => 'සතෙකු සඳහා මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get hintbusal => 'බුෂල් ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get hintbusalprice => 'බුෂෙල් එකක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintpriceofaroll => 'රෝල් එකක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintlengthofaroll => 'රෝලයක දිග ඇතුළත් කරන්න';
+
+  @override
+  String get hintweightofaroll => 'රෝලයක බර ඇතුළත් කරන්න';
+
+  @override
+  String get hintnumberofrolls => 'රෝල් ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintpipelength => 'පයිප්පයක දිග ඇතුළත් කරන්න';
+
+  @override
+  String get hintdiameter => 'පයිප්පයක විෂ්කම්භය ඇතුළත් කරන්න';
+
+  @override
+  String get hintpipeweight => 'නලයේ බර ඇතුළත් කරන්න';
+
+  @override
+  String get hintnumberofpipes => 'පයිප්ප ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintpipeprice => 'පයිප්පයක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get hintheightofamesh => 'දැලක උස ඇතුළත් කරන්න';
+
+  @override
+  String get heightofaroll => 'රෝලයක උස';
+
+  @override
+  String get hinthightofaroll => 'රෝලයක උස ඇතුළත් කරන්න';
+
+  @override
+  String get hintthickness => 'ඝණකම ඇතුළත් කරන්න';
+
+  @override
+  String get packet => 'පැකට් ගණන';
+
+  @override
+  String get pieces => 'පැකට්ටුවක ඇති කෑලි ගණන';
+
+  @override
+  String get packetprice => 'පැකට්ටුවක මිල';
+
+  @override
+  String get hintpacket => 'පැකට් ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintprice => 'පැකට්ටුවක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintpieces => 'පැකට්ටුවක ඇති කෑලි ගණන ඇතුළත් කරන්න';
 }

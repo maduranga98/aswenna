@@ -1396,7 +1396,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get honeybottlesprice => 'Honney bottles price';
 
   @override
-  String get honeybottlesquantity => 'Honney bottles quantity';
+  String get honeybottlesquantity => 'Honey bottles quantity';
 
   @override
   String get welcomeText => 'Welcome to Aswenna';
@@ -1406,4 +1406,199 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading';
+
+  @override
+  String get animalquantity => 'Enter number of animals';
+
+  @override
+  String get animalprice => 'Enter price for a animal';
+
+  @override
+  String get numberofliters => 'Enter the number of liters';
+
+  @override
+  String get priceforaliter => 'Enter the price for a liter';
+
+  @override
+  String get lifeweight => 'Live weight of a animal';
+
+  @override
+  String get priceofbushal => 'Price of a bushal';
+
+  @override
+  String get numberofbushal => 'No. of bushal';
+
+  @override
+  String get amountofseedsinapacket => 'Amount of seends in a packet';
+
+  @override
+  String get numberofpackets => 'Number of packets';
+
+  @override
+  String get priceforapack => 'Price for a packet';
+
+  @override
+  String get priceofanut => 'Price of a nut';
+
+  @override
+  String get noofnuts => 'No of Nuts';
+
+  @override
+  String get priceof1kgofseeds => 'Price of 1kg of Seeds';
+
+  @override
+  String get numberofseedkg => 'Number of seeds kg';
+
+  @override
+  String get priceofaplant => 'Price of a Plant';
+
+  @override
+  String get numberofplants => 'Number of plants';
+
+  @override
+  String get priceofawirerool => 'Price of a wire roll';
+
+  @override
+  String get lengthofaroll => 'Length of a roll';
+
+  @override
+  String get weightofaroll => 'Weight of a roll';
+
+  @override
+  String get numberofrolls => 'Number of rolls';
+
+  @override
+  String get lengthofapipe => 'Length of a pipe';
+
+  @override
+  String get diameterofapipe => 'Diameter of a pipe';
+
+  @override
+  String get thicknessofapipe => 'Thickness of a pipe';
+
+  @override
+  String get weightofapipe => 'Weight of a pipe';
+
+  @override
+  String get numberofpipe => 'Number of pipe';
+
+  @override
+  String get highofamesh => 'Height of the Mesh';
+
+  @override
+  String get priceofaroll => 'Price of a roll';
+
+  @override
+  String get thickness => 'Thickness';
+
+  @override
+  String get hintKg => 'Enter weight in kg';
+
+  @override
+  String get hintkgPrice => 'Enter price for a kg';
+
+  @override
+  String get hintarcs => 'Enter acres quantity';
+
+  @override
+  String get hintperches => 'Enter perches quantity';
+
+  @override
+  String get hintlandPrice => 'Enter the price for the total land';
+
+  @override
+  String get hintquantity => 'Enter Quantity';
+
+  @override
+  String get hintunitprice => 'Enter unit price';
+
+  @override
+  String get hintcolony => 'Enter colony quantity';
+
+  @override
+  String get hintcolonyprice => 'Enter price of a colony';
+
+  @override
+  String get hinthoneybottlequantity => 'Enter honey bottles quantity';
+
+  @override
+  String get hintpriceofahoneybottle => 'Enter the price of a honey bottle';
+
+  @override
+  String get hintliters => 'Enter number of liters';
+
+  @override
+  String get hintliterprice => 'Enter price of a liter';
+
+  @override
+  String get hintliveweight => 'Enter the live weight of an animal.';
+
+  @override
+  String get hintanimalquantity => 'Enter the quantity of animals';
+
+  @override
+  String get hintpriceofaanimal => 'Enter price for a animal';
+
+  @override
+  String get hintbusal => 'Enter the Bushal quantity';
+
+  @override
+  String get hintbusalprice => 'Enter price for a Bushal';
+
+  @override
+  String get hintpriceofaroll => 'Enter price of a roll';
+
+  @override
+  String get hintlengthofaroll => 'Enter length of a roll';
+
+  @override
+  String get hintweightofaroll => 'Enter weight of a roll';
+
+  @override
+  String get hintnumberofrolls => 'Enter number of rolls';
+
+  @override
+  String get hintpipelength => 'Enter Length of a pipe';
+
+  @override
+  String get hintdiameter => 'Enter Diameter of a pipe';
+
+  @override
+  String get hintpipeweight => 'Enter weight of a pipe';
+
+  @override
+  String get hintnumberofpipes => 'Enter number of a pipes';
+
+  @override
+  String get hintpipeprice => 'Enter price of a pipe';
+
+  @override
+  String get hintheightofamesh => 'Enter height of a mesh';
+
+  @override
+  String get heightofaroll => 'Height of a roll';
+
+  @override
+  String get hinthightofaroll => 'Enter height of a roll';
+
+  @override
+  String get hintthickness => 'Enter the thickness';
+
+  @override
+  String get packet => 'Number of packets';
+
+  @override
+  String get pieces => 'Number of pieces in a packet';
+
+  @override
+  String get packetprice => 'Price of a packet';
+
+  @override
+  String get hintpacket => 'Enter number of packets';
+
+  @override
+  String get hintprice => 'Enter price of a packet';
+
+  @override
+  String get hintpieces => 'Enter number of pieces in a packet';
 }

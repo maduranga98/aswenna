@@ -2861,7 +2861,7 @@ abstract class AppLocalizations {
   /// No description provided for @honeybottlesquantity.
   ///
   /// In en, this message translates to:
-  /// **'Honney bottles quantity'**
+  /// **'Honey bottles quantity'**
   String get honeybottlesquantity;
 
   /// No description provided for @welcomeText.
@@ -2881,6 +2881,396 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading'**
   String get loading;
+
+  /// No description provided for @animalquantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of animals'**
+  String get animalquantity;
+
+  /// No description provided for @animalprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for a animal'**
+  String get animalprice;
+
+  /// No description provided for @numberofliters.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the number of liters'**
+  String get numberofliters;
+
+  /// No description provided for @priceforaliter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price for a liter'**
+  String get priceforaliter;
+
+  /// No description provided for @lifeweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Live weight of a animal'**
+  String get lifeweight;
+
+  /// No description provided for @priceofbushal.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a bushal'**
+  String get priceofbushal;
+
+  /// No description provided for @numberofbushal.
+  ///
+  /// In en, this message translates to:
+  /// **'No. of bushal'**
+  String get numberofbushal;
+
+  /// No description provided for @amountofseedsinapacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount of seends in a packet'**
+  String get amountofseedsinapacket;
+
+  /// No description provided for @numberofpackets.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of packets'**
+  String get numberofpackets;
+
+  /// No description provided for @priceforapack.
+  ///
+  /// In en, this message translates to:
+  /// **'Price for a packet'**
+  String get priceforapack;
+
+  /// No description provided for @priceofanut.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a nut'**
+  String get priceofanut;
+
+  /// No description provided for @noofnuts.
+  ///
+  /// In en, this message translates to:
+  /// **'No of Nuts'**
+  String get noofnuts;
+
+  /// No description provided for @priceof1kgofseeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of 1kg of Seeds'**
+  String get priceof1kgofseeds;
+
+  /// No description provided for @numberofseedkg.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of seeds kg'**
+  String get numberofseedkg;
+
+  /// No description provided for @priceofaplant.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a Plant'**
+  String get priceofaplant;
+
+  /// No description provided for @numberofplants.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of plants'**
+  String get numberofplants;
+
+  /// No description provided for @priceofawirerool.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a wire roll'**
+  String get priceofawirerool;
+
+  /// No description provided for @lengthofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Length of a roll'**
+  String get lengthofaroll;
+
+  /// No description provided for @weightofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight of a roll'**
+  String get weightofaroll;
+
+  /// No description provided for @numberofrolls.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of rolls'**
+  String get numberofrolls;
+
+  /// No description provided for @lengthofapipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Length of a pipe'**
+  String get lengthofapipe;
+
+  /// No description provided for @diameterofapipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Diameter of a pipe'**
+  String get diameterofapipe;
+
+  /// No description provided for @thicknessofapipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Thickness of a pipe'**
+  String get thicknessofapipe;
+
+  /// No description provided for @weightofapipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight of a pipe'**
+  String get weightofapipe;
+
+  /// No description provided for @numberofpipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of pipe'**
+  String get numberofpipe;
+
+  /// No description provided for @highofamesh.
+  ///
+  /// In en, this message translates to:
+  /// **'Height of the Mesh'**
+  String get highofamesh;
+
+  /// No description provided for @priceofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a roll'**
+  String get priceofaroll;
+
+  /// No description provided for @thickness.
+  ///
+  /// In en, this message translates to:
+  /// **'Thickness'**
+  String get thickness;
+
+  /// No description provided for @hintKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter weight in kg'**
+  String get hintKg;
+
+  /// No description provided for @hintkgPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for a kg'**
+  String get hintkgPrice;
+
+  /// No description provided for @hintarcs.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter acres quantity'**
+  String get hintarcs;
+
+  /// No description provided for @hintperches.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter perches quantity'**
+  String get hintperches;
+
+  /// No description provided for @hintlandPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price for the total land'**
+  String get hintlandPrice;
+
+  /// No description provided for @hintquantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Quantity'**
+  String get hintquantity;
+
+  /// No description provided for @hintunitprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter unit price'**
+  String get hintunitprice;
+
+  /// No description provided for @hintcolony.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter colony quantity'**
+  String get hintcolony;
+
+  /// No description provided for @hintcolonyprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a colony'**
+  String get hintcolonyprice;
+
+  /// No description provided for @hinthoneybottlequantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter honey bottles quantity'**
+  String get hinthoneybottlequantity;
+
+  /// No description provided for @hintpriceofahoneybottle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price of a honey bottle'**
+  String get hintpriceofahoneybottle;
+
+  /// No description provided for @hintliters.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of liters'**
+  String get hintliters;
+
+  /// No description provided for @hintliterprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a liter'**
+  String get hintliterprice;
+
+  /// No description provided for @hintliveweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the live weight of an animal.'**
+  String get hintliveweight;
+
+  /// No description provided for @hintanimalquantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the quantity of animals'**
+  String get hintanimalquantity;
+
+  /// No description provided for @hintpriceofaanimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for a animal'**
+  String get hintpriceofaanimal;
+
+  /// No description provided for @hintbusal.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Bushal quantity'**
+  String get hintbusal;
+
+  /// No description provided for @hintbusalprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for a Bushal'**
+  String get hintbusalprice;
+
+  /// No description provided for @hintpriceofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a roll'**
+  String get hintpriceofaroll;
+
+  /// No description provided for @hintlengthofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter length of a roll'**
+  String get hintlengthofaroll;
+
+  /// No description provided for @hintweightofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter weight of a roll'**
+  String get hintweightofaroll;
+
+  /// No description provided for @hintnumberofrolls.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of rolls'**
+  String get hintnumberofrolls;
+
+  /// No description provided for @hintpipelength.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Length of a pipe'**
+  String get hintpipelength;
+
+  /// No description provided for @hintdiameter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Diameter of a pipe'**
+  String get hintdiameter;
+
+  /// No description provided for @hintpipeweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter weight of a pipe'**
+  String get hintpipeweight;
+
+  /// No description provided for @hintnumberofpipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of a pipes'**
+  String get hintnumberofpipes;
+
+  /// No description provided for @hintpipeprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a pipe'**
+  String get hintpipeprice;
+
+  /// No description provided for @hintheightofamesh.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter height of a mesh'**
+  String get hintheightofamesh;
+
+  /// No description provided for @heightofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Height of a roll'**
+  String get heightofaroll;
+
+  /// No description provided for @hinthightofaroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter height of a roll'**
+  String get hinthightofaroll;
+
+  /// No description provided for @hintthickness.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the thickness'**
+  String get hintthickness;
+
+  /// No description provided for @packet.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of packets'**
+  String get packet;
+
+  /// No description provided for @pieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of pieces in a packet'**
+  String get pieces;
+
+  /// No description provided for @packetprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a packet'**
+  String get packetprice;
+
+  /// No description provided for @hintpacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of packets'**
+  String get hintpacket;
+
+  /// No description provided for @hintprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a packet'**
+  String get hintprice;
+
+  /// No description provided for @hintpieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of pieces in a packet'**
+  String get hintpieces;
 }
 
 class _AppLocalizationsDelegate
