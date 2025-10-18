@@ -6,6 +6,7 @@ import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/providers/items_provider.dart';
 import 'package:aswenna/widgets/LocalizedDistrictFilter.dart';
 import 'package:aswenna/widgets/paddySelector.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
@@ -29,6 +30,12 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   final perchesController = TextEditingController();
   final detailsController = TextEditingController();
   final qunatityController = TextEditingController();
+  final lengthController = TextEditingController();
+  final diameterController = TextEditingController();
+  final thicknessController = TextEditingController();
+  final heightController = TextEditingController();
+  final packetController = TextEditingController();
+  final piecesInaPacketController = TextEditingController();
 
   String? selectedDistrictEn, selectedDistrictLocalized;
   String? selectedDsoEn, selectedDsoLocalized;
@@ -159,122 +166,226 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
 
   // Save item to Firestore
   Future<void> saveItem() async {
+    // Step 1: Validate form
     if (!_formKey.currentState!.validate()) return;
 
-    if (selectedDistrictEn == null || selectedDsoEn == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please select district and DSO'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
+    // Step 2: Validate location selection
+    if (!_validateLocationSelection()) return;
 
-    setState(() {
-      isSaving = true;
-    });
+    // Step 3: Validate category-specific requirements
+    if (!_validateCategoryRequirements()) return;
+
+    // Step 4: Set loading state
+    setState(() => isSaving = true);
 
     try {
-      // Upload images first
+      // Step 5: Upload images concurrently
       final uploadedImageUrls = await uploadImages();
-
-      // Prepare data for Firestore
-      Map<String, dynamic> itemData = {
-        // English values for database queries
-        'district': selectedDistrictEn,
-        'dso': selectedDsoEn,
-
-        // Localized values for display (optional but recommended)
-        'districtLocalized': selectedDistrictLocalized,
-        'dsoLocalized': selectedDsoLocalized,
-
-        'details': detailsController.text.trim(),
-        'date': DateTime.now().toIso8601String(),
-      };
-
-      // Add image URLs
-      for (int i = 0; i < uploadedImageUrls.length; i++) {
-        itemData['image${i + 1}URL'] = uploadedImageUrls[i];
+      if (uploadedImageUrls.isEmpty) {
+        _showError('Please select at least one image');
+        return;
       }
 
-      // Add Paddy details if applicable
-      if (widget.paths.contains('paddy_seeds') &&
-              widget.paths.contains('improved') ||
-          widget.paths.contains('improved')) {
-        if (selectedPaddyCode == null ||
-            selectedPaddyColor == null ||
-            selectedPaddyType == null ||
-            selectedPaddyVariety == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Please select all paddy details'),
-              backgroundColor: AppColors.error,
-            ),
-          );
-          setState(() {
-            isSaving = false;
-          });
-          return;
-        }
+      // Step 6: Build complete item data
+      final itemData = _buildItemData(uploadedImageUrls);
 
-        itemData['paddyCode'] = selectedPaddyCode;
-        itemData['paddyColor'] = selectedPaddyColor;
-        itemData['paddyType'] = selectedPaddyType;
-        itemData['paddyVariety'] = selectedPaddyVariety;
-      }
-
-      // Add specific fields based on category
-      if (widget.paths.contains('lands')) {
-        itemData['acres'] = acresController.text.trim();
-        itemData['perches'] = perchesController.text.trim();
-        itemData['price'] = priceController.text.trim();
-      } else if (widget.paths.contains('harvest')) {
-        itemData['kg'] = kgController.text.trim();
-        itemData['price'] = priceController.text.trim();
-      } else {
-        // Default case
-        itemData['price'] = priceController.text.trim();
-      }
-
-      // *** KEY CHANGE: Add path info to data ***
-      itemData['pathSegments'] = widget.paths; // Store the path array
-      itemData['collectionPath'] =
-          widget.paths.join('/') + '/data'; // Store full path
-
-      // Save using provider instead of direct service call
+      // Step 7: Save via ItemsProvider (already integrated in main.dart)
       final docId = await context.read<ItemsProvider>().addItem(
         pathSegments: widget.paths,
         itemData: itemData,
       );
 
-      if (docId != null) {
-        // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Item added successfully'),
-            backgroundColor: AppColors.success,
-          ),
-        );
-
-        // Navigate back
-        Navigator.pop(context, true);
+      // Step 8: Handle success/failure
+      if (docId != null && docId.isNotEmpty) {
+        _showSuccess('Item added successfully');
+        if (mounted) Navigator.pop(context, true);
       } else {
-        throw Exception('Failed to add item');
+        _showError('Failed to save item. Please try again.');
       }
+    } on FirebaseException catch (e) {
+      _showError('Firebase error: ${e.message ?? "Unknown error"}');
     } catch (e) {
-      // Show error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error saving item: $e'),
-          backgroundColor: AppColors.error,
-        ),
-      );
+      _showError('Error saving item: ${e.toString()}');
     } finally {
-      setState(() {
-        isSaving = false;
+      if (mounted) setState(() => isSaving = false);
+    }
+  }
+
+  /// Validates that both district and DSO are selected
+  bool _validateLocationSelection() {
+    if (selectedDistrictEn == null || selectedDsoEn == null) {
+      _showError('Please select both district and DSO');
+      return false;
+    }
+    return true;
+  }
+
+  /// Validates all category-specific required fields
+  bool _validateCategoryRequirements() {
+    // Validate paddy details if applicable
+    if ((widget.paths.contains('paddy_seeds') ||
+            widget.paths.contains('improved')) &&
+        selectedPaddyCode == null) {
+      _showError('Please select all paddy details');
+      return false;
+    }
+
+    // Validate price is entered for all categories
+    if (priceController.text.trim().isEmpty) {
+      _showError('Please enter a price');
+      return false;
+    }
+
+    // Category-specific field validations
+    if (widget.paths.contains('lands')) {
+      if (acresController.text.trim().isEmpty &&
+          perchesController.text.trim().isEmpty) {
+        _showError('Please enter acres or perches');
+        return false;
+      }
+    } else if (widget.paths.contains('harvest')) {
+      if (kgController.text.trim().isEmpty) {
+        _showError('Please enter weight in kg');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  Map<String, dynamic> _buildItemData(List<String> imageUrls) {
+    final now = DateTime.now();
+
+    final itemData = <String, dynamic>{
+      // Location data (used for filtering in ItemListScreen)
+      'district': selectedDistrictEn,
+      'dso': selectedDsoEn,
+      'districtLocalized': selectedDistrictLocalized,
+      'dsoLocalized': selectedDsoLocalized,
+
+      // Common fields
+      'details': detailsController.text.trim(),
+      'price': priceController.text.trim(),
+
+      // Timestamps for sorting and filtering
+      'date': now.toIso8601String(),
+      'createdAt': now.millisecondsSinceEpoch,
+      'updatedAt': now.millisecondsSinceEpoch,
+
+      // Path information (critical for ProductProvider queries)
+      'pathSegments': widget.paths,
+      'collectionPath': '${widget.paths.join("/")}',
+    };
+
+    // Add image URLs (image1URL, image2URL, etc.)
+    for (int i = 0; i < imageUrls.length; i++) {
+      itemData['image${i + 1}URL'] = imageUrls[i];
+    }
+
+    // Add paddy details if applicable
+    _addPaddyDetails(itemData);
+
+    // Add category-specific fields based on product type
+    _addCategorySpecificFields(itemData);
+
+    return itemData;
+  }
+
+  /// Adds paddy variety details when product is paddy seeds
+  void _addPaddyDetails(Map<String, dynamic> itemData) {
+    if ((widget.paths.contains('paddy_seeds') ||
+            widget.paths.contains('improved')) &&
+        selectedPaddyCode != null) {
+      itemData.addAll({
+        'paddyCode': selectedPaddyCode,
+        'paddyColor': selectedPaddyColor,
+        'paddyType': selectedPaddyType,
+        'paddyVariety': selectedPaddyVariety,
       });
     }
+  }
+
+  /// Dynamically adds category-specific fields based on product paths
+  /// Used by ProductProvider to filter and display relevant product information
+  void _addCategorySpecificFields(Map<String, dynamic> itemData) {
+    if (widget.paths.contains('lands')) {
+      itemData['acres'] = acresController.text.trim();
+      itemData['perches'] = perchesController.text.trim();
+    } else if (widget.paths.contains('harvest')) {
+      itemData['kg'] = kgController.text.trim();
+    } else if (widget.paths.contains('paddy_seeds') &&
+        widget.paths.contains('improved')) {
+      // Paddy details already added via _addPaddyDetails()
+    } else if (widget.paths.contains('agricultural_equipment')) {
+      _addEquipmentFields(itemData);
+    } else if (widget.paths.contains('confectionery')) {
+      itemData['packets'] = qunatityController.text.trim();
+      itemData['piecesPerPacket'] = piecesInaPacketController.text.trim();
+    }
+  }
+
+  /// Handles equipment-specific fields for different equipment types
+  /// Example paths: ['agricultural_equipment', 'wire'], ['agricultural_equipment', 'gi_pipe']
+  void _addEquipmentFields(Map<String, dynamic> itemData) {
+    if (widget.paths.contains('wire')) {
+      itemData.addAll({
+        'length': lengthController.text.trim(),
+        'weight': kgController.text.trim(),
+        'quantity': qunatityController.text.trim(),
+      });
+    } else if (widget.paths.contains('gi_pipe')) {
+      itemData.addAll({
+        'length': lengthController.text.trim(),
+        'diameter': diameterController.text.trim(),
+        'weight': kgController.text.trim(),
+        'quantity': qunatityController.text.trim(),
+      });
+    } else if (widget.paths.contains('cover_nets')) {
+      itemData.addAll({
+        'height': heightController.text.trim(),
+        'length': lengthController.text.trim(),
+        'quantity': qunatityController.text.trim(),
+      });
+    } else if (widget.paths.contains('polythene')) {
+      itemData.addAll({
+        'length': lengthController.text.trim(),
+        'height': heightController.text.trim(),
+        'thickness': thicknessController.text.trim(),
+        'quantity': qunatityController.text.trim(),
+      });
+    }
+  }
+
+  /// Displays error snackbar with consistent styling and behavior
+  void _showError(String message) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message, style: const TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.error,
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+  }
+
+  /// Displays success snackbar with consistent styling and behavior
+  void _showSuccess(String message) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message, style: const TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.success,
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
   }
 
   // Build the image grid
@@ -628,13 +739,15 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.paths);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.background.withValues(alpha: 0.5),
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 0,
         title: Text(
-          AppLocalizations.of(context)!.addItems,
+          l10n.addItems,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -727,8 +840,9 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           Expanded(
                             child: _buildInputField(
                               controller: kgController,
-                              label: AppLocalizations.of(context)!.kg,
-                              hint: 'Enter weight in kg',
+                              label: l10n.kg,
+                              hint: l10n.hintKg,
+
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -739,7 +853,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                               label: AppLocalizations.of(
                                 context,
                               )!.priceForOnekg,
-                              hint: 'Enter price for a kg',
+                              hint: l10n.hintkgPrice,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -751,8 +865,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           Expanded(
                             child: _buildInputField(
                               controller: acresController,
-                              label: AppLocalizations.of(context)!.acres,
-                              hint: 'Enter acres',
+                              label: l10n.acres,
+                              hint: l10n.hintarcs,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -760,8 +874,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           Expanded(
                             child: _buildInputField(
                               controller: perchesController,
-                              label: AppLocalizations.of(context)!.perches,
-                              hint: 'Enter perches',
+                              label: l10n.perches,
+                              hint: l10n.hintperches,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -770,99 +884,396 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.price,
-                        hint: 'Enter price',
+                        label: l10n.price,
+                        hint: l10n.hintlandPrice,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('medicine')) ...[
                       _buildInputField(
                         controller: qunatityController,
-                        label: AppLocalizations.of(context)!.quantity,
-                        hint: 'Enter Quantity',
+                        label: l10n.quantity,
+                        hint: l10n.hintquantity,
                         keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.unitPrice,
-                        hint: 'Enter unit price',
+                        label: l10n.unitPrice,
+                        hint: l10n.hintunitprice,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('equipments')) ...[
                       _buildInputField(
                         controller: qunatityController,
-                        label: AppLocalizations.of(context)!.quantity,
-                        hint: 'Enter Quantity',
+                        label: l10n.quantity,
+                        hint: l10n.hintquantity,
                         keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.unitPrice,
-                        hint: 'Enter unit price',
+                        label: l10n.unitPrice,
+                        hint: l10n.hintunitprice,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('eggs')) ...[
                       _buildInputField(
                         controller: qunatityController,
-                        label: AppLocalizations.of(context)!.quantity,
+                        label: l10n.quantity,
                         hint: 'Enter Quantity',
                         keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.eggprice,
+                        label: l10n.eggprice,
                         hint: 'Enter unit price',
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: l10n.quantity,
+                        hint: l10n.hintquantity,
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      _buildInputField(
+                        controller: priceController,
+                        label: l10n.unitPrice,
+                        hint: l10n.hintunitprice,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('beecolony')) ...[
                       _buildInputField(
                         controller: qunatityController,
-                        label: AppLocalizations.of(context)!.colonyquantity,
-                        hint: 'Enter Quantity',
+                        label: l10n.colonyquantity,
+                        hint: l10n.hintcolony,
                         keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.colonyprice,
-                        hint: 'Enter unit price',
+                        label: l10n.colonyprice,
+                        hint: l10n.hintcolonyprice,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('honey')) ...[
                       _buildInputField(
                         controller: qunatityController,
-                        label: AppLocalizations.of(
-                          context,
-                        )!.honeybottlesquantity,
-                        hint: 'Enter Quantity',
+                        label: l10n.honeybottlesquantity,
+                        hint: l10n.hinthoneybottlequantity,
                         keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.honeybottlesprice,
-                        hint: 'Enter unit price',
+                        label: l10n.honeybottlesprice,
+                        hint: l10n.hintpriceofahoneybottle,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('seed_grain')) ...[
                       _buildInputField(
                         controller: kgController,
-                        label: AppLocalizations.of(context)!.kg,
-                        hint: 'Enter unit price',
+                        label: l10n.kg,
+                        hint: l10n.hintKg,
                         keyboardType: TextInputType.number,
                       ),
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.priceForOnekg,
-                        hint: 'Enter unit price',
+                        label: l10n.priceForOnekg,
+                        hint: l10n.hintkgPrice,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('seed_grain')) ...[
+                      _buildInputField(
+                        controller: kgController,
+                        label: l10n.kg,
+                        hint: l10n.hintKg,
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: priceController,
+                        label: l10n.priceForOnekg,
+                        hint: l10n.hintkgPrice,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('animal_control')) ...[
+                      if (widget.paths.contains('milk')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofliters,
+                          hint: l10n.hintliters,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceforaliter,
+                          hint: l10n.hintliterprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('feeds')) ...[
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.price,
+                          hint: l10n.hintkgPrice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('grown_cattle') ||
+                          widget.paths.contains('grown_buffalo') ||
+                          widget.paths.contains('grown_goat') ||
+                          widget.paths.contains('grown_pigs') ||
+                          widget.paths.contains('grown_rabbits') ||
+                          widget.paths.contains('grown_sheep')) ...[
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.lifeweight,
+                          hint: l10n.hintliveweight,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.animalquantity,
+                          hint: l10n.hintanimalquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.animalprice,
+                          hint: l10n.hintpriceofaanimal,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.animalquantity,
+                          hint: l10n.hintanimalquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.animalprice,
+                          hint: l10n.hintpriceofaanimal,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ] else if (widget.paths.contains('fertilizer')) ...[
+                      if (widget.paths.contains('liquid_fertilizer')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintliters,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.price,
+                          hint: l10n.hintliterprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else ...[
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceForOnekg,
+                          hint: l10n.hintkgPrice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ] else if (widget.paths.contains(
+                      'seed_plants_and_planting_material',
+                    )) ...[
+                      if (widget.paths.contains('paddy_seeds')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofbushal,
+                          hint: l10n.hintbusal,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceofbushal,
+                          hint: l10n.hintbusalprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('seed_grain') ||
+                          widget.paths.contains('seed_fruit') ||
+                          widget.paths.contains('seed_vegetables')) ...[
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceForOnekg,
+                          hint: l10n.hintkgPrice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ] else if (widget.paths.contains(
+                      'agricultural_equipment',
+                    )) ...[
+                      if (widget.paths.contains('wire')) ...[
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceofawirerool,
+                          hint: l10n.hintpriceofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: lengthController,
+                          label: l10n.lengthofaroll,
+                          hint: l10n.hintlengthofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.weightofaroll,
+                          hint: l10n.hintweightofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofrolls,
+                          hint: l10n.hintnumberofrolls,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('gi_pipe')) ...[
+                        _buildInputField(
+                          controller: lengthController,
+                          label: l10n.lengthofapipe,
+                          hint: l10n.hintpipelength,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: diameterController,
+                          label: l10n.diameterofapipe,
+                          hint: l10n.hintdiameter,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.weightofapipe,
+                          hint: l10n.hintpipeweight,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofpipe,
+                          hint: l10n.hintnumberofpipes,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintpipeprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('cover_nets')) ...[
+                        _buildInputField(
+                          controller: heightController,
+                          label: l10n.highofamesh,
+                          hint: l10n.hintheightofamesh,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: lengthController,
+                          label: l10n.lengthofaroll,
+                          hint: l10n.hintlengthofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofrolls,
+                          hint: l10n.hintnumberofrolls,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceofaroll,
+                          hint: l10n.hintpriceofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('polythene')) ...[
+                        _buildInputField(
+                          controller: lengthController,
+                          label: l10n.lengthofaroll,
+                          hint: l10n.hintlengthofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: heightController,
+                          label: l10n.heightofaroll,
+                          hint: l10n.hinthightofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: thicknessController,
+                          label: l10n.thickness,
+                          hint: l10n.hintthickness,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofrolls,
+                          hint: l10n.hintnumberofrolls,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceofaroll,
+                          hint: l10n.hintpriceofaroll,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ] else if (widget.paths.contains('confectionery')) ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: l10n.packet,
+                        hint: l10n.hintpacket,
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: piecesInaPacketController,
+                        label: l10n.pieces,
+                        hint: l10n.hintpieces,
+                        keyboardType: TextInputType.number,
+                      ),
+
+                      //   _buildInputField(
+                      //   controller: qunatityController,
+                      //   label: l10n.numberofrolls,
+                      //   hint: l10n.hintnumberofrolls,
+                      //   keyboardType: TextInputType.number,
+                      // ),
+                      _buildInputField(
+                        controller: priceController,
+                        label: l10n.packetprice,
+                        hint: l10n.hintprice,
                         keyboardType: TextInputType.number,
                       ),
                     ] else ...[
                       _buildInputField(
                         controller: priceController,
-                        label: AppLocalizations.of(context)!.price,
+                        label: l10n.price,
                         hint: 'Enter price',
                         keyboardType: TextInputType.number,
                       ),
@@ -873,7 +1284,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     // Details field for all categories
                     _buildInputField(
                       controller: detailsController,
-                      label: AppLocalizations.of(context)!.otherdetails,
+                      label: l10n.otherdetails,
                       hint: 'Enter item details',
                       isMultiline: true,
                     ),
@@ -905,7 +1316,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                                 ),
                               )
                             : Text(
-                                AppLocalizations.of(context)!.addItems,
+                                l10n.addItems,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
