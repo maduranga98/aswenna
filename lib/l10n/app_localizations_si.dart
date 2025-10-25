@@ -1612,11 +1612,11 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get instructionPoint1 =>
-      'ඔබට විකිණීමට නිෂ්පාදනයක් තිබේ නම්, \'විකිණීම\' අංශයට ගොස්, පහළ දකුණු පස ඇති + ලකුණ තට්ටු කර අයිතමය එකතු කරන්න.';
+      'ඔබට විකිණීමට නිෂ්පාදනයක් හෝ සේවාවක් තිබේ නම්, \'විකිණීම\' අංශයට ගොස්, පහළ දකුණු පස ඇති + ලකුණ තට්ටු කර අයිතමය ඇතුලත් කරන්න.';
 
   @override
   String get instructionPoint2 =>
-      'ඔබට අවශ්‍ය නිෂ්පාදනයක් හෝ සේවාවක් \'විකිණීම\' අංශයේ නොමැති නම්, එය \'මිලදී ගැනීම\' අංශයට ගොස් එකතු කළ හැක. (\'මිලදී ගැනීම\' අංශයේ රූප අනිවාර්ය නොවේ.)';
+      'ඔබට අවශ්‍ය නිෂ්පාදනයක් හෝ සේවාවක් \'විකිණීම\' අංශයේ නොමැති නම්, එය \'මිලදී ගැනීම\' අංශයට ගොස් ඇතුලත් කළ හැක. (\'මිලදී ගැනීම\' අංශයේ රූප අනිවාර්ය නොවේ.)';
 
   @override
   String get instructionPara3 =>
@@ -1654,4 +1654,28 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get height => 'උස';
+
+  @override
+  String get home => 'ප්‍රධාන පිටුව';
+
+  @override
+  String get listings => 'එකතු කළ අයිතම';
+
+  @override
+  String get instructions => 'උපදෙස්';
+
+  @override
+  String get main => 'ප්‍රධාන';
+
+  @override
+  String get support => 'සහාය';
+
+  @override
+  String get about_app => 'යෙදුම ගැන';
+
+  @override
+  String get rateUs => 'අපව ශ්‍රේණිගත කරන්න';
+
+  @override
+  String get logout => 'ඉවත්වීම';
 }

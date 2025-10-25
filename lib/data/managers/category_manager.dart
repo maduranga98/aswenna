@@ -2004,9 +2004,9 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Vegetable Planting Material',
+                    nameEn: 'Greenleaves Planting Material',
                     nameSi: 'පලා වර්ග රෝපණ ද්‍රව්‍ය',
-                    dbPath: 'vegetable_planting_material',
+                    dbPath: 'greenleaves_planting_material',
                     hasBuySell: true,
                   ),
                   ItemData(
@@ -2072,6 +2072,37 @@ class CategoryManager {
                         nameEn: 'Sugarcane',
                         nameSi: 'උක්',
                         dbPath: 'sugarcane',
+                      ),
+                      ItemData(
+                        nameEn: "Other",
+                        nameSi: "වෙනත්",
+                        dbPath: "other",
+                        hasBuySell: true,
+                      ),
+                    ],
+                  ),
+                  DeepCategoryData(
+                    nameEn: 'Vegetable Planting Material',
+                    nameSi: 'එළවළු වර්ග රෝපණ ද්‍රව්‍ය',
+                    dbPath: 'vegetable_planting_material',
+                    items: [
+                      ItemData(
+                        nameEn: 'Drumstick',
+                        nameSi: 'මුරුංගා',
+                        dbPath: 'drumstick',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Kohila',
+                        nameSi: 'කොහිල',
+                        dbPath: 'kohila',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Bred Fruit',
+                        nameSi: 'දෙල්',
+                        dbPath: 'bread_fruit',
+                        hasBuySell: true,
                       ),
                     ],
                   ),
@@ -2440,6 +2471,12 @@ class CategoryManager {
                         nameSi: 'උක්',
                         dbPath: 'sugarcane',
                       ),
+                      ItemData(
+                        nameEn: "Other",
+                        nameSi: "වෙනත්",
+                        dbPath: "other",
+                        hasBuySell: true,
+                      ),
                     ],
                   ),
                   ItemData(
@@ -2462,11 +2499,11 @@ class CategoryManager {
                   ),
                 ],
               ),
-              DeepCategoryData(
+              ItemData(
                 nameEn: 'Bonsai',
                 nameSi: 'බොන්සායි',
                 dbPath: 'bonsai',
-                items: [],
+                hasBuySell: true,
               ),
             ],
           ),
@@ -5228,7 +5265,7 @@ class CategoryManager {
                   ),
                   ItemData(
                     nameEn: 'Charcole',
-                    nameSi: 'අඟුරු',
+                    nameSi: 'අඟුරු කැට',
                     dbPath: 'charcole',
                     hasBuySell: true,
                   ),
@@ -6389,21 +6426,27 @@ class CategoryManager {
             dbPath: 'agrochemicals_application_equipment',
             items: [
               ItemData(
-                nameEn: 'Weeder',
-                nameSi: 'වීඩරය',
-                dbPath: 'weeder',
+                nameEn: 'Mechinical Spray',
+                nameSi: 'යාන්ත්රික ඉසිනය',
+                dbPath: 'mechanical_spray',
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Slasher',
-                nameSi: 'Slasher',
-                dbPath: 'slasher',
+                nameEn: 'Motorized Spray',
+                nameSi: 'මෝටර සහිත ඉසිනය',
+                dbPath: 'motorized_spray',
+                hasBuySell: true,
+              ),
+              ItemData(
+                nameEn: 'Drones',
+                nameSi: 'ඩ්‍රෝන යානා',
+                dbPath: 'drones',
                 hasBuySell: true,
               ),
               ItemData(
                 nameEn: 'Other',
                 nameSi: 'වෙනත්',
-                dbPath: 'other_weeding',
+                dbPath: 'other_fertilizer_app',
                 hasBuySell: true,
               ),
             ],

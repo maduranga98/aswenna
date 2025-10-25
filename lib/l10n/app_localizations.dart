@@ -3367,6 +3367,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Height'**
   String get height;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Main Page'**
+  String get home;
+
+  /// No description provided for @listings.
+  ///
+  /// In en, this message translates to:
+  /// **'Added Items'**
+  String get listings;
+
+  /// No description provided for @instructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get instructions;
+
+  /// No description provided for @main.
+  ///
+  /// In en, this message translates to:
+  /// **'MAIN'**
+  String get main;
+
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'SUPPORT'**
+  String get support;
+
+  /// No description provided for @about_app.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get about_app;
+
+  /// No description provided for @rateUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate US'**
+  String get rateUs;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

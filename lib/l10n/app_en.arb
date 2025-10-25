@@ -562,7 +562,17 @@
       "length" : "Length",
       "diameter" : "Diameter",
       "thickness" : "Thickness",
-      "height" : "Height"
+      "height" : "Height",
+      "home" : "Main Page",
+      "listings" :"Added Items",
+      "instructions" : "Instructions",
+      "main" : "MAIN",
+      "support" :"SUPPORT",
+      "about_app" : "About App",
+      "rateUs" : "Rate US",
+      "logout" : "Logout"
+
+
       
 
 

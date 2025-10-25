@@ -1,6 +1,8 @@
 import 'package:aswenna/core/utils/color_utils.dart';
+import 'package:aswenna/features/home%20page/homepage.dart';
 import 'package:aswenna/features/user%20profile/UserProfilePage.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
+import 'package:aswenna/screens/MyProductsPage.dart';
 import 'package:aswenna/screens/instruction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -391,31 +393,35 @@ class _AppDrawerState extends State<AppDrawer> {
                       _buildProfileHeader(userData),
 
                       // Main Menu Section
-                      _buildSectionDivider('MAIN'),
+                      _buildSectionDivider(localization.main),
                       _buildMenuItem(
                         icon: Icons.home,
-                        label: 'Home',
+                        label: localization.home,
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.pushNamedAndRemoveUntil(
+                          Navigator.push(
                             context,
-                            '/home',
-                            (route) => false,
+                            MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         },
                       ),
                       _buildMenuItem(
                         icon: Icons.shopping_bag,
-                        label: 'My Listings',
+                        label: localization.listings,
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, '/my-listings');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Myproductspage(),
+                            ),
+                          );
                         },
                       ),
 
                       _buildMenuItem(
                         icon: Icons.integration_instructions,
-                        label: 'Instructions',
+                        label: localization.instructions,
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
@@ -427,38 +433,11 @@ class _AppDrawerState extends State<AppDrawer> {
                         },
                       ),
 
-                      // // Account Section
-                      // _buildSectionDivider('ACCOUNT'),
-                      // _buildMenuItem(
-                      //   icon: Icons.settings,
-                      //   label: 'Settings',
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //     Navigator.pushNamed(context, '/settings');
-                      //   },
-                      // ),
-                      // _buildMenuItem(
-                      //   icon: Icons.privacy_tip,
-                      //   label: 'Privacy & Security',
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //     Navigator.pushNamed(context, '/privacy');
-                      //   },
-                      // ),
-                      // _buildMenuItem(
-                      //   icon: Icons.help,
-                      //   label: 'Help & Support',
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //     Navigator.pushNamed(context, '/help');
-                      //   },
-                      // ),
-
                       // Support Section
-                      _buildSectionDivider('SUPPORT'),
+                      _buildSectionDivider(localization.support),
                       _buildMenuItem(
                         icon: Icons.info,
-                        label: 'About App',
+                        label: localization.about_app,
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.pushNamed(context, '/about');
@@ -466,7 +445,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
                       _buildMenuItem(
                         icon: Icons.rate_review,
-                        label: 'Rate Us',
+                        label: localization.rateUs,
                         onTap: () {
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -479,7 +458,6 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
 
                       // Logout Button
-                      _buildSectionDivider('SESSION'),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
@@ -492,8 +470,8 @@ class _AppDrawerState extends State<AppDrawer> {
                             color: AppColors.error,
                             size: 22,
                           ),
-                          title: const Text(
-                            'Logout',
+                          title: Text(
+                            localization.logout,
                             style: TextStyle(
                               color: AppColors.error,
                               fontWeight: FontWeight.w600,

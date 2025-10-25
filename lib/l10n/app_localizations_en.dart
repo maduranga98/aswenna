@@ -1654,4 +1654,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get height => 'Height';
+
+  @override
+  String get home => 'Main Page';
+
+  @override
+  String get listings => 'Added Items';
+
+  @override
+  String get instructions => 'Instructions';
+
+  @override
+  String get main => 'MAIN';
+
+  @override
+  String get support => 'SUPPORT';
+
+  @override
+  String get about_app => 'About App';
+
+  @override
+  String get rateUs => 'Rate US';
+
+  @override
+  String get logout => 'Logout';
 }
