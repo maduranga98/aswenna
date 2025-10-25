@@ -690,6 +690,12 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
+                nameEn: 'Curry leaves',
+                nameSi: 'කරපිංචා',
+                dbPath: 'curry_leaves',
+                hasBuySell: true,
+              ),
+              ItemData(
                 nameEn: 'Other',
                 nameSi: 'වෙනත්',
                 dbPath: 'other',
@@ -767,6 +773,12 @@ class CategoryManager {
                     dbPath: 'nethrappalam',
                     hasBuySell: true,
                   ),
+                  ItemData(
+                    nameEn: 'other',
+                    nameSi: 'වෙනත්',
+                    dbPath: 'other',
+                    hasBuySell: true,
+                  ),
                 ],
               ),
               ItemData(
@@ -781,11 +793,24 @@ class CategoryManager {
                 dbPath: 'passion_fruit',
                 hasBuySell: true,
               ),
-              ItemData(
+              DeepCategoryData(
                 nameEn: 'Oranges',
                 nameSi: 'දොඩම්',
                 dbPath: 'oranges',
-                hasBuySell: true,
+                items: [
+                  ItemData(
+                    nameEn: 'Sweet Oranges',
+                    nameSi: 'පැණි දොඩම්',
+                    dbPath: 'sweet_oranges',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Sour Oranges',
+                    nameSi: 'ඇඹුල් දොඩම්',
+                    dbPath: 'sour_oranges',
+                    hasBuySell: true,
+                  ),
+                ],
               ),
               DeepCategoryData(
                 nameEn: 'Mango',
@@ -972,6 +997,12 @@ class CategoryManager {
                 nameEn: 'Lovi',
                 nameSi: 'ලොවි',
                 dbPath: 'lovi',
+                hasBuySell: true,
+              ),
+              ItemData(
+                nameEn: 'Sugarcane',
+                nameSi: 'උක්',
+                dbPath: 'sugarcane',
                 hasBuySell: true,
               ),
               ItemData(
@@ -2001,13 +2032,48 @@ class CategoryManager {
                         dbPath: "pepper",
                         hasBuySell: true,
                       ),
+                      ItemData(
+                        nameEn: "Turmeric",
+                        nameSi: "කහ",
+                        dbPath: "Turmeric",
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: "Ginger",
+                        nameSi: "ඉඟුරු",
+                        dbPath: "ginger",
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: "Other",
+                        nameSi: "වෙනත්",
+                        dbPath: "other",
+                        hasBuySell: true,
+                      ),
                     ],
                   ),
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Fruit Planting Material',
                     nameSi: 'පලතුරු වර්ග රෝපණ ද්‍රව්‍ය',
                     dbPath: 'fruit_planting_material',
-                    hasBuySell: true,
+                    items: [
+                      ItemData(
+                        nameEn: 'Banana',
+                        nameSi: 'කෙසෙල්',
+                        dbPath: 'banana',
+                      ),
+                      ItemData(nameEn: 'Guava', nameSi: 'පේර', dbPath: 'guava'),
+                      ItemData(
+                        nameEn: 'Grapes',
+                        nameSi: 'මිදි',
+                        dbPath: 'grapes',
+                      ),
+                      ItemData(
+                        nameEn: 'Sugarcane',
+                        nameSi: 'උක්',
+                        dbPath: 'sugarcane',
+                      ),
+                    ],
                   ),
                   ItemData(
                     nameEn: 'Medicinal Planting Material',
@@ -2029,11 +2095,11 @@ class CategoryManager {
                   ),
                 ],
               ),
-              DeepCategoryData(
+              ItemData(
                 nameEn: 'Bonsai',
                 nameSi: 'බොන්සායි',
                 dbPath: 'bonsai',
-                items: [],
+                hasBuySell: true,
               ),
             ],
           ),
@@ -2306,6 +2372,24 @@ class CategoryManager {
                         nameEn: "Pepper",
                         nameSi: "ගම්මිරිස්",
                         dbPath: "pepper",
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: "Turmeric",
+                        nameSi: "කහ",
+                        dbPath: "Turmeric",
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: "Ginger",
+                        nameSi: "ඉඟුරු",
+                        dbPath: "ginger",
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: "Other",
+                        nameSi: "වෙනත්",
+                        dbPath: "other",
                         hasBuySell: true,
                       ),
                     ],
@@ -3196,6 +3280,24 @@ class CategoryManager {
                             dbPath: 'black',
                             hasBuySell: true,
                           ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Plymouth Rock",
+                            nameSi: 'පොහොර',
+                            dbPath: 'plymouth_rock',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Other",
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
                         ],
                       ),
                       ItemData(
@@ -3259,24 +3361,24 @@ class CategoryManager {
                         nameSi: 'පැටව්',
                         dbPath: 'calf',
                         items: [
-                          ItemData(
-                            nameEn: "Red",
-                            nameSi: 'රතු',
-                            dbPath: 'red',
-                            hasBuySell: true,
-                          ),
+                          // ItemData(
+                          //   nameEn: "Red",
+                          //   nameSi: 'රතු',
+                          //   dbPath: 'red',
+                          //   hasBuySell: true,
+                          // ),
                           ItemData(
                             nameEn: "White",
                             nameSi: 'සුදු',
                             dbPath: 'white',
                             hasBuySell: true,
                           ),
-                          ItemData(
-                            nameEn: "Black",
-                            nameSi: 'කළු',
-                            dbPath: 'black',
-                            hasBuySell: true,
-                          ),
+                          // ItemData(
+                          //   nameEn: "Black",
+                          //   nameSi: 'කළු',
+                          //   dbPath: 'black',
+                          //   hasBuySell: true,
+                          // ),
                         ],
                       ),
 
@@ -3285,24 +3387,24 @@ class CategoryManager {
                         nameSi: 'වැඩුණු සතුන්',
                         dbPath: 'adult_animals',
                         items: [
-                          ItemData(
-                            nameEn: "Red",
-                            nameSi: 'රතු',
-                            dbPath: 'red',
-                            hasBuySell: true,
-                          ),
+                          // ItemData(
+                          //   nameEn: "Red",
+                          //   nameSi: 'රතු',
+                          //   dbPath: 'red',
+                          //   hasBuySell: true,
+                          // ),
                           ItemData(
                             nameEn: "White",
                             nameSi: 'සුදු',
                             dbPath: 'white',
                             hasBuySell: true,
                           ),
-                          ItemData(
-                            nameEn: "Black",
-                            nameSi: 'කළු',
-                            dbPath: 'black',
-                            hasBuySell: true,
-                          ),
+                          // ItemData(
+                          //   nameEn: "Black",
+                          //   nameSi: 'කළු',
+                          //   dbPath: 'black',
+                          //   hasBuySell: true,
+                          // ),
                         ],
                       ),
                       ItemData(
@@ -4561,7 +4663,7 @@ class CategoryManager {
               ),
               ItemData(
                 nameEn: 'Bee Colony',
-                nameSi: 'මී මැසි ජනපදය',
+                nameSi: 'මී මැසි ජනපද',
                 dbPath: 'beecolony',
                 hasBuySell: true,
               ),
@@ -4604,11 +4706,310 @@ class CategoryManager {
             nameSi: 'වී ආශ්‍රිත නිෂ්පාදන',
             dbPath: 'paddy_relate_ products',
             items: [
-              ItemData(
+              DeepCategoryData(
                 nameEn: 'Rice',
                 nameSi: 'සහල්',
                 dbPath: 'rice',
-                hasBuySell: true,
+                items: [
+                  DeepCategoryData(
+                    nameEn: 'Kakulu',
+                    nameSi: 'කැකුළු',
+                    dbPath: 'kakulu',
+                    items: [
+                      DeepCategoryData(
+                        nameEn: "Broken rice",
+                        nameSi: "සුනු සහල්",
+                        dbPath: "broken_rice",
+                        items: [
+                          DeepCategoryData(
+                            nameEn: "Red rice",
+                            nameSi: "රතු සහල්",
+                            dbPath: "red_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                          DeepCategoryData(
+                            nameEn: "White rice",
+                            nameSi: "සුදු සහල්",
+                            dbPath: "white_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      DeepCategoryData(
+                        nameEn: "Rice",
+                        nameSi: "සහල්",
+                        dbPath: "rice",
+                        items: [
+                          DeepCategoryData(
+                            nameEn: "Red rice",
+                            nameSi: "රතු සහල්",
+                            dbPath: "red_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                          DeepCategoryData(
+                            nameEn: "White rice",
+                            nameSi: "සුදු සහල්",
+                            dbPath: "white_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  DeepCategoryData(
+                    nameEn: 'Boiled',
+                    nameSi: 'තම්බපු',
+                    dbPath: 'boiled',
+                    items: [
+                      DeepCategoryData(
+                        nameEn: "Broken rice",
+                        nameSi: "සුනු සහල්",
+                        dbPath: "broken_rice",
+                        items: [
+                          DeepCategoryData(
+                            nameEn: "Red rice",
+                            nameSi: "රතු සහල්",
+                            dbPath: "red_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                          DeepCategoryData(
+                            nameEn: "White rice",
+                            nameSi: "සුදු සහල්",
+                            dbPath: "white_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      DeepCategoryData(
+                        nameEn: "Rice",
+                        nameSi: "සහල්",
+                        dbPath: "rice",
+                        items: [
+                          DeepCategoryData(
+                            nameEn: "Red rice",
+                            nameSi: "රතු සහල්",
+                            dbPath: "red_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                          DeepCategoryData(
+                            nameEn: "White rice",
+                            nameSi: "සුදු සහල්",
+                            dbPath: "white_rice",
+                            items: [
+                              ItemData(
+                                nameEn: "Nadu",
+                                nameSi: "නාඩු",
+                                dbPath: "nadu",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Samba",
+                                nameSi: "සම්බා",
+                                dbPath: "samba",
+                                hasBuySell: true,
+                              ),
+
+                              ItemData(
+                                nameEn: "Kiri Samba",
+                                nameSi: "කීරි සම්බා",
+                                dbPath: "kiri_samba",
+                                hasBuySell: true,
+                              ),
+                              ItemData(
+                                nameEn: "Basmathi",
+                                nameSi: "බාස්මතී",
+                                dbPath: "basmathi",
+                                hasBuySell: true,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
               DeepCategoryData(
                 nameEn: 'Rice Polish',
@@ -4808,15 +5209,27 @@ class CategoryManager {
                 dbPath: 'coconut_shells',
                 items: [
                   ItemData(
-                    nameEn: 'Charcole',
-                    nameSi: 'අඟුරු',
-                    dbPath: 'charcole',
-                    hasBuySell: true,
-                  ),
-                  ItemData(
                     nameEn: 'Shells Pieces',
                     nameSi: 'කටු කැබලි',
                     dbPath: 'shells',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Coconut shell',
+                    nameSi: 'පොල්කටු',
+                    dbPath: 'coconut_shells',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Coconut Shell Charcoal',
+                    nameSi: 'පොල් කටු අඟුරු',
+                    dbPath: 'coconut_shell_charcol',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Charcole',
+                    nameSi: 'අඟුරු',
+                    dbPath: 'charcole',
                     hasBuySell: true,
                   ),
                 ],
@@ -4856,6 +5269,12 @@ class CategoryManager {
                 nameSi: 'පොල් ලෙලි වලින්',
                 dbPath: 'coconut_husk',
                 items: [
+                  ItemData(
+                    nameEn: 'Coconut Husks',
+                    nameSi: 'පොල් ලෙලි',
+                    dbPath: 'coconut_husks',
+                    hasBuySell: true,
+                  ),
                   ItemData(
                     nameEn: '(Ballas)Oh Matt',
                     nameSi: 'බැලස් (ඕමැට්ට)',
@@ -5170,49 +5589,361 @@ class CategoryManager {
             nameEn: 'Drivers',
             nameSi: 'රියදුරන්',
             dbPath: 'drivers',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Electricians',
             nameSi: 'විදුලි කාරමිකයින්',
             dbPath: 'electricians',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Plumbers',
             nameSi: 'ජලනල කාරමිකයින්',
             dbPath: 'plumbers',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Net Housing - Green House',
             nameSi: 'Net Housing - Green House',
             dbPath: 'net_housing_green_house',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Workers',
             nameSi: 'කාරමිකයින්',
             dbPath: 'workers',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Wells and Tube Wells',
             nameSi: 'ළිං සහ නල ළිං',
             dbPath: 'wells_and_tube_wells',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Carpenters',
             nameSi: 'වඩු කාර්මිකයන්',
             dbPath: 'carpenters',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Masons',
             nameSi: 'මේසන්',
             dbPath: 'masons',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Coconut Pluckers',
@@ -5231,13 +5962,91 @@ class CategoryManager {
             nameEn: 'Tea Pluckers',
             nameSi: 'තේ දළු නෙළන්නන්',
             dbPath: 'tea_pluckers',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Cinnamon Tappers',
             nameSi: 'කුරුදු තලන්නන්',
             dbPath: 'cinnamon_tappers',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Carrier Services',
@@ -5255,7 +6064,46 @@ class CategoryManager {
             nameEn: 'Veterinary Doctors',
             nameSi: 'සත්ව වෛද්‍යවරුන්',
             dbPath: 'veterinary_doctors',
-            hasBuySell: false,
+            items: [
+              DeepCategoryData(
+                nameEn: "Trained",
+                nameSi: "පුහුනු",
+                dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+            ],
           ),
           SubCategoryData(
             nameEn: 'Veterinary Technicians',

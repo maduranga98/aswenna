@@ -1,6 +1,7 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/user%20profile/UserProfilePage.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
+import 'package:aswenna/screens/instruction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -411,113 +412,47 @@ class _AppDrawerState extends State<AppDrawer> {
                           Navigator.pushNamed(context, '/my-listings');
                         },
                       ),
-                      _buildMenuItem(
-                        icon: Icons.favorite,
-                        label: 'Saved Items',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/saved-items');
-                        },
-                      ),
-                      _buildMenuItem(
-                        icon: Icons.history,
-                        label: 'Purchase History',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/history');
-                        },
-                      ),
 
-                      // Business Section
-                      _buildSectionDivider('BUSINESS'),
                       _buildMenuItem(
-                        icon: Icons.add_circle,
-                        label: 'Create Listing',
+                        icon: Icons.integration_instructions,
+                        label: 'Instructions',
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, '/create-listing');
-                        },
-                      ),
-                      _buildMenuItem(
-                        icon: Icons.trending_up,
-                        label: 'Analytics',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/analytics');
-                        },
-                      ),
-                      _buildMenuItem(
-                        icon: Icons.rate_review,
-                        label: 'Reviews',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/reviews');
-                        },
-                      ),
-
-                      // Community Section
-                      _buildSectionDivider('COMMUNITY'),
-                      _buildMenuItem(
-                        icon: Icons.message,
-                        label: 'Messages',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/messages');
-                        },
-                        trailing: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.error,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Text(
-                            '3',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => InstructionScreen(),
                             ),
-                          ),
-                        ),
-                      ),
-                      _buildMenuItem(
-                        icon: Icons.group,
-                        label: 'Connections',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/connections');
+                          );
                         },
                       ),
 
-                      // Account Section
-                      _buildSectionDivider('ACCOUNT'),
-                      _buildMenuItem(
-                        icon: Icons.settings,
-                        label: 'Settings',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/settings');
-                        },
-                      ),
-                      _buildMenuItem(
-                        icon: Icons.privacy_tip,
-                        label: 'Privacy & Security',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/privacy');
-                        },
-                      ),
-                      _buildMenuItem(
-                        icon: Icons.help,
-                        label: 'Help & Support',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/help');
-                        },
-                      ),
+                      // // Account Section
+                      // _buildSectionDivider('ACCOUNT'),
+                      // _buildMenuItem(
+                      //   icon: Icons.settings,
+                      //   label: 'Settings',
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //     Navigator.pushNamed(context, '/settings');
+                      //   },
+                      // ),
+                      // _buildMenuItem(
+                      //   icon: Icons.privacy_tip,
+                      //   label: 'Privacy & Security',
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //     Navigator.pushNamed(context, '/privacy');
+                      //   },
+                      // ),
+                      // _buildMenuItem(
+                      //   icon: Icons.help,
+                      //   label: 'Help & Support',
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //     Navigator.pushNamed(context, '/help');
+                      //   },
+                      // ),
 
                       // Support Section
                       _buildSectionDivider('SUPPORT'),

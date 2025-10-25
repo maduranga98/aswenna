@@ -3271,6 +3271,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter number of pieces in a packet'**
   String get hintpieces;
+
+  /// No description provided for @instructionPara1.
+  ///
+  /// In en, this message translates to:
+  /// **'On the main page, you’ll see several options — use them to navigate to the section you need. This application helps all kinds of farmers find good markets for their products and services. We have properly categorized every product and service to make it easier for you to find what you’re looking for. From any section, you can perform actions such as adding new items, viewing other listings, or checking details of available products and services.'**
+  String get instructionPara1;
+
+  /// No description provided for @instructionPara2.
+  ///
+  /// In en, this message translates to:
+  /// **'The app mainly focuses on two things: selling and buying.'**
+  String get instructionPara2;
+
+  /// No description provided for @instructionPoint1.
+  ///
+  /// In en, this message translates to:
+  /// **'To sell a product, go to the To Sell section and tap the + button at the bottom-right to add your item.'**
+  String get instructionPoint1;
+
+  /// No description provided for @instructionPoint2.
+  ///
+  /// In en, this message translates to:
+  /// **'If you need a product or service but can’t find it in the To Sell section, go to the To Buy section and add your request there. (Images are optional for the To Buy listings.)'**
+  String get instructionPoint2;
+
+  /// No description provided for @instructionPara3.
+  ///
+  /// In en, this message translates to:
+  /// **'For the best results, make sure to select your district and Divisional Secretary area when adding a listing.'**
+  String get instructionPara3;
+
+  /// No description provided for @itemname.
+  ///
+  /// In en, this message translates to:
+  /// **'Item name'**
+  String get itemname;
+
+  /// No description provided for @hintitemname.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the item name'**
+  String get hintitemname;
+
+  /// No description provided for @plantsQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Plants Quantity'**
+  String get plantsQuantity;
+
+  /// No description provided for @hintplantsQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Plants Quantity'**
+  String get hintplantsQuantity;
+
+  /// No description provided for @plantPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price for a plant'**
+  String get plantPrice;
+
+  /// No description provided for @hintPlantPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for a plant'**
+  String get hintPlantPrice;
+
+  /// No description provided for @give.
+  ///
+  /// In en, this message translates to:
+  /// **'To Give'**
+  String get give;
+
+  /// No description provided for @need.
+  ///
+  /// In en, this message translates to:
+  /// **'Need'**
+  String get need;
+
+  /// No description provided for @length.
+  ///
+  /// In en, this message translates to:
+  /// **'Length'**
+  String get length;
+
+  /// No description provided for @diameter.
+  ///
+  /// In en, this message translates to:
+  /// **'Diameter'**
+  String get diameter;
+
+  /// No description provided for @height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get height;
 }
 
 class _AppLocalizationsDelegate
