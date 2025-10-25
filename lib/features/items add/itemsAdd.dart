@@ -36,6 +36,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   final heightController = TextEditingController();
   final packetController = TextEditingController();
   final piecesInaPacketController = TextEditingController();
+  final nameController = TextEditingController();
 
   String? selectedDistrictEn, selectedDistrictLocalized;
   String? selectedDsoEn, selectedDsoLocalized;
@@ -179,11 +180,16 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     setState(() => isSaving = true);
 
     try {
-      // Step 5: Upload images concurrently
-      final uploadedImageUrls = await uploadImages();
-      if (uploadedImageUrls.isEmpty) {
-        _showError('Please select at least one image');
-        return;
+      List<String> uploadedImageUrls = [];
+
+      // Step 5: Upload images only if path contains 'sell'
+      if (widget.paths.contains('sell')) {
+        uploadedImageUrls = await uploadImages();
+        if (uploadedImageUrls.isEmpty) {
+          _showError('Please select at least one image');
+          setState(() => isSaving = false);
+          return;
+        }
       }
 
       // Step 6: Build complete item data
@@ -205,7 +211,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     } on FirebaseException catch (e) {
       _showError('Firebase error: ${e.message ?? "Unknown error"}');
     } catch (e) {
-      _showError('Error saving item: ${e.toString()}');
+      _showError('Error saving item: $e');
     } finally {
       if (mounted) setState(() => isSaving = false);
     }
@@ -266,7 +272,19 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
       // Common fields
       'details': detailsController.text.trim(),
       'price': priceController.text.trim(),
+      'quantity': qunatityController.text.trim(),
 
+      //special fields
+      'kg': kgController.text.trim(),
+      'acres': acresController.text.trim(),
+      'perches': perchesController.text.trim(),
+      'length': lengthController.text.trim(),
+      'diameter': diameterController.text.trim(),
+      'thickness': thicknessController.text.trim(),
+      'height': heightController.text.trim(),
+      'packet': packetController.text.trim(),
+      'piecesInaPacket': piecesInaPacketController.text.trim(),
+      'name': nameController.text.trim(),
       // Timestamps for sorting and filtering
       'date': now.toIso8601String(),
       'createdAt': now.millisecondsSinceEpoch,
@@ -274,7 +292,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
 
       // Path information (critical for ProductProvider queries)
       'pathSegments': widget.paths,
-      'collectionPath': '${widget.paths.join("/")}',
+      'collectionPath': widget.paths.join("/"),
     };
 
     // Add image URLs (image1URL, image2URL, etc.)
@@ -305,7 +323,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     }
   }
 
-  /// Dynamically adds category-specific fields based on product paths
   /// Used by ProductProvider to filter and display relevant product information
   void _addCategorySpecificFields(Map<String, dynamic> itemData) {
     if (widget.paths.contains('lands')) {
@@ -324,8 +341,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
     }
   }
 
-  /// Handles equipment-specific fields for different equipment types
-  /// Example paths: ['agricultural_equipment', 'wire'], ['agricultural_equipment', 'gi_pipe']
+  // Handles equipment-specific fields for different equipment types
   void _addEquipmentFields(Map<String, dynamic> itemData) {
     if (widget.paths.contains('wire')) {
       itemData.addAll({
@@ -739,7 +755,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.paths);
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.background.withValues(alpha: 0.5),
@@ -756,17 +771,18 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(32),
-                  bottomRight: Radius.circular(32),
+            if (widget.paths.contains('sell'))
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(32),
+                    bottomRight: Radius.circular(32),
+                  ),
                 ),
+                child: _buildImageGrid(),
               ),
-              child: _buildImageGrid(),
-            ),
             Padding(
               padding: EdgeInsets.all(16),
               child: Form(
@@ -930,17 +946,25 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         hint: 'Enter unit price',
                         keyboardType: TextInputType.number,
                       ),
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.quantity,
-                        hint: l10n.hintquantity,
-                        keyboardType: TextInputType.number,
-                      ),
+
                       SizedBox(height: 16),
                       _buildInputField(
                         controller: priceController,
                         label: l10n.unitPrice,
                         hint: l10n.hintunitprice,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ] else if (widget.paths.contains('feed')) ...[
+                      _buildInputField(
+                        controller: kgController,
+                        label: l10n.kg,
+                        hint: l10n.hintKg,
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: priceController,
+                        label: l10n.priceForOnekg,
+                        hint: l10n.hintKg,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('beecolony')) ...[
@@ -1048,6 +1072,26 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           hint: l10n.hintpriceofaanimal,
                           keyboardType: TextInputType.number,
                         ),
+                      ] else if (widget.paths.contains('equipments') ||
+                          widget.paths.contains('accessories')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
+                          keyboardType: TextInputType.text,
+                        ),
                       ] else ...[
                         _buildInputField(
                           controller: qunatityController,
@@ -1063,7 +1107,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         ),
                       ],
                     ] else if (widget.paths.contains('fertilizer')) ...[
-                      if (widget.paths.contains('liquid_fertilizer')) ...[
+                      if (widget.paths.contains('liquid_fertilizer') ||
+                          widget.paths.contains('single_fertilizer')) ...[
                         _buildInputField(
                           controller: qunatityController,
                           label: l10n.quantity,
@@ -1091,7 +1136,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         ),
                       ],
                     ] else if (widget.paths.contains(
-                      'seed_plants_and_planting_material',
+                      'seeds_plants_and_planting_material',
                     )) ...[
                       if (widget.paths.contains('paddy_seeds')) ...[
                         _buildInputField(
@@ -1125,6 +1170,32 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           controller: priceController,
                           label: l10n.priceForOnekg,
                           hint: l10n.hintkgPrice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('plants')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.plantsQuantity,
+                          hint: l10n.hintplantsQuantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.plantsQuantity,
+                          hint: l10n.hintplantsQuantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('planting_parts')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.price,
+                          hint: l10n.hintprice,
                           keyboardType: TextInputType.number,
                         ),
                       ],
@@ -1243,6 +1314,19 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           hint: l10n.hintpriceofaroll,
                           keyboardType: TextInputType.number,
                         ),
+                      ] else ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
+                          keyboardType: TextInputType.number,
+                        ),
                       ],
                     ] else if (widget.paths.contains('confectionery')) ...[
                       _buildInputField(
@@ -1270,11 +1354,37 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         hint: l10n.hintprice,
                         keyboardType: TextInputType.number,
                       ),
+                    ] else if (widget.paths.contains("other") ||
+                        widget.paths.contains("other")) ...[
+                      _buildInputField(
+                        controller: nameController,
+                        label: l10n.itemname,
+                        hint: l10n.hintitemname,
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: l10n.quantity,
+                        hint: l10n.hintquantity,
+                        keyboardType: TextInputType.number,
+                      ),
+                      _buildInputField(
+                        controller: priceController,
+                        label: l10n.unitPrice,
+                        hint: l10n.hintunitprice,
+                        keyboardType: TextInputType.number,
+                      ),
                     ] else ...[
+                      _buildInputField(
+                        controller: qunatityController,
+                        label: l10n.quantity,
+                        hint: l10n.quantity,
+                        keyboardType: TextInputType.number,
+                      ),
                       _buildInputField(
                         controller: priceController,
                         label: l10n.price,
-                        hint: 'Enter price',
+                        hint: l10n.price,
                         keyboardType: TextInputType.number,
                       ),
                     ],

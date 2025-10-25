@@ -1489,7 +1489,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get priceofaroll => 'රෝලයක මිල';
 
   @override
-  String get thickness => 'ඝණකම';
+  String get thickness => 'ඝනකම';
 
   @override
   String get hintKg => 'බර කිලෝග්‍රෑම් වලින් ඇතුළත් කරන්න';
@@ -1601,4 +1601,57 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get hintpieces => 'පැකට්ටුවක ඇති කෑලි ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get instructionPara1 =>
+      'ප්‍රධාන පිටුවේ ඔබට විවිධ විකල්ප කිහිපයක් දක්නට ලැබේ. ඔබට අවශ්‍ය අංශයට යාමට මෙම විකල්ප භාවිතා කළ හැක. මෙම යෙදුම සියලු වර්ගයේ ගොවීන්ට තම නිෂ්පාදන සහ සේවාවන් සඳහා හොඳ වෙළඳපලක් සොයා ගැනීමට උපකාරී වේ. අපි සියලු නිෂ්පාදන සහ සේවාවන් නිසි ලෙස වර්ගීකරණය කර ඇති නිසා ඔබට අවශ්‍ය දේ පහසුවෙන් සොයා ගත හැක. ඕනෑම අංශයකින් ඔබට නව අයිතම එකතු කිරීම, අනෙක් අයිතම පරීක්ෂා කිරීම, සහ විස්තර බැලීම වැනි ක්‍රියා කිරීමේ හැකියාව ඇත.';
+
+  @override
+  String get instructionPara2 =>
+      'මෙම යෙදුම ප්‍රධාන වශයෙන් අවධානය යොමු කරන්නේ විකුණුම් සහ ගැනුම් ක්‍රියාකාරකම් දෙකටය.';
+
+  @override
+  String get instructionPoint1 =>
+      'ඔබට විකිණීමට නිෂ්පාදනයක් තිබේ නම්, \'විකිණීම\' අංශයට ගොස්, පහළ දකුණු පස ඇති + ලකුණ තට්ටු කර අයිතමය එකතු කරන්න.';
+
+  @override
+  String get instructionPoint2 =>
+      'ඔබට අවශ්‍ය නිෂ්පාදනයක් හෝ සේවාවක් \'විකිණීම\' අංශයේ නොමැති නම්, එය \'මිලදී ගැනීම\' අංශයට ගොස් එකතු කළ හැක. (\'මිලදී ගැනීම\' අංශයේ රූප අනිවාර්ය නොවේ.)';
+
+  @override
+  String get instructionPara3 =>
+      'වඩා හොඳ ප්‍රතිඵල සඳහා, අයිතම එකතු කරන විට ඔබගේ දිස්ත්‍රික්කය සහ ප්‍රාදේශීය ලේකම් කොට්ඨාශය නිවැරදිව තෝරා ගන්න.';
+
+  @override
+  String get itemname => 'අයිතමයේ නම';
+
+  @override
+  String get hintitemname => 'අයිතමයේ නම ඇතුළත් කරන්න';
+
+  @override
+  String get plantsQuantity => 'ශාක ප්‍රමාණය';
+
+  @override
+  String get hintplantsQuantity => 'ශාක ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get plantPrice => 'ශාකයක මිල';
+
+  @override
+  String get hintPlantPrice => 'ශාකයක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get give => 'ලබා දීමට';
+
+  @override
+  String get need => 'අවශ්‍යයි';
+
+  @override
+  String get length => 'දිග';
+
+  @override
+  String get diameter => 'විෂ්කම්භය';
+
+  @override
+  String get height => 'උස';
 }

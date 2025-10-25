@@ -9,7 +9,6 @@ import 'package:aswenna/features/items%20add/itemsAdd.dart';
 import 'package:aswenna/features/items%20view/item_view.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/providers/items_provider.dart';
-import 'package:aswenna/providers/product_provider.dart';
 import 'package:aswenna/widgets/filterBottomSheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -358,7 +357,7 @@ class _ItemListScreenState extends State<ItemListScreen>
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-
+    print(widget.parentPath);
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -404,7 +403,11 @@ class _ItemListScreenState extends State<ItemListScreen>
                                 const Icon(Icons.sell, size: 20),
                                 const SizedBox(width: 8),
                                 Text(
-                                  localization.sell,
+                                  (widget.parentPath.contains(
+                                        'service_providers',
+                                      ))
+                                      ? localization.give
+                                      : localization.buy,
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -420,7 +423,11 @@ class _ItemListScreenState extends State<ItemListScreen>
                                 const Icon(Icons.shopping_cart, size: 20),
                                 const SizedBox(width: 8),
                                 Text(
-                                  localization.buy,
+                                  (widget.parentPath.contains(
+                                        'service_providers',
+                                      ))
+                                      ? localization.need
+                                      : localization.buy,
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,

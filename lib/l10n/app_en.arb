@@ -545,6 +545,25 @@
       "packetprice"  : "Price of a packet",
       "hintpacket" : "Enter number of packets",
       "hintprice" : "Enter price of a packet",
-      "hintpieces" : "Enter number of pieces in a packet"
+      "hintpieces" : "Enter number of pieces in a packet",
+      "instructionPara1" : "On the main page, you’ll see several options — use them to navigate to the section you need. This application helps all kinds of farmers find good markets for their products and services. We have properly categorized every product and service to make it easier for you to find what you’re looking for. From any section, you can perform actions such as adding new items, viewing other listings, or checking details of available products and services.",
+      "instructionPara2" : "The app mainly focuses on two things: selling and buying.",
+      "instructionPoint1" : "To sell a product, go to the To Sell section and tap the + button at the bottom-right to add your item.",
+      "instructionPoint2" : "If you need a product or service but can’t find it in the To Sell section, go to the To Buy section and add your request there. (Images are optional for the To Buy listings.)",
+      "instructionPara3" : "For the best results, make sure to select your district and Divisional Secretary area when adding a listing.",
+      "itemname": "Item name",
+      "hintitemname" : "Enter the item name",
+      "plantsQuantity" : "Plants Quantity",
+      "hintplantsQuantity" :"Enter the Plants Quantity",
+      "plantPrice" : "Price for a plant",
+      "hintPlantPrice" : "Enter price for a plant",
+      "give" : "To Give",
+      "need" : "Need",
+      "length" : "Length",
+      "diameter" : "Diameter",
+      "thickness" : "Thickness",
+      "height" : "Height"
+      
+
 
     }

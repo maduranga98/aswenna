@@ -1601,4 +1601,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hintpieces => 'Enter number of pieces in a packet';
+
+  @override
+  String get instructionPara1 =>
+      'On the main page, you’ll see several options — use them to navigate to the section you need. This application helps all kinds of farmers find good markets for their products and services. We have properly categorized every product and service to make it easier for you to find what you’re looking for. From any section, you can perform actions such as adding new items, viewing other listings, or checking details of available products and services.';
+
+  @override
+  String get instructionPara2 =>
+      'The app mainly focuses on two things: selling and buying.';
+
+  @override
+  String get instructionPoint1 =>
+      'To sell a product, go to the To Sell section and tap the + button at the bottom-right to add your item.';
+
+  @override
+  String get instructionPoint2 =>
+      'If you need a product or service but can’t find it in the To Sell section, go to the To Buy section and add your request there. (Images are optional for the To Buy listings.)';
+
+  @override
+  String get instructionPara3 =>
+      'For the best results, make sure to select your district and Divisional Secretary area when adding a listing.';
+
+  @override
+  String get itemname => 'Item name';
+
+  @override
+  String get hintitemname => 'Enter the item name';
+
+  @override
+  String get plantsQuantity => 'Plants Quantity';
+
+  @override
+  String get hintplantsQuantity => 'Enter the Plants Quantity';
+
+  @override
+  String get plantPrice => 'Price for a plant';
+
+  @override
+  String get hintPlantPrice => 'Enter price for a plant';
+
+  @override
+  String get give => 'To Give';
+
+  @override
+  String get need => 'Need';
+
+  @override
+  String get length => 'Length';
+
+  @override
+  String get diameter => 'Diameter';
+
+  @override
+  String get height => 'Height';
 }

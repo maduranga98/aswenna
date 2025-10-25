@@ -1,9 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:aswenna/core/services/firestore_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
-import 'package:aswenna/features/items%20view/item_purchase_page.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -61,6 +60,8 @@ class _ItemViewPageState extends State<ItemViewPage> {
   bool isLoading = false;
   bool isImageViewVisible = false;
   Map<String, dynamic> itemData = {};
+  Map<String, dynamic>? ownerData;
+  bool isLoadingOwner = false;
   List<String> imageUrls = [];
   int currentImageIndex = 0;
   bool isOwner = false;
@@ -72,31 +73,8 @@ class _ItemViewPageState extends State<ItemViewPage> {
   }
 
   Future<void> _initData() async {
-    if (widget.itemData != null) {
-      setState(() {
-        itemData = widget.itemData!;
-        _extractImageUrls();
-      });
-    } else if (widget.documentId != null && widget.pathSegments != null) {
-      _loadItemData();
-    } else {
-      setState(() {
-        // Use the directly provided fields
-        itemData = {
-          'district': widget.district,
-          'dso': widget.dso,
-          'acres': widget.arces,
-          'perches': widget.perches,
-          'price': widget.price,
-          'details': widget.details,
-          'date': widget.date,
-          'userId': widget.userId,
-          'image1URL': widget.imagelink1,
-          'image2URL': widget.imagelink2,
-        };
-        _extractImageUrls();
-      });
-    }
+    await _loadItemData();
+    await _loadOwnerData();
 
     // Check if current user is the owner
     if (widget.ownerId != null) {
@@ -110,54 +88,6 @@ class _ItemViewPageState extends State<ItemViewPage> {
     }
   }
 
-  Future<void> _navigateToPurchasePage() async {
-    // Make sure we have a document ID and path segments
-    if (widget.documentId == null || widget.pathSegments == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Cannot process this purchase due to missing information',
-          ),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
-    // Make sure the item has a quantity field
-    final currentQuantity =
-        int.tryParse(itemData['kg']?.toString() ?? '0') ?? 0;
-    if (currentQuantity <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('This item is out of stock'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
-    // Navigate to the purchase page
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ItemPurchasePage(
-          documentId: widget.documentId!,
-
-          itemData: itemData,
-          currentQuantity: currentQuantity,
-        ),
-      ),
-    );
-
-    // If the purchase was successful, refresh data or return to previous screen
-    if (result == true) {
-      // If you want to refresh the item data, you could do it here
-      // Otherwise just pass the result back to the previous screen
-      Navigator.pop(context, true);
-    }
-  }
-
   Future<void> _loadItemData() async {
     setState(() {
       isLoading = true;
@@ -165,13 +95,13 @@ class _ItemViewPageState extends State<ItemViewPage> {
 
     try {
       final docSnap = await _firestoreService.getItemById(
-        // pathSegments: widget.pathSegments!,
         documentId: widget.documentId!,
       );
 
       if (docSnap != null && docSnap.exists) {
         setState(() {
           itemData = docSnap.data() as Map<String, dynamic>;
+          print(itemData);
           isOwner = itemData['userId'] == _firestoreService.currentUserId;
           _extractImageUrls();
         });
@@ -186,6 +116,34 @@ class _ItemViewPageState extends State<ItemViewPage> {
     } finally {
       setState(() {
         isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _loadOwnerData() async {
+    final userId = itemData['userId'] ?? widget.userId;
+    if (userId == null) return;
+
+    setState(() {
+      isLoadingOwner = true;
+    });
+
+    try {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      if (userDoc.exists) {
+        setState(() {
+          ownerData = userDoc.data();
+        });
+      }
+    } catch (e) {
+      print('Error loading owner data: $e');
+    } finally {
+      setState(() {
+        isLoadingOwner = false;
       });
     }
   }
@@ -223,72 +181,17 @@ class _ItemViewPageState extends State<ItemViewPage> {
     }
   }
 
-  // Future<void> _contactSeller() async {
-  //   if (itemData['userId'] == _firestoreService.currentUserId) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('This is your own listing'),
-  //         backgroundColor: AppColors.primary,
-  //       ),
-  //     );
-  //     return;
-  //   }
-
-  //   // Check if we have phone number to contact
-  //   if (itemData['phone'] != null && itemData['phone'].toString().isNotEmpty) {
-  //     final phoneNumber = itemData['phone'].toString();
-  //     final message =
-  //         'Hello, I\'m interested in your ${widget.secondNameE} listing on Aswenna.';
-
-  //     // Try to open WhatsApp first
-  //     final whatsappUrl =
-  //         'whatsapp://send?phone=$phoneNumber&text=${Uri.encodeComponent(message)}';
-  //     if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
-  //       await launchUrl(Uri.parse(whatsappUrl));
-  //     } else {
-  //       // Fallback to regular phone call
-  //       final phoneUrl = 'tel:$phoneNumber';
-  //       if (await canLaunchUrl(Uri.parse(phoneUrl))) {
-  //         await launchUrl(Uri.parse(phoneUrl));
-  //       } else {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(
-  //             content: Text('Could not launch phone app'),
-  //             backgroundColor: AppColors.error,
-  //           ),
-  //         );
-  //       }
-  //     }
-  //   } else {
-  //     // No phone number available
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('No contact information available'),
-  //         backgroundColor: AppColors.error,
-  //       ),
-  //     );
-  //   }
-  // }
-
   Widget _buildSafeNetworkImage(String imageUrl, {BoxFit fit = BoxFit.cover}) {
-    // Log the image URL for debugging
-
-    // Check if URL is valid
     bool isValidUrl = Uri.tryParse(imageUrl)?.hasAbsolutePath ?? false;
     if (!isValidUrl) {
       return _buildImageError();
     }
 
-    // Handle different URL protocols
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      print('URL needs http/https protocol: $imageUrl');
-      // Try adding https if missing
       imageUrl = 'https://' + imageUrl.replaceAll(RegExp(r'^(\/\/|:\/\/)'), '');
-      print('Modified URL: $imageUrl');
     }
 
     try {
-      // Direct Image.network with timeout and better error handling
       return Image.network(
         imageUrl,
         fit: fit,
@@ -306,7 +209,6 @@ class _ItemViewPageState extends State<ItemViewPage> {
           print('Error loading image: $error');
           return _buildImageError();
         },
-        // Add cacheWidth for performance
         cacheWidth: 800,
       );
     } catch (e) {
@@ -377,7 +279,6 @@ class _ItemViewPageState extends State<ItemViewPage> {
                 maxScale: PhotoViewComputedScale.covered * 2,
                 heroAttributes: PhotoViewHeroAttributes(tag: 'image_$index'),
                 errorBuilder: (context, error, stackTrace) {
-                  print('Error in gallery view: $error');
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -447,18 +348,10 @@ class _ItemViewPageState extends State<ItemViewPage> {
           ),
         ],
       ),
-      bottomNavigationBar:
-          widget.mainNameE == 'Lands' ||
-              itemData['acres'] != null ||
-              widget.mainNameE == 'Harvest' ||
-              itemData['kg'] != null
-          ? _buildBottomBar()
-          : null,
     );
   }
 
   ImageProvider _safeImageProvider(String url) {
-    // Validate and fix the URL if needed
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       url = 'https://' + url.replaceAll(RegExp(r'^(\/\/|:\/\/)'), '');
     }
@@ -467,161 +360,405 @@ class _ItemViewPageState extends State<ItemViewPage> {
       return NetworkImage(url);
     } catch (e) {
       print('Error creating NetworkImage: $e');
-      // Return a transparent image as fallback
       return MemoryImage(Uint8List.fromList([0, 0, 0, 0]));
     }
   }
 
   Widget _buildInfoChip(String label, String value) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.42,
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(8),
+        color: AppColors.primary.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: AppColors.primary.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            label,
+            '$label: ',
             style: TextStyle(
-              color: AppColors.textLight,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey[700],
             ),
           ),
-          SizedBox(height: 4),
           Text(
             value,
             style: TextStyle(
-              color: AppColors.text,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
+              color: AppColors.primary,
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildOwnerDetailsSection() {
+    if (isLoadingOwner) {
+      return Container(
+        margin: EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.08),
+              spreadRadius: 0,
+              blurRadius: 20,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+          ),
+        ),
+      );
+    }
+
+    if (ownerData == null) return SizedBox.shrink();
+
+    final fullName =
+        '${ownerData!['firstName'] ?? ''} ${ownerData!['lastName'] ?? ''}'
+            .trim();
+    final mobileNumber = ownerData!['mobileNumber'] ?? '';
+    final alternativeMobile = ownerData!['alternativeMobile'] ?? '';
+    final district = ownerData!['district'] ?? '';
+    final dso = ownerData!['dso'] ?? '';
+    final address = ownerData!['address'] ?? '';
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.primary.withValues(alpha: 0.05), Colors.white],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppColors.primary.withValues(alpha: 0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.08),
+            spreadRadius: 0,
+            blurRadius: 20,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.person_outline_rounded,
+                  color: AppColors.primary,
+                  size: 24,
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Owner Details',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[900],
+                      ),
+                    ),
+                    Text(
+                      'Contact information',
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 20),
+          Divider(height: 1, color: Colors.grey[200]),
+          SizedBox(height: 20),
+
+          // Owner Name
+          _buildOwnerInfoRow(
+            icon: Icons.account_circle_outlined,
+            label: 'Name',
+            value: fullName.isNotEmpty ? fullName : 'Not provided',
+            iconColor: AppColors.primary,
+          ),
+
+          SizedBox(height: 16),
+
+          // Mobile Number
+          _buildOwnerInfoRow(
+            icon: Icons.phone_outlined,
+            label: 'Mobile Number',
+            value: mobileNumber.isNotEmpty ? mobileNumber : 'Not provided',
+            iconColor: Colors.green[700]!,
+            onTap: mobileNumber.isNotEmpty
+                ? () async {
+                    final phoneUrl = 'tel:$mobileNumber';
+                    if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+                      await launchUrl(Uri.parse(phoneUrl));
+                    }
+                  }
+                : null,
+          ),
+
+          // Alternative Mobile (if available)
+          if (alternativeMobile.isNotEmpty) ...[
+            SizedBox(height: 16),
+            _buildOwnerInfoRow(
+              icon: Icons.phone_android_outlined,
+              label: 'Alternative Mobile',
+              value: alternativeMobile,
+              iconColor: Colors.green[600]!,
+              onTap: () async {
+                final phoneUrl = 'tel:$alternativeMobile';
+                if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+                  await launchUrl(Uri.parse(phoneUrl));
+                }
+              },
+            ),
+          ],
+
+          // Location Info
+          if (district.isNotEmpty || dso.isNotEmpty) ...[
+            SizedBox(height: 20),
+            Divider(height: 1, color: Colors.grey[200]),
+            SizedBox(height: 16),
+
+            Row(
+              children: [
+                Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.red[400],
+                  size: 20,
+                ),
+                SizedBox(width: 8),
+                Text(
+                  'Location',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey[700],
+                    letterSpacing: 0.3,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey[200]!, width: 1),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (address.isNotEmpty) ...[
+                    Text(
+                      address,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                  ],
+                  Row(
+                    children: [
+                      if (district.isNotEmpty) ...[
+                        Icon(Icons.place, size: 14, color: Colors.grey[600]),
+                        SizedBox(width: 4),
+                        Text(
+                          district,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[700],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                      if (district.isNotEmpty && dso.isNotEmpty) ...[
+                        SizedBox(width: 8),
+                        Text('•', style: TextStyle(color: Colors.grey[400])),
+                        SizedBox(width: 8),
+                      ],
+                      if (dso.isNotEmpty)
+                        Text(
+                          dso,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOwnerInfoRow({
+    required IconData icon,
+    required String label,
+    required String value,
+    required Color iconColor,
+    VoidCallback? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        decoration: BoxDecoration(
+          color: onTap != null ? Colors.grey[50] : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: iconColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, color: iconColor, size: 20),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey[900],
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (onTap != null)
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 16,
+                color: Colors.grey[400],
+              ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildBottomBar() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.2),
-            spreadRadius: 1,
-            blurRadius: 10,
+            color: Colors.grey.withValues(alpha: 0.15),
+            spreadRadius: 0,
+            blurRadius: 20,
+            offset: Offset(0, -4),
           ),
         ],
       ),
-      child: Row(
-        children: [
-          // Contact seller button - only show if not owner's own listing
-          // if (!isOwner) ...[
-          //   Expanded(
-          //     child: ElevatedButton.icon(
-          //       onPressed: _contactSeller,
-          //       icon: Icon(Icons.message_outlined),
-          //       label: Text('Contact Seller'),
-          //       style: ElevatedButton.styleFrom(
-          //         backgroundColor: Colors.blue[800],
-          //         foregroundColor: Colors.white,
-          //         padding: EdgeInsets.symmetric(vertical: 16),
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(12),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          //   SizedBox(width: 12),
-          // ],
-          // Purchase button
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: _processPurchase,
-              icon: Icon(Icons.shopping_cart_outlined),
-              label: Text('Purchase'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[700],
-                foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+      child: SafeArea(
+        child: Row(
+          children: [
+            // Contact Button
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  if (ownerData != null && ownerData!['mobileNumber'] != null) {
+                    final phoneUrl = 'tel:${ownerData!['mobileNumber']}';
+                    if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+                      await launchUrl(Uri.parse(phoneUrl));
+                    }
+                  }
+                },
+                icon: Icon(Icons.phone_outlined, size: 20),
+                label: Text(
+                  'Contact Owner',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Future<void> _processPurchase() async {
-    // Check if we have kg information (required for purchases)
-    if (itemData['kg'] == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('This item cannot be purchased'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
-    // Check if user is trying to buy their own item
-    if (itemData['userId'] == _firestoreService.currentUserId) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('You cannot purchase your own listing'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
-    // Check if user is logged in
-    if (_firestoreService.currentUserId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please login to purchase items'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
-    // Check if there's available quantity
-    final int availableQuantity = int.tryParse(itemData['kg'].toString()) ?? 0;
-    if (availableQuantity <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('This item is out of stock'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
-    await _navigateToPurchasePage();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (isLoading) {
       return Scaffold(
+        backgroundColor: Colors.grey[50],
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.grey[800],
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -634,20 +771,29 @@ class _ItemViewPageState extends State<ItemViewPage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.grey[800]),
           onPressed: () => Navigator.pop(context),
         ),
+        title: Text(
+          widget.secondNameE,
+          style: TextStyle(
+            color: Colors.grey[900],
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image Gallery Section
+            // 1. IMAGE GALLERY SECTION
             Container(
               height: 300,
               width: double.infinity,
@@ -717,8 +863,8 @@ class _ItemViewPageState extends State<ItemViewPage> {
               ),
             ),
 
-            // Content Section
-            Container(
+            // 2. PRODUCT DETAILS SECTION
+            Padding(
               padding: EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -727,7 +873,7 @@ class _ItemViewPageState extends State<ItemViewPage> {
                   Text(
                     '${widget.mainNameE} > ${widget.secondNameE}',
                     style: TextStyle(
-                      color: Colors.blue[800],
+                      color: AppColors.primary,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -779,255 +925,155 @@ class _ItemViewPageState extends State<ItemViewPage> {
                     ],
                   ),
 
-                  if (widget.mainNameE == 'Lands' ||
-                      itemData['acres'] != null) ...[
-                    SizedBox(height: 24),
-
-                    // Property Details Card
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Property Details',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-
-                          // Size Information
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              _buildDetailItem(
-                                AppLocalizations.of(context)!.acres,
-                                itemData['acres'] ?? widget.arces ?? 'N/A',
-                                Icons.landscape_outlined,
-                              ),
-                              _buildDetailItem(
-                                AppLocalizations.of(context)!.perches,
-                                itemData['perches'] ?? widget.perches ?? 'N/A',
-                                Icons.straighten_outlined,
-                              ),
-                            ],
-                          ),
-
-                          Divider(height: 32),
-
-                          // Price
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.monetization_on_outlined,
-                                color: Colors.green[700],
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                '${AppLocalizations.of(context)!.rs}: ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              Text(
-                                itemData['price'] ?? widget.price ?? 'N/A',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green[700],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ] else if (widget.mainNameE == 'Harvest' ||
-                      itemData['kg'] != null) ...[
-                    SizedBox(height: 24),
-
-                    // Harvest Details Card
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Harvest Details',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-
-                          // Weight Information
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              _buildDetailItem(
-                                AppLocalizations.of(context)!.kg,
-                                itemData['kg'] ?? 'N/A',
-                                Icons.scale_outlined,
-                              ),
-                              if (itemData['paddyVariety'] != null)
-                                _buildDetailItem(
-                                  'Variety',
-                                  itemData['paddyVariety'],
-                                  Icons.grass_outlined,
-                                ),
-                            ],
-                          ),
-
-                          Divider(height: 32),
-
-                          // Price
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.monetization_on_outlined,
-                                color: Colors.green[700],
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                '${AppLocalizations.of(context)!.rs}: ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              Text(
-                                itemData['price'] ?? widget.price ?? 'N/A',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green[700],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ] else ...[
-                    // Generic pricing card for other categories
-                    SizedBox(height: 24),
-
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${widget.secondNameE} Details',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-
-                          // Price
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.monetization_on_outlined,
-                                color: Colors.green[700],
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                '${AppLocalizations.of(context)!.rs}: ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              Text(
-                                itemData['price'] ?? widget.price ?? 'N/A',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green[700],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-
                   SizedBox(height: 24),
 
-                  // Details Section
+                  // ADDITIONAL FIELDS (name, kg, quantity, etc.)
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.grey[200]!, width: 1),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (itemData['name'] != null &&
+                            itemData['name'] != "") ...[
+                          _buildDetailRow(l10n.itemname, itemData['name']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['kg'] != null && itemData['kg'] != "") ...[
+                          _buildDetailRow(l10n.kg, itemData['kg']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['quantity'] != null &&
+                            itemData['quantity'] != "") ...[
+                          _buildDetailRow(l10n.quantity, itemData['quantity']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['acres'] != null &&
+                            itemData['acres'] != "") ...[
+                          _buildDetailRow(l10n.acres, itemData['acres']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['perches'] != null &&
+                            itemData['perches'] != "") ...[
+                          _buildDetailRow(l10n.perches, itemData['perches']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['length'] != null &&
+                            itemData['length'] != "") ...[
+                          _buildDetailRow(l10n.length, itemData['length']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['diameter'] != null &&
+                            itemData['diameter'] != "") ...[
+                          _buildDetailRow(l10n.diameter, itemData['diameter']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['thickness'] != null &&
+                            itemData['thickness'] != "") ...[
+                          _buildDetailRow(
+                            l10n.thickness,
+                            itemData['thickness'],
+                          ),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['height'] != null &&
+                            itemData['height'] != "") ...[
+                          _buildDetailRow(l10n.height, itemData['height']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['packet'] != null &&
+                            itemData['packet'] != "") ...[
+                          _buildDetailRow(l10n.packet, itemData['packet']),
+                          SizedBox(height: 12),
+                        ],
+                        if (itemData['piecesInaPacket'] != null &&
+                            itemData['piecesInaPacket'] != "") ...[
+                          _buildDetailRow(
+                            l10n.pieces,
+                            itemData['piecesInaPacket'],
+                          ),
+                        ],
+                        // Price
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.monetization_on_outlined,
+                              color: Colors.green[700],
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '${l10n.rs}: ',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Text(
+                              itemData['price'] ?? widget.price ?? 'N/A',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[700],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 16),
+
+                  // DETAILS SECTION
                   if (itemData['details'] != null &&
                       itemData['details'].toString().isNotEmpty) ...[
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.grey[200]!, width: 1),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
+                            color: Colors.grey.withValues(alpha: 0.08),
+                            spreadRadius: 0,
+                            blurRadius: 20,
+                            offset: Offset(0, 4),
                           ),
                         ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Description',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.description_outlined,
+                                color: AppColors.primary,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Description',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900],
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 12),
                           Text(
                             itemData['details'] ?? widget.details ?? '',
                             style: TextStyle(
                               fontSize: 15,
-                              color: Colors.grey[800],
-                              height: 1.5,
+                              color: Colors.grey[700],
+                              height: 1.6,
                             ),
                           ),
                         ],
@@ -1036,39 +1082,52 @@ class _ItemViewPageState extends State<ItemViewPage> {
                     SizedBox(height: 16),
                   ],
 
-                  // Paddy specific details
+                  // PADDY SPECIFIC DETAILS
                   if (itemData['paddyCode'] != null ||
                       itemData['paddyColor'] != null ||
                       itemData['paddyType'] != null) ...[
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.grey[200]!, width: 1),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
+                            color: Colors.grey.withValues(alpha: 0.08),
+                            spreadRadius: 0,
+                            blurRadius: 20,
+                            offset: Offset(0, 4),
                           ),
                         ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Paddy Information',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.grass_outlined,
+                                color: AppColors.primary,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Paddy Information',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900],
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 16),
 
                           // Grid of paddy details
                           Wrap(
-                            spacing: 16,
-                            runSpacing: 16,
+                            spacing: 12,
+                            runSpacing: 12,
                             children: [
                               if (itemData['paddyCode'] != null)
                                 _buildInfoChip('Code', itemData['paddyCode']),
@@ -1089,73 +1148,8 @@ class _ItemViewPageState extends State<ItemViewPage> {
                     SizedBox(height: 16),
                   ],
 
-                  // Seller info (if available)
-                  if (itemData['sellerName'] != null ||
-                      itemData['phone'] != null) ...[
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Seller Information',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-
-                          if (itemData['sellerName'] != null)
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: AppColors.primary.withValues(
-                                  alpha: 0.1,
-                                ),
-                                child: Icon(
-                                  Icons.person_outline,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                              title: Text(itemData['sellerName']),
-                              contentPadding: EdgeInsets.zero,
-                            ),
-
-                          if (itemData['phone'] != null)
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: AppColors.primary.withValues(
-                                  alpha: 0.1,
-                                ),
-                                child: Icon(
-                                  Icons.phone_outlined,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                              title: Text(itemData['phone']),
-                              contentPadding: EdgeInsets.zero,
-                              onTap: () async {
-                                final phoneUrl = 'tel:${itemData['phone']}';
-                                if (await canLaunchUrl(Uri.parse(phoneUrl))) {
-                                  await launchUrl(Uri.parse(phoneUrl));
-                                }
-                              },
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  // 3. OWNER DETAILS SECTION (LAST)
+                  _buildOwnerDetailsSection(),
                 ],
               ),
             ),
@@ -1163,12 +1157,40 @@ class _ItemViewPageState extends State<ItemViewPage> {
         ),
       ),
       bottomNavigationBar:
-          widget.mainNameE == 'Lands' ||
-              itemData['acres'] != null ||
-              widget.mainNameE == 'Harvest' ||
-              itemData['kg'] != null
+          ownerData != null && ownerData!['mobileNumber'] != null
           ? _buildBottomBar()
           : null,
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          flex: 3,
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[900],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
