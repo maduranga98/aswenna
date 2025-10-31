@@ -3266,6 +3266,12 @@ abstract class AppLocalizations {
   /// **'Enter price of a packet'**
   String get hintprice;
 
+  /// No description provided for @hintpricefor1kg.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for one KG'**
+  String get hintpricefor1kg;
+
   /// No description provided for @hintpieces.
   ///
   /// In en, this message translates to:

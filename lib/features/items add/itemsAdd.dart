@@ -906,6 +906,12 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                       ),
                     ] else if (widget.paths.contains('medicine')) ...[
                       _buildInputField(
+                        controller: nameController,
+                        label: l10n.itemname,
+                        hint: l10n.hintitemname,
+                        keyboardType: TextInputType.text,
+                      ),
+                      _buildInputField(
                         controller: qunatityController,
                         label: l10n.quantity,
                         hint: l10n.hintquantity,
@@ -919,6 +925,12 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('equipments')) ...[
+                      _buildInputField(
+                        controller: nameController,
+                        label: l10n.itemname,
+                        hint: l10n.hintitemname,
+                        keyboardType: TextInputType.text,
+                      ),
                       _buildInputField(
                         controller: qunatityController,
                         label: l10n.quantity,
@@ -946,14 +958,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         hint: 'Enter unit price',
                         keyboardType: TextInputType.number,
                       ),
-
-                      SizedBox(height: 16),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.unitPrice,
-                        hint: l10n.hintunitprice,
-                        keyboardType: TextInputType.number,
-                      ),
                     ] else if (widget.paths.contains('feed')) ...[
                       _buildInputField(
                         controller: kgController,
@@ -964,7 +968,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                       _buildInputField(
                         controller: priceController,
                         label: l10n.priceForOnekg,
-                        hint: l10n.hintKg,
+                        hint: l10n.hintpricefor1kg,
                         keyboardType: TextInputType.number,
                       ),
                     ] else if (widget.paths.contains('beecolony')) ...[
@@ -1045,7 +1049,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         _buildInputField(
                           controller: priceController,
                           label: l10n.price,
-                          hint: l10n.hintkgPrice,
+                          hint: l10n.hintpricefor1kg,
                           keyboardType: TextInputType.number,
                         ),
                       ] else if (widget.paths.contains('grown_cattle') ||
@@ -1092,10 +1096,31 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           hint: l10n.hintunitprice,
                           keyboardType: TextInputType.text,
                         ),
+                      ] else if (widget.paths.contains(
+                        'medicine_vitamins',
+                      )) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.quantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.unitPrice,
+                          keyboardType: TextInputType.number,
+                        ),
                       ] else ...[
                         _buildInputField(
                           controller: qunatityController,
-                          label: l10n.animalquantity,
+                          label: l10n.quantity,
                           hint: l10n.hintanimalquantity,
                           keyboardType: TextInputType.number,
                         ),

@@ -1600,6 +1600,9 @@ class AppLocalizationsSi extends AppLocalizations {
   String get hintprice => 'පැකට්ටුවක මිල ඇතුළත් කරන්න';
 
   @override
+  String get hintpricefor1kg => 'කිලෝග්‍රෑමයකට මිල ඇතුළත් කරන්න';
+
+  @override
   String get hintpieces => 'පැකට්ටුවක ඇති කෑලි ගණන ඇතුළත් කරන්න';
 
   @override

@@ -545,6 +545,7 @@
       "packetprice"  : "Price of a packet",
       "hintpacket" : "Enter number of packets",
       "hintprice" : "Enter price of a packet",
+      "hintpricefor1kg" : "Enter price for one KG",
       "hintpieces" : "Enter number of pieces in a packet",
       "instructionPara1" : "On the main page, you’ll see several options — use them to navigate to the section you need. This application helps all kinds of farmers find good markets for their products and services. We have properly categorized every product and service to make it easier for you to find what you’re looking for. From any section, you can perform actions such as adding new items, viewing other listings, or checking details of available products and services.",
       "instructionPara2" : "The app mainly focuses on two things: selling and buying.",

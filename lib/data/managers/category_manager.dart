@@ -2104,6 +2104,12 @@ class CategoryManager {
                         dbPath: 'bread_fruit',
                         hasBuySell: true,
                       ),
+                      ItemData(
+                        nameEn: "Other",
+                        nameSi: "වෙනත්",
+                        dbPath: "other",
+                        hasBuySell: true,
+                      ),
                     ],
                   ),
                   ItemData(
@@ -2446,6 +2452,12 @@ class CategoryManager {
                         nameEn: 'Bred Fruit',
                         nameSi: 'දෙල්',
                         dbPath: 'bread_fruit',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: "Other",
+                        nameSi: "වෙනත්",
+                        dbPath: "other",
                         hasBuySell: true,
                       ),
                     ],
