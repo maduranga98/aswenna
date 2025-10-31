@@ -407,7 +407,7 @@ class _ItemListScreenState extends State<ItemListScreen>
                                         'service_providers',
                                       ))
                                       ? localization.give
-                                      : localization.buy,
+                                      : localization.sell,
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -1181,8 +1181,18 @@ class _ItemListScreenState extends State<ItemListScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (data['name'] != "") ...[
+                Text(
+                  "Name: ${data['name']} ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColors.text,
+                  ),
+                ),
+              ],
               // Show different content based on item type
-              if (data['acres'] != null) ...[
+              if (data['acres'] != "" || data['perches'] != "") ...[
                 // Land listing
                 Text(
                   "Acres: ${data['acres']} - Perches: ${data['perches'] ?? '0'}",
@@ -1192,22 +1202,48 @@ class _ItemListScreenState extends State<ItemListScreen>
                     color: AppColors.text,
                   ),
                 ),
-              ] else if (data['kg'] != null) ...[
+              ] else if (data['kg'] != "") ...[
                 // Harvest listing
                 Text(
-                  "Quantity: ${data['kg']} kg",
+                  "Quantity: ${data['kg']} ",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                     color: AppColors.text,
                   ),
                 ),
-
-                if (data['paddyVariety'] != null)
-                  Text(
-                    "Variety: ${data['paddyVariety']}",
-                    style: TextStyle(fontSize: 13, color: AppColors.textLight),
+              ] else if (data['quantity'] != "") ...[
+                Text(
+                  "Quantity: ${data['quantity']} ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColors.text,
                   ),
+                ),
+              ] else if (data['length'] != "") ...[
+                Text(
+                  "Length: ${data['length']}   Diameter: ${data['diameter']}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColors.text,
+                  ),
+                ),
+              ] else if (data['packet'] != "") ...[
+                Text(
+                  "Packet: ${data['packet']}   PiecesInaPacket: ${data['piecesInaPacket']}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColors.text,
+                  ),
+                ),
+              ] else if (data['paddyVariety'] != "") ...[
+                Text(
+                  "Variety: ${data['paddyVariety']}",
+                  style: TextStyle(fontSize: 13, color: AppColors.textLight),
+                ),
               ],
 
               // Show price for all items

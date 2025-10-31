@@ -1600,6 +1600,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintprice => 'Enter price of a packet';
 
   @override
+  String get hintpricefor1kg => 'Enter price for one KG';
+
+  @override
   String get hintpieces => 'Enter number of pieces in a packet';
 
   @override
