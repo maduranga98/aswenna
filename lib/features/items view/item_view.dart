@@ -424,16 +424,31 @@ class _ItemViewPageState extends State<ItemViewPage> {
       );
     }
 
-    if (ownerData == null) return SizedBox.shrink();
-
+    // Prioritize seller data from itemData, fallback to ownerData from users collection
     final fullName =
-        '${ownerData!['firstName'] ?? ''} ${ownerData!['lastName'] ?? ''}'
-            .trim();
-    final mobileNumber = ownerData!['mobileNumber'] ?? '';
-    final alternativeMobile = ownerData!['alternativeMobile'] ?? '';
-    final district = ownerData!['district'] ?? '';
-    final dso = ownerData!['dso'] ?? '';
-    final address = ownerData!['address'] ?? '';
+        itemData['sellerName']?.toString().trim() ??
+        (ownerData != null
+            ? '${ownerData!['firstName'] ?? ''} ${ownerData!['lastName'] ?? ''}'
+                  .trim()
+            : '');
+
+    final mobileNumber =
+        itemData['sellerMobile']?.toString().trim() ??
+        (ownerData?['mobileNumber']?.toString() ?? '');
+
+    final alternativeMobile = ownerData?['alternativeMobile']?.toString() ?? '';
+    final district =
+        ownerData?['district']?.toString() ??
+        itemData['district']?.toString() ??
+        '';
+    final dso =
+        ownerData?['dso']?.toString() ?? itemData['dso']?.toString() ?? '';
+    final address = ownerData?['address']?.toString() ?? '';
+
+    // Don't show section if no contact info available
+    if (fullName.isEmpty && mobileNumber.isEmpty) {
+      return SizedBox.shrink();
+    }
 
     return Container(
       margin: EdgeInsets.only(bottom: 16),
@@ -482,7 +497,7 @@ class _ItemViewPageState extends State<ItemViewPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Owner Details',
+                      'Seller Details',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -503,31 +518,32 @@ class _ItemViewPageState extends State<ItemViewPage> {
           Divider(height: 1, color: Colors.grey[200]),
           SizedBox(height: 20),
 
-          // Owner Name
-          _buildOwnerInfoRow(
-            icon: Icons.account_circle_outlined,
-            label: 'Name',
-            value: fullName.isNotEmpty ? fullName : 'Not provided',
-            iconColor: AppColors.primary,
-          ),
+          // Seller Name
+          if (fullName.isNotEmpty)
+            _buildOwnerInfoRow(
+              icon: Icons.account_circle_outlined,
+              label: 'Name',
+              value: fullName,
+              iconColor: AppColors.primary,
+            ),
 
-          SizedBox(height: 16),
+          if (fullName.isNotEmpty && mobileNumber.isNotEmpty)
+            SizedBox(height: 16),
 
           // Mobile Number
-          _buildOwnerInfoRow(
-            icon: Icons.phone_outlined,
-            label: 'Mobile Number',
-            value: mobileNumber.isNotEmpty ? mobileNumber : 'Not provided',
-            iconColor: Colors.green[700]!,
-            onTap: mobileNumber.isNotEmpty
-                ? () async {
-                    final phoneUrl = 'tel:$mobileNumber';
-                    if (await canLaunchUrl(Uri.parse(phoneUrl))) {
-                      await launchUrl(Uri.parse(phoneUrl));
-                    }
-                  }
-                : null,
-          ),
+          if (mobileNumber.isNotEmpty)
+            _buildOwnerInfoRow(
+              icon: Icons.phone_outlined,
+              label: 'Mobile Number',
+              value: mobileNumber,
+              iconColor: Colors.green[700]!,
+              onTap: () async {
+                final phoneUrl = 'tel:$mobileNumber';
+                if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+                  await launchUrl(Uri.parse(phoneUrl));
+                }
+              },
+            ),
 
           // Alternative Mobile (if available)
           if (alternativeMobile.isNotEmpty) ...[
@@ -695,6 +711,13 @@ class _ItemViewPageState extends State<ItemViewPage> {
   }
 
   Widget _buildBottomBar() {
+    // Get mobile number from itemData first, fallback to ownerData
+    final mobileNumber =
+        itemData['sellerMobile']?.toString().trim() ??
+        (ownerData?['mobileNumber']?.toString() ?? '');
+
+    if (mobileNumber.isEmpty) return SizedBox.shrink();
+
     return Container(
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -715,16 +738,14 @@ class _ItemViewPageState extends State<ItemViewPage> {
             Expanded(
               child: ElevatedButton.icon(
                 onPressed: () async {
-                  if (ownerData != null && ownerData!['mobileNumber'] != null) {
-                    final phoneUrl = 'tel:${ownerData!['mobileNumber']}';
-                    if (await canLaunchUrl(Uri.parse(phoneUrl))) {
-                      await launchUrl(Uri.parse(phoneUrl));
-                    }
+                  final phoneUrl = 'tel:$mobileNumber';
+                  if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+                    await launchUrl(Uri.parse(phoneUrl));
                   }
                 },
                 icon: Icon(Icons.phone_outlined, size: 20),
                 label: Text(
-                  'Contact Owner',
+                  'Contact Seller',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -996,6 +1017,24 @@ class _ItemViewPageState extends State<ItemViewPage> {
                             l10n.pieces,
                             itemData['piecesInaPacket'],
                           ),
+                        ],
+                        SizedBox(height: 12),
+                        if (itemData['type'] != "" &&
+                            itemData['type'] != "") ...[
+                          _buildDetailRow(l10n.vehicletype, itemData['type']),
+                          SizedBox(height: 12),
+                          _buildDetailRow(l10n.year, itemData['year']),
+                          SizedBox(height: 12),
+                          _buildDetailRow(
+                            l10n.manufacturer,
+                            itemData['manufacturer'],
+                          ),
+                          SizedBox(height: 12),
+                          _buildDetailRow(
+                            l10n.noOfOwners,
+                            itemData['numberofOwners'],
+                          ),
+                          SizedBox(height: 12),
                         ],
                         // Price
                         Row(

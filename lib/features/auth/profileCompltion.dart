@@ -141,8 +141,6 @@ class _ProfileCompletionState extends State<ProfileCompletion> {
 
   @override
   Widget build(BuildContext context) {
-    final localization = AppLocalizations.of(context)!;
-
     return Scaffold(
       body: Container(
         width: double.infinity,

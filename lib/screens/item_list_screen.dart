@@ -1244,6 +1244,15 @@ class _ItemListScreenState extends State<ItemListScreen>
                   "Variety: ${data['paddyVariety']}",
                   style: TextStyle(fontSize: 13, color: AppColors.textLight),
                 ),
+              ] else if (data['type'] != "") ...[
+                Text(
+                  "Type: ${data['type']}   Year: ${data['year']}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColors.text,
+                  ),
+                ),
               ],
 
               // Show price for all items
