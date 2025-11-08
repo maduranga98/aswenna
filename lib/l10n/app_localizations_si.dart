@@ -1420,7 +1420,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get priceforaliter => 'ලීටරයක මිල ඇතුළත් කරන්න.';
 
   @override
-  String get lifeweight => 'සතෙකුගේ ජීව බර';
+  String get lifeweight => 'ජීව බර 1kg එකක මිල';
 
   @override
   String get priceofbushal => 'බුසලක මිල';
@@ -1448,6 +1448,12 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get numberofseedkg => 'බීජ ගණන කිලෝග්‍රෑම්';
+
+  @override
+  String get hintpriceof1kgofseeds => 'බීජ කිලෝග්‍රෑම් 1 ක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintnumberofseedkg => 'බීජ kg ගනන ඇතුළත් කරන්න';
 
   @override
   String get priceofaplant => 'ශාකයක මිල';
@@ -1531,7 +1537,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get hintliterprice => 'ලීටරයක මිල ඇතුළත් කරන්න.';
 
   @override
-  String get hintliveweight => 'සතෙකුගේ ජීව බර ඇතුළත් කරන්න.';
+  String get hintliveweight => 'ජීව බර 1kg එකක මිල ඇතුළත් කරන්න.';
 
   @override
   String get hintanimalquantity => 'සතුන් ප්‍රමාණය ඇතුළත් කරන්න';
@@ -1681,4 +1687,124 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get logout => 'ඉවත්වීම';
+
+  @override
+  String get vehicletype => 'වාහන වර්ගය';
+
+  @override
+  String get year => 'නිෂ්පාදක වර්ෂය';
+
+  @override
+  String get manufacturer => 'නිෂ්පාදක';
+
+  @override
+  String get noOfOwners => 'හිමිකරුවන් ගණන';
+
+  @override
+  String get vehicleprice => 'වාහනයක මිල';
+
+  @override
+  String get hintType => 'වාහන වර්ගය ඇතුළත් කරන්න';
+
+  @override
+  String get hintyear => 'වසර ඇතුළත් කරන්න';
+
+  @override
+  String get hintmanufacturer => 'නිෂ්පාදකයා ඇතුළත් කරන්න';
+
+  @override
+  String get hintnoofowners => 'හිමිකරුවන් ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintvehicleprice => 'වාහනයක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get countnuts => 'ගෙඩි ගනන';
+
+  @override
+  String get hintnunts => 'ගෙඩි ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintnuntsprice => 'ගෙඩියක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get numberofhusks => 'ලෙලි ගණන';
+
+  @override
+  String get priceofhusk => 'ලෙල්ලක මිල';
+
+  @override
+  String get hintnumberofhusk => 'ලෙලි ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get hintpriceofahusk => 'ලෙල්ලක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get numberoffronds => 'පොල් අතු ගණන';
+
+  @override
+  String get hintfronds => 'පොල් අතු ගණන ඇතුළත් කරන්න.';
+
+  @override
+  String get pricefrond => 'පොල් අත්තක මිල';
+
+  @override
+  String get hintpricefrond => 'පොල් අත්තක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get bundleprice => 'මිටියක මිල';
+
+  @override
+  String get hintpricebundle => 'මිටියක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get hintnumberofbundles => 'මිටි ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get numberofbundles => 'මිටි ගණන';
+
+  @override
+  String get betelquantity => 'බුලත් කොළ ගණන';
+
+  @override
+  String get hintbetelquantity => 'බුලත් කොළ ගණන ඇතුළත් කරන්න';
+
+  @override
+  String get priceofbetel => 'කොළ 1000 ක මිල';
+
+  @override
+  String get hintpricebetel => 'කොළ 1000 සඳහා මිල ඇතුළත් කරන්න';
+
+  @override
+  String get stickprice => 'දණ්ඩක මිල';
+
+  @override
+  String get hintstickPrice => 'දණ්ඩක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get noofsticks => 'කැබලි ගනන';
+
+  @override
+  String get hintsticks => 'කැබලි ගනන ඇතුළත් කරන්න';
+
+  @override
+  String get priceroot => 'මුල් කැබැල්ලක මිල';
+
+  @override
+  String get hitnpricerrot => 'Enter price of a root pieces';
+
+  @override
+  String get priceshoots => 'කරටි කැබැල්ලක මිල';
+
+  @override
+  String get hintshoots => 'කරටි කැබැල්ලක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get age => 'ඔබේ වයස';
+
+  @override
+  String get hintage => 'ඔබේ වයස ඇතුළත් කරන්න';
+
+  @override
+  String get hintseedpacket => 'පැකට් එකක අඩංගු බීජ  ප්‍රමාණය';
 }

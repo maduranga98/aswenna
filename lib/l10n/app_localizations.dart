@@ -2966,6 +2966,18 @@ abstract class AppLocalizations {
   /// **'Number of seeds kg'**
   String get numberofseedkg;
 
+  /// No description provided for @hintpriceof1kgofseeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price of 1 kg of seeds'**
+  String get hintpriceof1kgofseeds;
+
+  /// No description provided for @hintnumberofseedkg.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the number of kg of seeds'**
+  String get hintnumberofseedkg;
+
   /// No description provided for @priceofaplant.
   ///
   /// In en, this message translates to:
@@ -3421,6 +3433,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @vehicletype.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Type'**
+  String get vehicletype;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufactured Year'**
+  String get year;
+
+  /// No description provided for @manufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer'**
+  String get manufacturer;
+
+  /// No description provided for @noOfOwners.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Owners'**
+  String get noOfOwners;
+
+  /// No description provided for @vehicleprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a Vehicle'**
+  String get vehicleprice;
+
+  /// No description provided for @hintType.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Vehicle Type'**
+  String get hintType;
+
+  /// No description provided for @hintyear.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Year'**
+  String get hintyear;
+
+  /// No description provided for @hintmanufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Manufacturer'**
+  String get hintmanufacturer;
+
+  /// No description provided for @hintnoofowners.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Number of Owners'**
+  String get hintnoofowners;
+
+  /// No description provided for @hintvehicleprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price of a vehicle'**
+  String get hintvehicleprice;
+
+  /// No description provided for @countnuts.
+  ///
+  /// In en, this message translates to:
+  /// **'Count the Nuts'**
+  String get countnuts;
+
+  /// No description provided for @hintnunts.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the number of nut'**
+  String get hintnunts;
+
+  /// No description provided for @hintnuntsprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Price of a nut'**
+  String get hintnuntsprice;
+
+  /// No description provided for @numberofhusks.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of husks'**
+  String get numberofhusks;
+
+  /// No description provided for @priceofhusk.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a husks'**
+  String get priceofhusk;
+
+  /// No description provided for @hintnumberofhusk.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of husks'**
+  String get hintnumberofhusk;
+
+  /// No description provided for @hintpriceofahusk.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a husks'**
+  String get hintpriceofahusk;
+
+  /// No description provided for @numberoffronds.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of coconut Fronds'**
+  String get numberoffronds;
+
+  /// No description provided for @hintfronds.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the number of coconut Fronds'**
+  String get hintfronds;
+
+  /// No description provided for @pricefrond.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a coconut Frond'**
+  String get pricefrond;
+
+  /// No description provided for @hintpricefrond.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price of a coconut Frond.'**
+  String get hintpricefrond;
+
+  /// No description provided for @bundleprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a bundle'**
+  String get bundleprice;
+
+  /// No description provided for @hintpricebundle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Price of a bundle'**
+  String get hintpricebundle;
+
+  /// No description provided for @hintnumberofbundles.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the number of bundle'**
+  String get hintnumberofbundles;
+
+  /// No description provided for @numberofbundles.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of bundles'**
+  String get numberofbundles;
+
+  /// No description provided for @betelquantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of betel leaves'**
+  String get betelquantity;
+
+  /// No description provided for @hintbetelquantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of betel leaves'**
+  String get hintbetelquantity;
+
+  /// No description provided for @priceofbetel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of 1000 leaves'**
+  String get priceofbetel;
+
+  /// No description provided for @hintpricebetel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the price for the 1000 leaves'**
+  String get hintpricebetel;
+
+  /// No description provided for @stickprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a stick'**
+  String get stickprice;
+
+  /// No description provided for @hintstickPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a stick'**
+  String get hintstickPrice;
+
+  /// No description provided for @noofsticks.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of sticks'**
+  String get noofsticks;
+
+  /// No description provided for @hintsticks.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of sticks'**
+  String get hintsticks;
+
+  /// No description provided for @priceroot.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a root pieces'**
+  String get priceroot;
+
+  /// No description provided for @hitnpricerrot.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a root pieces'**
+  String get hitnpricerrot;
+
+  /// No description provided for @priceshoots.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a shoots'**
+  String get priceshoots;
+
+  /// No description provided for @hintshoots.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a shoots'**
+  String get hintshoots;
+
+  /// No description provided for @age.
+  ///
+  /// In en, this message translates to:
+  /// **'Your age'**
+  String get age;
+
+  /// No description provided for @hintage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your age'**
+  String get hintage;
+
+  /// No description provided for @hintseedpacket.
+  ///
+  /// In en, this message translates to:
+  /// **'The amount of seeds in a packet'**
+  String get hintseedpacket;
 }
 
 class _AppLocalizationsDelegate

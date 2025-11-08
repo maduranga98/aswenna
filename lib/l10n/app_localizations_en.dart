@@ -1450,6 +1450,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get numberofseedkg => 'Number of seeds kg';
 
   @override
+  String get hintpriceof1kgofseeds => 'Enter the price of 1 kg of seeds';
+
+  @override
+  String get hintnumberofseedkg => 'Enter the number of kg of seeds';
+
+  @override
   String get priceofaplant => 'Price of a Plant';
 
   @override
@@ -1681,4 +1687,124 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get vehicletype => 'Vehicle Type';
+
+  @override
+  String get year => 'Manufactured Year';
+
+  @override
+  String get manufacturer => 'Manufacturer';
+
+  @override
+  String get noOfOwners => 'Number of Owners';
+
+  @override
+  String get vehicleprice => 'Price of a Vehicle';
+
+  @override
+  String get hintType => 'Enter Vehicle Type';
+
+  @override
+  String get hintyear => 'Enter the Year';
+
+  @override
+  String get hintmanufacturer => 'Enter the Manufacturer';
+
+  @override
+  String get hintnoofowners => 'Enter Number of Owners';
+
+  @override
+  String get hintvehicleprice => 'Enter the price of a vehicle';
+
+  @override
+  String get countnuts => 'Count the Nuts';
+
+  @override
+  String get hintnunts => 'Enter the number of nut';
+
+  @override
+  String get hintnuntsprice => 'Enter the Price of a nut';
+
+  @override
+  String get numberofhusks => 'Number of husks';
+
+  @override
+  String get priceofhusk => 'Price of a husks';
+
+  @override
+  String get hintnumberofhusk => 'Enter number of husks';
+
+  @override
+  String get hintpriceofahusk => 'Enter price of a husks';
+
+  @override
+  String get numberoffronds => 'Number of coconut Fronds';
+
+  @override
+  String get hintfronds => 'Enter the number of coconut Fronds';
+
+  @override
+  String get pricefrond => 'Price of a coconut Frond';
+
+  @override
+  String get hintpricefrond => 'Enter the price of a coconut Frond.';
+
+  @override
+  String get bundleprice => 'Price of a bundle';
+
+  @override
+  String get hintpricebundle => 'Enter the Price of a bundle';
+
+  @override
+  String get hintnumberofbundles => 'Enter the number of bundle';
+
+  @override
+  String get numberofbundles => 'Number of bundles';
+
+  @override
+  String get betelquantity => 'Number of betel leaves';
+
+  @override
+  String get hintbetelquantity => 'Enter number of betel leaves';
+
+  @override
+  String get priceofbetel => 'Price of 1000 leaves';
+
+  @override
+  String get hintpricebetel => 'Enter the price for the 1000 leaves';
+
+  @override
+  String get stickprice => 'Price of a stick';
+
+  @override
+  String get hintstickPrice => 'Enter price of a stick';
+
+  @override
+  String get noofsticks => 'Number of sticks';
+
+  @override
+  String get hintsticks => 'Enter number of sticks';
+
+  @override
+  String get priceroot => 'Price of a root pieces';
+
+  @override
+  String get hitnpricerrot => 'Enter price of a root pieces';
+
+  @override
+  String get priceshoots => 'Price of a shoots';
+
+  @override
+  String get hintshoots => 'Enter price of a shoots';
+
+  @override
+  String get age => 'Your age';
+
+  @override
+  String get hintage => 'Enter your age';
+
+  @override
+  String get hintseedpacket => 'The amount of seeds in a packet';
 }
