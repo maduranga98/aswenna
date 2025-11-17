@@ -1,5 +1,6 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/auth/login.dart';
+import 'package:aswenna/features/auth/loadingPage.dart';
 import 'package:aswenna/features/auth/profileCompltion.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -76,10 +77,10 @@ class _SignUpState extends State<SignUp> {
 
       _showSuccessSnackBar('Account created successfully!');
 
-      // Navigate to profile completion
+      // Navigate to loading page to check profile and load user data
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ProfileCompletion()),
+        MaterialPageRoute(builder: (context) => const LoadingPage()),
       );
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
@@ -148,10 +149,10 @@ class _SignUpState extends State<SignUp> {
 
       _showSuccessSnackBar('Account created successfully!');
 
-      // Navigate to profile completion
+      // Navigate to loading page to check profile and load user data
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ProfileCompletion()),
+        MaterialPageRoute(builder: (context) => const LoadingPage()),
       );
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;

@@ -1,5 +1,6 @@
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/features/auth/signUp.dart';
+import 'package:aswenna/features/auth/loadingPage.dart';
 import 'package:aswenna/features/home%20page/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,10 +61,10 @@ class _LoginPageState extends State<LoginPage> {
       // Show success message
       _showSuccessSnackBar('Welcome back!');
 
-      // Navigate to home page
+      // Navigate to loading page to load user data
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const LoadingPage()),
       );
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
@@ -121,10 +122,10 @@ class _LoginPageState extends State<LoginPage> {
 
       _showSuccessSnackBar('Welcome back!');
 
-      // Navigate to home page
+      // Navigate to loading page to load user data
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const LoadingPage()),
       );
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
