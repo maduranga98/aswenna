@@ -129,37 +129,35 @@ class _LoadingPageState extends State<LoadingPage>
     );
   }
 
-  Future<void> _updateLocalUserData(Map<String, dynamic> userData) async {
+  Future<void> _updateLocalUserData(Map<String, dynamic> userDoc) async {
     final prefs = await SharedPreferences.getInstance();
 
     // Update shared preferences
     await prefs.setString(
       'name',
-      '${userData['firstName']} ${userData['lastName']}',
+      '${userDoc['firstName']} ${userDoc['lastName']}',
     );
-    await prefs.setString('address', userData['address'] ?? '');
-    await prefs.setString('id', userData['nicNumber'] ?? '');
-    await prefs.setString('mob1', userData['mobileNumber'] ?? '');
-    await prefs.setString('mob2', userData['alternativeMobile'] ?? '');
-    await prefs.setString('district', userData['district'] ?? '');
-    await prefs.setString('dso', userData['dso'] ?? '');
+    await prefs.setString('address', userDoc['address'] ?? '');
+    await prefs.setString('id', userDoc['nicNumber'] ?? '');
+    await prefs.setString('mob1', userDoc['mobileNumber'] ?? '');
+    await prefs.setString('mob2', userDoc['alternativeMobile'] ?? '');
+    await prefs.setString('district', userDoc['district'] ?? '');
+    await prefs.setString('dso', userDoc['dso'] ?? '');
     await prefs.setBool('isRegistered', true);
     await prefs.setBool('isLoggedOut', false);
 
-    // Update global userData map
+    // Update global userData map from color_utils.dart
     setState(() {
-      userData.addAll({
-        'name': '${userData['firstName']} ${userData['lastName']}',
-        'address': userData['address'] ?? '',
-        'id': userData['nicNumber'] ?? '',
-        'mob1': userData['mobileNumber'] ?? '',
-        'mob2': userData['alternativeMobile'] ?? '',
-        'district': userData['district'] ?? '',
-        'dso': userData['dso'] ?? '',
-        'isRegistered': 'true',
-        'isLoggedOut': 'false',
-        'docId': _auth.currentUser?.uid ?? '',
-      });
+      userData['name'] = '${userDoc['firstName']} ${userDoc['lastName']}';
+      userData['address'] = userDoc['address'] ?? '';
+      userData['id'] = userDoc['nicNumber'] ?? '';
+      userData['mob1'] = userDoc['mobileNumber'] ?? '';
+      userData['mob2'] = userDoc['alternativeMobile'] ?? '';
+      userData['district'] = userDoc['district'] ?? '';
+      userData['dso'] = userDoc['dso'] ?? '';
+      userData['isRegistered'] = 'true';
+      userData['isLoggout'] = 'false';
+      userData['docId'] = _auth.currentUser?.uid ?? '';
     });
   }
 
