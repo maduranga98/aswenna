@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:aswenna/core/services/firestore_service.dart';
+import 'package:aswenna/core/services/ad_service.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/providers/items_provider.dart';
@@ -55,6 +56,25 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   String? selectedPaddyVariety;
   final FirestoreService _firestoreService = FirestoreService();
   bool isSaving = false;
+  bool _hasShownInterstitial = false;
+  final AdService _adService = AdService();
+
+  @override
+  void initState() {
+    super.initState();
+    // Load interstitial ad on page load
+    _adService.loadInterstitialAd(onAdLoaded: () {
+      // Show interstitial ad after a delay
+      if (!_hasShownInterstitial && mounted) {
+        Future.delayed(const Duration(milliseconds: 800), () {
+          if (!_hasShownInterstitial && mounted) {
+            _adService.showInterstitialAd();
+            _hasShownInterstitial = true;
+          }
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -247,7 +267,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
       // Step 10: Handle success/failure
       if (docId != null && docId.isNotEmpty) {
         _showSuccess('Item added successfully');
-        if (mounted) Navigator.pop(context, true);
+        // Show interstitial ad after successful item addition
+        _adService.showInterstitialAd(onAdDismissed: () {
+          if (mounted) Navigator.pop(context, true);
+        });
       } else {
         _showError('Failed to save item. Please try again.');
       }
