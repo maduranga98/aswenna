@@ -1432,6 +1432,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get amountofseedsinapacket => 'Amount of seends in a packet';
 
   @override
+  String get hintamountofseedsinapacket =>
+      'Enter the amount of seeds in the packet.';
+
+  @override
   String get numberofpackets => 'Number of packets';
 
   @override
@@ -1650,6 +1654,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintPlantPrice => 'Enter price for a plant';
 
   @override
+  String get planttype => 'Plant type';
+
+  @override
+  String get hintpalnttype => 'Enter the plant type';
+
+  @override
   String get give => 'To Give';
 
   @override
@@ -1695,7 +1705,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get year => 'Manufactured Year';
 
   @override
-  String get manufacturer => 'Manufacturer';
+  String get manufacturer => 'Manufacturing company';
 
   @override
   String get noOfOwners => 'Number of Owners';
@@ -1807,4 +1817,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hintseedpacket => 'The amount of seeds in a packet';
+
+  @override
+  String get fertilizerbags => 'Number of fertilizer bags';
+
+  @override
+  String get hintfertlizerbags => 'Enter number of fertilizer bags';
+
+  @override
+  String get fertilizerbagsize => 'Size of a fertilizer bag(kg)';
+
+  @override
+  String get hintfertilizerbagsize => 'Enter size of a fertilizer bag';
+
+  @override
+  String get fertilizerbagprice => 'Price of a fertilizer bag';
+
+  @override
+  String get hintfertilizerbagprice => 'Enter price of a fertilizer bag';
+
+  @override
+  String get qubic => 'No of Cubic feet';
+
+  @override
+  String get hintqubic => 'Enter no of cubic feet';
+
+  @override
+  String get qubicprice => 'Price per cubic foot';
+
+  @override
+  String get hintqubicprice => 'Enter price per cubic foot';
+
+  @override
+  String get flower => 'Flower Count';
+
+  @override
+  String get hintflower => 'Enter flower count';
+
+  @override
+  String get flowerprice => 'Flower price';
+
+  @override
+  String get hintflowerprice => 'Enter flower price';
+
+  @override
+  String get calf => 'Calf count';
+
+  @override
+  String get hintcalf => 'Enter calf count';
+
+  @override
+  String get calfprice => 'Calf price';
+
+  @override
+  String get hintcalfprice => 'Enter calf price';
 }

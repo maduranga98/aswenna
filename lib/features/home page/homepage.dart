@@ -246,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 _buildMenuCard(
                   title: localization.seeds,
-                  imagePath: 'harvest',
+                  imagePath: 'seeds_plants_and_planting_material',
                   categoryPath: 'seeds_plants_and_planting_material',
                   icon: Icons.local_florist_outlined,
                 ),
@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 _buildMenuCard(
                   title: localization.labour,
-                  imagePath: 'productions',
+                  imagePath: 'service_providers',
                   categoryPath: 'service_providers',
                   icon: Icons.engineering_outlined,
                 ),

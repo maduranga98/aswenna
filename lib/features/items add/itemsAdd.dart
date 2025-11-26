@@ -293,10 +293,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
         return false;
       }
     } else if (widget.paths.contains('harvest')) {
-      if (kgController.text.trim().isEmpty) {
-        _showError('Please enter weight in kg');
-        return false;
-      }
+      // if (kgController.text.trim().isEmpty) {
+      //   _showError('Please enter weight in kg');
+      //   return false;
+      // }
     }
 
     return true;
@@ -905,7 +905,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           widget.paths.contains(
                             'husk_freshed_coconut_export',
                           ) ||
-                          widget.paths.contains('king_coconut')) ...[
+                          widget.paths.contains('king_coconut') ||
+                          widget.paths.contains('kurumba')) ...[
                         _buildInputField(
                           controller: qunatityController,
                           label: l10n.countnuts,
@@ -980,8 +981,8 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         ),
                         _buildInputField(
                           controller: priceController,
-                          label: l10n.price,
-                          hint: l10n.hintprice,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
                           keyboardType: TextInputType.number,
                         ),
                       ] else if (widget.paths.contains('betel')) ...[
@@ -1008,6 +1009,65 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           controller: priceController,
                           label: l10n.priceofbushal,
                           hint: l10n.hintbusalprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('forestry')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.qubic,
+                          hint: l10n.hintqubic,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.qubicprice,
+                          hint: l10n.hintqubicprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('flowers')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.flower,
+                          hint: l10n.hintflower,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.flowerprice,
+                          hint: l10n.hintflowerprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('herbals')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.name,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceForOnekg,
+                          hint: l10n.hintkgPrice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('tea') ||
+                          widget.paths.contains('rubber')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceForOnekg,
+                          hint: l10n.hintkgPrice,
                           keyboardType: TextInputType.number,
                         ),
                       ] else ...[
@@ -1166,19 +1226,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         hint: l10n.hintpriceofahoneybottle,
                         keyboardType: TextInputType.number,
                       ),
-                    ] else if (widget.paths.contains('seed_grain')) ...[
-                      _buildInputField(
-                        controller: kgController,
-                        label: l10n.kg,
-                        hint: l10n.hintKg,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.priceForOnekg,
-                        hint: l10n.hintkgPrice,
-                        keyboardType: TextInputType.number,
-                      ),
                     ] else if (widget.paths.contains('animal_control')) ...[
                       if (widget.paths.contains('milk')) ...[
                         _buildInputField(
@@ -1236,10 +1283,10 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           hint: l10n.hintpriceofaanimal,
                           keyboardType: TextInputType.number,
                         ),
-                      ] else if (widget.paths.contains('poultry') ||
-                          widget.paths.contains('turkey') ||
-                          widget.paths.contains('duck') &&
-                              widget.paths.contains('adult_animals')) ...[
+                      ] else if ((widget.paths.contains('poultry') ||
+                              widget.paths.contains('turkey') ||
+                              widget.paths.contains('duck')) &&
+                          widget.paths.contains('adult_animals')) ...[
                         _buildInputField(
                           controller: kgController,
                           label: l10n.lifeweight,
@@ -1259,20 +1306,34 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           keyboardType: TextInputType.number,
                         ),
                       ] else if (widget.paths.contains('fresh_water') ||
-                          widget.paths.contains('salt_water') &&
-                              widget.paths.contains('adult_animals')) ...[
-                        _buildInputField(
-                          controller: qunatityController,
-                          label: l10n.kg,
-                          hint: l10n.hintKg,
-                          keyboardType: TextInputType.number,
-                        ),
-                        _buildInputField(
-                          controller: priceController,
-                          label: l10n.price,
-                          hint: l10n.priceForOnekg,
-                          keyboardType: TextInputType.number,
-                        ),
+                          widget.paths.contains('salt_water')) ...[
+                        if (widget.paths.contains('calf')) ...[
+                          _buildInputField(
+                            controller: qunatityController,
+                            label: l10n.calf,
+                            hint: l10n.hintcalf,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: priceController,
+                            label: l10n.calfprice,
+                            hint: l10n.hintcalfprice,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ] else ...[
+                          _buildInputField(
+                            controller: qunatityController,
+                            label: l10n.kg,
+                            hint: l10n.hintKg,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: priceController,
+                            label: l10n.price,
+                            hint: l10n.priceForOnekg,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ],
                       ] else if (widget.paths.contains('equipments') ||
                           widget.paths.contains('accessories')) ...[
                         _buildInputField(
@@ -1336,8 +1397,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                         ),
                       ],
                     ] else if (widget.paths.contains('fertilizer')) ...[
-                      if (widget.paths.contains('liquid_fertilizer') ||
-                          widget.paths.contains('single_fertilizer')) ...[
+                      if (widget.paths.contains('liquid_fertilizer')) ...[
                         _buildInputField(
                           controller: qunatityController,
                           label: l10n.quantity,
@@ -1348,6 +1408,32 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           controller: priceController,
                           label: l10n.price,
                           hint: l10n.hintliterprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('single_fertilizer') ||
+                          widget.paths.contains('mixed_fertilizer')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.fertilizerbagsize,
+                          hint: l10n.hintfertilizerbagsize,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.fertilizerbags,
+                          hint: l10n.hintfertlizerbags,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.fertilizerbagprice,
+                          hint: l10n.hintfertilizerbagprice,
                           keyboardType: TextInputType.number,
                         ),
                       ] else ...[
@@ -1364,74 +1450,6 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           keyboardType: TextInputType.number,
                         ),
                       ],
-                    ] else if (widget.paths.contains('coconut_caryota') ||
-                        widget.paths.contains('husked_coconut_dried') ||
-                        widget.paths.contains('husk_freshed_coconut_export') ||
-                        widget.paths.contains('king_coconut')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.countnuts,
-                        hint: l10n.hintnunts,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.priceofanut,
-                        hint: l10n.hintnuntsprice,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ] else if (widget.paths.contains('husks')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.numberofhusks,
-                        hint: l10n.hintnumberofhusk,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.priceofhusk,
-                        hint: l10n.hintpriceofahusk,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ] else if (widget.paths.contains('coconut_water')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.numberofliters,
-                        hint: l10n.hintliters,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.priceforaliter,
-                        hint: l10n.hintliterprice,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ] else if (widget.paths.contains('coconut_fronds')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.numberoffronds,
-                        hint: l10n.hintfronds,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.pricefrond,
-                        hint: l10n.hintpricefrond,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ] else if (widget.paths.contains('coconut_water')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.numberofliters,
-                        hint: l10n.hintliters,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.priceforaliter,
-                        hint: l10n.hintliterprice,
-                        keyboardType: TextInputType.number,
-                      ),
                     ] else if (widget.paths.contains('service_providers')) ...[
                       //todo need to think
                       _buildInputField(
@@ -1511,11 +1529,22 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                     )) ...[
                       if (widget.paths.contains('seed_grain') ||
                           widget.paths.contains('seed_fruit') ||
-                          widget.paths.contains('seed_vegetables')) ...[
+                          widget.paths.contains('seed_vegetables') ||
+                          widget.paths.contains('seed_tuber') ||
+                          widget.paths.contains('other_seeds') ||
+                          widget.paths.contains('seed_greenleaves') ||
+                          widget.paths.contains('seed_medicinal') ||
+                          widget.paths.contains('seed_flower')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
                         _buildInputField(
                           controller: kgController,
                           label: l10n.amountofseedsinapacket,
-                          hint: l10n.hintpacket,
+                          hint: l10n.hintamountofseedsinapacket,
                           keyboardType: TextInputType.number,
                         ),
                         _buildInputField(
@@ -1544,30 +1573,67 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           keyboardType: TextInputType.number,
                         ),
                       ] else if (widget.paths.contains('plants')) ...[
-                        _buildInputField(
-                          controller: qunatityController,
-                          label: l10n.plantsQuantity,
-                          hint: l10n.hintplantsQuantity,
-                          keyboardType: TextInputType.number,
-                        ),
-                        _buildInputField(
-                          controller: priceController,
-                          label: l10n.plantsQuantity,
-                          hint: l10n.hintplantsQuantity,
-                          keyboardType: TextInputType.number,
-                        ),
-                      ] else if (widget.paths.contains('planting_parts')) ...[
-                        if (widget.paths.contains('drumstick')) ...[
+                        if (widget.paths.contains('CRIC_60') ||
+                            widget.paths.contains('CRIC_65') ||
+                            widget.paths.contains('hybrid_coconut')) ...[
                           _buildInputField(
                             controller: qunatityController,
-                            label: l10n.quantity,
-                            hint: l10n.hintquantity,
+                            label: l10n.plantsQuantity,
+                            hint: l10n.hintplantsQuantity,
                             keyboardType: TextInputType.number,
                           ),
                           _buildInputField(
                             controller: priceController,
-                            label: l10n.price,
-                            hint: l10n.hintprice,
+                            label: l10n.plantPrice,
+                            hint: l10n.hintPlantPrice,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ] else if (widget.paths.contains('cashew_plant') ||
+                            widget.paths.contains('export_crops_plants')) ...[
+                          _buildInputField(
+                            controller: qunatityController,
+                            label: l10n.plantsQuantity,
+                            hint: l10n.hintplantsQuantity,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: priceController,
+                            label: l10n.plantPrice,
+                            hint: l10n.hintPlantPrice,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ] else ...[
+                          _buildInputField(
+                            controller: nameController,
+                            label: l10n.planttype,
+                            hint: l10n.hintpalnttype,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: qunatityController,
+                            label: l10n.plantsQuantity,
+                            hint: l10n.hintplantsQuantity,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: priceController,
+                            label: l10n.plantPrice,
+                            hint: l10n.hintPlantPrice,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ],
+                      ] else if (widget.paths.contains('planting_parts')) ...[
+                        if (widget.paths.contains('drumstick')) ...[
+                          _buildInputField(
+                            controller: qunatityController,
+                            label: l10n.noofsticks,
+                            hint: l10n.hintsticks,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: priceController,
+                            label: l10n.stickprice,
+                            hint: l10n.hintstickPrice,
                             keyboardType: TextInputType.number,
                           ),
                         ] else if (widget.paths.contains('kohila')) ...[
@@ -1596,6 +1662,27 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                             hint: l10n.hitnpricerrot,
                             keyboardType: TextInputType.number,
                           ),
+                        ] else if (widget.paths.contains(
+                          'medicinal_planting_material',
+                        )) ...[
+                          _buildInputField(
+                            controller: nameController,
+                            label: l10n.planttype,
+                            hint: l10n.hintpalnttype,
+                            keyboardType: TextInputType.text,
+                          ),
+                          _buildInputField(
+                            controller: qunatityController,
+                            label: l10n.plantsQuantity,
+                            hint: l10n.hintplantsQuantity,
+                            keyboardType: TextInputType.number,
+                          ),
+                          _buildInputField(
+                            controller: priceController,
+                            label: l10n.plantPrice,
+                            hint: l10n.hintPlantPrice,
+                            keyboardType: TextInputType.number,
+                          ),
                         ] else ...[
                           _buildInputField(
                             controller: qunatityController,
@@ -1610,17 +1697,36 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                             keyboardType: TextInputType.number,
                           ),
                         ],
+                      ] else if (widget.paths.contains('bonsai')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.planttype,
+                          hint: l10n.hintpalnttype,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.plantsQuantity,
+                          hint: l10n.hintplantsQuantity,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.plantPrice,
+                          hint: l10n.hintPlantPrice,
+                          keyboardType: TextInputType.text,
+                        ),
                       ] else ...[
                         _buildInputField(
                           controller: qunatityController,
-                          label: l10n.numberofseedkg,
-                          hint: l10n.hintnumberofseedkg,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
                           keyboardType: TextInputType.number,
                         ),
                         _buildInputField(
                           controller: priceController,
-                          label: l10n.hintpriceof1kgofseeds,
-                          hint: l10n.hintprice,
+                          label: l10n.priceForOnekg,
+                          hint: l10n.hintpricefor1kg,
                           keyboardType: TextInputType.number,
                         ),
                       ],
@@ -1753,35 +1859,162 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           keyboardType: TextInputType.number,
                         ),
                       ],
-                    ] else if (widget.paths.contains('confectionery')) ...[
-                      _buildInputField(
-                        controller: qunatityController,
-                        label: l10n.packet,
-                        hint: l10n.hintpacket,
-                        keyboardType: TextInputType.number,
-                      ),
-                      _buildInputField(
-                        controller: piecesInaPacketController,
-                        label: l10n.pieces,
-                        hint: l10n.hintpieces,
-                        keyboardType: TextInputType.number,
-                      ),
-
-                      //   _buildInputField(
-                      //   controller: qunatityController,
-                      //   label: l10n.numberofrolls,
-                      //   hint: l10n.hintnumberofrolls,
-                      //   keyboardType: TextInputType.number,
-                      // ),
-                      _buildInputField(
-                        controller: priceController,
-                        label: l10n.packetprice,
-                        hint: l10n.hintprice,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ] else if (widget.paths.contains("other") ||
-                        widget.paths.contains("mixed_fertilizer") ||
-                        widget.paths.contains("single_fertilizer")) ...[
+                    ] else if (widget.paths.contains(
+                      'processed_productions',
+                    )) ...[
+                      if (widget.paths.contains(
+                            "other_cereal_crops_related_products",
+                          ) ||
+                          widget.paths.contains("potato_related_products") ||
+                          widget.paths.contains("herbals_related_products") ||
+                          widget.paths.contains("jewelry") ||
+                          widget.paths.contains("house_items") ||
+                          widget.paths.contains("other_forestry") ||
+                          widget.paths.contains("other_cashew") ||
+                          widget.paths.contains("other_flowers") ||
+                          widget.paths.contains(
+                            "other_cereal_crops_related_products",
+                          ) ||
+                          widget.paths.contains("other")) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('coconut_water')) ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.numberofliters,
+                          hint: l10n.hintliters,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceforaliter,
+                          hint: l10n.hintliterprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains('confectionery')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.packet,
+                          hint: l10n.hintpacket,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: piecesInaPacketController,
+                          label: l10n.pieces,
+                          hint: l10n.hintpieces,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.packetprice,
+                          hint: l10n.hintprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else if (widget.paths.contains(
+                            'tea_related_products',
+                          ) ||
+                          widget.paths.contains('rubber_related_products')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceForOnekg,
+                          hint: l10n.hintkgPrice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ] else if (widget.paths.contains('machineries')) ...[
+                      if (widget.paths.contains('other_machinery_equipments') ||
+                          widget.paths.contains(
+                            'other_cultivation_equipment',
+                          ) ||
+                          widget.paths.contains('other_fertilizer_app') ||
+                          widget.paths.contains('other_weeding') ||
+                          widget.paths.contains('other_water_app') ||
+                          widget.paths.contains(
+                            'harvest_processing_equipment',
+                          ) ||
+                          widget.paths.contains(
+                            'post_harvest_technical_equipment',
+                          )) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ] else ...[
+                        _buildInputField(
+                          controller: qunatityController,
+                          label: l10n.quantity,
+                          hint: l10n.hintquantity,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.unitPrice,
+                          hint: l10n.hintunitprice,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ] else if (widget.paths.contains("other")) ...[
                       _buildInputField(
                         controller: nameController,
                         label: l10n.itemname,

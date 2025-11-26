@@ -401,13 +401,13 @@ class CategoryManager {
             nameEn: 'Tea',
             nameSi: 'තේ',
             dbPath: 'tea',
-            items: _getCerealCrops(),
+            hasBuySell: true,
           ),
           SubCategoryData(
             nameEn: 'Rubber',
             nameSi: 'රබර්',
             dbPath: 'rubber',
-            items: _getCerealCrops(),
+            hasBuySell: true,
           ),
           SubCategoryData(
             nameEn: 'Vegetables',
@@ -1582,13 +1582,19 @@ class CategoryManager {
                 dbPath: 'mahogany',
                 hasBuySell: true,
               ),
+              ItemData(
+                nameEn: 'other',
+                nameSi: 'වෙනත්',
+                dbPath: 'other',
+                hasBuySell: true,
+              ),
             ],
           ),
           SubCategoryData(
             nameEn: 'Herbals',
             nameSi: 'ඖෂධ වර්ග',
             dbPath: 'herbals',
-            items: _getCerealCrops(),
+            hasBuySell: true,
           ),
           SubCategoryData(
             nameEn: 'other',
@@ -1864,6 +1870,24 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
+                    nameEn: 'Greenleaves Seeds',
+                    nameSi: 'පලා බීජ',
+                    dbPath: 'seed_greenleaves',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Medicinal Seeds',
+                    nameSi: 'ඖෂධ බීජ',
+                    dbPath: 'seed_medicinal',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Seed Flowers',
+                    nameSi: 'මල් බීජ',
+                    dbPath: 'seed_flower',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
                     nameEn: 'Other Seeds',
                     nameSi: 'වෙනත් බීජ',
                     dbPath: 'other_seeds',
@@ -1871,16 +1895,41 @@ class CategoryManager {
                   ),
                 ],
               ),
-              DeepCategoryData(
+              SubCategoryData(
                 nameEn: 'Plants',
                 nameSi: 'පැල',
                 dbPath: 'plants',
                 items: [
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Coconut Plants',
                     nameSi: 'පොල් පැල',
                     dbPath: 'coconut_plants',
-                    hasBuySell: true,
+                    items: [
+                      ItemData(
+                        nameEn: 'CRIC 60',
+                        nameSi: 'CRIC 60',
+                        dbPath: 'CRIC_60',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'CRIC 65',
+                        nameSi: 'CRIC 65',
+                        dbPath: 'CRIC_65',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Hybrid Coconut',
+                        nameSi: 'දෙමුහුම්',
+                        dbPath: 'hybrid_coconut',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Other Coconut',
+                        nameSi: 'වෙනත්',
+                        dbPath: 'other_coconut',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
                   ItemData(
                     nameEn: 'Vegetable Plants',
@@ -2151,11 +2200,139 @@ class CategoryManager {
                 nameSi: 'බීජ',
                 dbPath: 'seeds',
                 items: [
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Paddy Seeds',
                     nameSi: 'බිත්තර වී',
                     dbPath: 'paddy_seeds',
-                    hasBuySell: true,
+                    items: [
+                      DeepCategoryData(
+                        nameEn: 'Local',
+                        nameSi: 'දේශීය',
+                        dbPath: 'local',
+                        items: [
+                          ItemData(
+                            nameEn: 'Suwadel',
+                            nameSi: 'සුවඳැල්',
+                            dbPath: 'suwadel',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Kurulu Thuda',
+                            nameSi: 'කුරුළු තුඩ',
+                            dbPath: 'kurulu_thuda',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Pachchaperumal',
+                            nameSi: 'පච්චපෙරුමාල්',
+                            dbPath: 'pachchaperumal',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Rathdel',
+                            nameSi: 'රත්දැල්',
+                            dbPath: 'rathdel',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Kalu Heenati',
+                            nameSi: 'කළු හීනටි',
+                            dbPath: 'kalu_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Rathu Heenati',
+                            nameSi: 'රතුහීනටි',
+                            dbPath: 'rathu_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Sudu Heenati',
+                            nameSi: 'සුදු හීනටි',
+                            dbPath: 'sudu_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Goda Heenati',
+                            nameSi: 'ගොඩ හීනටි',
+                            dbPath: 'goda_heenati',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Masuran',
+                            nameSi: 'මසුරං',
+                            dbPath: 'masuran',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Kahawanu',
+                            nameSi: 'කහවනු',
+                            dbPath: 'kahawanu',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Madathawalu',
+                            nameSi: 'මඩතවාලු',
+                            dbPath: 'madathawalu',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Ma wee',
+                            nameSi: 'මා වී',
+                            dbPath: 'ma_wee',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Pokkali',
+                            nameSi: 'පොක්කාලි',
+                            dbPath: 'pokkali',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Hatada wee',
+                            nameSi: 'හැටදා වී',
+                            dbPath: 'hatada_wee',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Dik wee',
+                            nameSi: 'දික් වී',
+                            dbPath: 'dik_wee',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Gonnabaru',
+                            nameSi: 'ගෝනබරු',
+                            dbPath: 'gonnabaru',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Dahanala',
+                            nameSi: 'දහනල',
+                            dbPath: 'dahanala',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Basmathi',
+                            nameSi: 'බාස්මතී',
+                            dbPath: 'basmathi',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Other',
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      ItemData(
+                        nameEn: 'Improved',
+                        nameSi: 'වැඩිදියුණු කල',
+                        dbPath: 'improved',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
                   ItemData(
                     nameEn: 'Seed Grain',
@@ -2243,6 +2420,24 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
+                    nameEn: 'Greenleaves Seeds',
+                    nameSi: 'පලා බීජ',
+                    dbPath: 'seed_greenleaves',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Medicinal Seeds',
+                    nameSi: 'ඖෂධ බීජ',
+                    dbPath: 'seed_medicinal',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: 'Seed Flowers',
+                    nameSi: 'මල් බීජ',
+                    dbPath: 'seed_flower',
+                    hasBuySell: true,
+                  ),
+                  ItemData(
                     nameEn: 'Other Seeds',
                     nameSi: 'වෙනත් බීජ',
                     dbPath: 'other_seeds',
@@ -2255,11 +2450,36 @@ class CategoryManager {
                 nameSi: 'පැල',
                 dbPath: 'plants',
                 items: [
-                  ItemData(
+                  DeepCategoryData(
                     nameEn: 'Coconut Plants',
                     nameSi: 'පොල් පැල',
                     dbPath: 'coconut_plants',
-                    hasBuySell: true,
+                    items: [
+                      ItemData(
+                        nameEn: 'CRIC 60',
+                        nameSi: 'CRIC 60',
+                        dbPath: 'CRIC_60',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'CRIC 65',
+                        nameSi: 'CRIC 65',
+                        dbPath: 'CRIC_65',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Hybrid Coconut',
+                        nameSi: 'දෙමුහුම්',
+                        dbPath: 'hybrid_coconut',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Other Coconut',
+                        nameSi: 'වෙනත්',
+                        dbPath: 'other_coconut',
+                        hasBuySell: true,
+                      ),
+                    ],
                   ),
                   ItemData(
                     nameEn: 'Vegetable Plants',
@@ -2523,7 +2743,7 @@ class CategoryManager {
         ],
       ),
       CategoryData(
-        nameEn: 'Animal Control',
+        nameEn: 'Animal Husbandry',
         nameSi: 'සත්ව පාලන',
         dbPath: 'animal_control',
         subCategories: [
@@ -2544,14 +2764,14 @@ class CategoryManager {
                     items: [
                       // Cattle Types
                       ItemData(
-                        nameEn: 'Eire',
+                        nameEn: 'Ayrshire',
                         nameSi: 'අයර්ෂයර්',
-                        dbPath: 'eire',
+                        dbPath: 'ayrshire',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Fecian',
-                        nameSi: 'ෆීෂියන්',
+                        nameEn: 'Friesian',
+                        nameSi: 'ෆ්‍රීසියන්',
                         dbPath: 'fecian',
                         hasBuySell: true,
                       ),
@@ -2562,15 +2782,15 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Memories',
-                        nameSi: 'සිහිවාල්',
-                        dbPath: 'memories',
+                        nameEn: 'Sahiwal',
+                        nameSi: 'සහිවාල්',
+                        dbPath: 'sahiwal',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Glee',
-                        nameSi: 'ග්ලි',
-                        dbPath: 'glee',
+                        nameEn: 'Gir',
+                        nameSi: 'ගිර්',
+                        dbPath: 'gir',
                         hasBuySell: true,
                       ),
                       ItemData(
@@ -2618,33 +2838,33 @@ class CategoryManager {
                     items: [
                       // Cattle Types
                       ItemData(
-                        nameEn: 'Eire',
+                        nameEn: 'Ayrshire',
                         nameSi: 'අයර්ෂයර්',
-                        dbPath: 'eire',
+                        dbPath: 'ayrshire',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Fecian',
-                        nameSi: 'ෆීෂියන්',
+                        nameEn: 'Friesian',
+                        nameSi: 'ෆ්‍රීසියන්',
                         dbPath: 'fecian',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Jagasi',
+                        nameEn: 'Jersey',
                         nameSi: 'ජර්සි',
-                        dbPath: 'jagasi',
+                        dbPath: 'jersey',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Memories',
-                        nameSi: 'සිහිවාල්',
-                        dbPath: 'memories',
+                        nameEn: 'Sahiwal',
+                        nameSi: 'සහිවාල්',
+                        dbPath: 'sahiwal',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Glee',
-                        nameSi: 'ග්ලි',
-                        dbPath: 'glee',
+                        nameEn: 'Gir',
+                        nameSi: 'ගිර්',
+                        dbPath: 'gir',
                         hasBuySell: true,
                       ),
                       ItemData(
@@ -2698,8 +2918,8 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Medicine',
-                    nameSi: 'බෙහෙත්',
+                    nameEn: 'Medicine and Vitamins',
+                    nameSi: 'බෙහෙත් සහ විටමින්',
                     dbPath: 'medicine',
                     hasBuySell: true,
                   ),
@@ -2723,19 +2943,19 @@ class CategoryManager {
                     items: [
                       // Buffalo Types
                       ItemData(
-                        nameEn: 'Mura',
+                        nameEn: 'Murrah',
                         nameSi: 'මුරා',
                         dbPath: 'mura',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Nilirawi',
-                        nameSi: 'නිලිරාවී',
+                        nameEn: 'Nili Ravi',
+                        nameSi: 'නිලි රාවි',
                         dbPath: 'nilirawi',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Surti',
+                        nameEn: 'Surthi',
                         nameSi: 'සුර්තී',
                         dbPath: 'surti',
                         hasBuySell: true,
@@ -2767,19 +2987,19 @@ class CategoryManager {
                     items: [
                       // Buffalo Types
                       ItemData(
-                        nameEn: 'Mura',
+                        nameEn: 'Murrah',
                         nameSi: 'මුරා',
                         dbPath: 'mura',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Nilirawi',
-                        nameSi: 'නිලිරාවී',
+                        nameEn: 'Nili Ravi',
+                        nameSi: 'නිලි රාවි',
                         dbPath: 'nilirawi',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Surti',
+                        nameEn: 'Surthi',
                         nameSi: 'සුර්තී',
                         dbPath: 'surti',
                         hasBuySell: true,
@@ -2817,8 +3037,8 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Medicine',
-                    nameSi: 'බෙහෙත්',
+                    nameEn: 'Medicine and Vitamins',
+                    nameSi: 'බෙහෙත් සහ විටමින්',
                     dbPath: 'medicine',
                     hasBuySell: true,
                   ),
@@ -2848,19 +3068,19 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Satan',
+                        nameEn: 'Saanen',
                         nameSi: 'සානන්',
                         dbPath: 'satan',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Boyer',
+                        nameEn: 'Boer',
                         nameSi: 'බෝයර්',
                         dbPath: 'boyer',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Kottu Kavadi',
+                        nameEn: 'Kottukachchiya',
                         nameSi: 'කොට්ටුකච්චිය',
                         dbPath: 'kottu_kavadi',
                         hasBuySell: true,
@@ -2898,19 +3118,19 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Satan',
+                        nameEn: 'Saanen',
                         nameSi: 'සානන්',
                         dbPath: 'satan',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Boyer',
+                        nameEn: 'Boer',
                         nameSi: 'බෝයර්',
                         dbPath: 'boyer',
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Kottu Kavadi',
+                        nameEn: 'Kottukachchiya',
                         nameSi: 'කොට්ටුකච්චිය',
                         dbPath: 'kottu_kavadi',
                         hasBuySell: true,
@@ -2948,8 +3168,8 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Medicine',
-                    nameSi: 'බෙහෙත්',
+                    nameEn: 'Medicine and Vitamins',
+                    nameSi: 'බෙහෙත් සහ විටමින්',
                     dbPath: 'medicine',
                     hasBuySell: true,
                   ),
@@ -2972,7 +3192,7 @@ class CategoryManager {
                     dbPath: 'pig_calf',
                     items: [
                       ItemData(
-                        nameEn: 'Landiers',
+                        nameEn: 'Landrase',
                         nameSi: 'ලෑන්ඩ්රේස්',
                         dbPath: 'landiers',
                         hasBuySell: true,
@@ -2984,7 +3204,7 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Duro',
+                        nameEn: 'Duroc',
                         nameSi: 'ඩියුරෝ',
                         dbPath: 'duro',
                         hasBuySell: true,
@@ -3015,7 +3235,7 @@ class CategoryManager {
                     dbPath: 'grown_pigs',
                     items: [
                       ItemData(
-                        nameEn: 'Landiers',
+                        nameEn: 'Landrase',
                         nameSi: 'ලෑන්ඩ්රේස්',
                         dbPath: 'landiers',
                         hasBuySell: true,
@@ -3027,7 +3247,7 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Duro',
+                        nameEn: 'Duroc',
                         nameSi: 'ඩියුරෝ',
                         dbPath: 'duro',
                         hasBuySell: true,
@@ -3059,8 +3279,8 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Medicine',
-                    nameSi: 'බෙහෙත්',
+                    nameEn: 'Medicine and Vitamins',
+                    nameSi: 'බෙහෙත් සහ විටමින්',
                     dbPath: 'medicine',
                     hasBuySell: true,
                   ),
@@ -3086,6 +3306,30 @@ class CategoryManager {
                         nameEn: 'New Zealand White',
                         nameSi: 'නිව්සීලන්ඩ් වයිට්',
                         dbPath: 'new_zealand_white',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Hemaster',
+                        nameSi: 'හැම්ස්ටර්',
+                        dbPath: 'hemaster',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Gueni Pig',
+                        nameSi: 'ගුයිනි පිග්',
+                        dbPath: 'gueni_pig',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Angora',
+                        nameSi: 'ඇන්ගෝරා',
+                        dbPath: 'angora',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Dutch',
+                        nameSi: 'ඩච්',
+                        dbPath: 'dutch',
                         hasBuySell: true,
                       ),
                       ItemData(
@@ -3120,6 +3364,30 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
+                        nameEn: 'Hemaster',
+                        nameSi: 'හැම්ස්ටර්',
+                        dbPath: 'hemaster',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Gueni Pig',
+                        nameSi: 'ගුයිනි පිග්',
+                        dbPath: 'gueni_pig',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Angora',
+                        nameSi: 'ඇන්ගෝරා',
+                        dbPath: 'angora',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Dutch',
+                        nameSi: 'ඩච්',
+                        dbPath: 'dutch',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
                         nameEn: 'Hybrid',
                         nameSi: 'දෙමුහුම්',
                         dbPath: 'hybrid_rabbit',
@@ -3146,8 +3414,8 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Medicine',
-                    nameSi: 'බෙහෙත්',
+                    nameEn: 'Medicine and Vitamins',
+                    nameSi: 'බෙහෙත් සහ විටමින්',
                     dbPath: 'medicine',
                     hasBuySell: true,
                   ),
@@ -3174,6 +3442,12 @@ class CategoryManager {
                         nameEn: 'Red Madras',
                         nameSi: 'රෙඩ් මැඩ්‍රාස්',
                         dbPath: 'red_madras',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
+                        nameEn: 'Jaffna Local',
+                        nameSi: 'ජැෆ්නා ලෝකල්',
+                        dbPath: 'jaffna_local',
                         hasBuySell: true,
                       ),
                       ItemData(
@@ -3208,6 +3482,12 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
+                        nameEn: 'Jaffna Local',
+                        nameSi: 'ජැෆ්නා ලෝකල්',
+                        dbPath: 'jaffna_local',
+                        hasBuySell: true,
+                      ),
+                      ItemData(
                         nameEn: 'Hybrid',
                         nameSi: 'දෙමුහුම්',
                         dbPath: 'hybrid_sheep',
@@ -3234,8 +3514,8 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Medicine',
-                    nameSi: 'බෙහෙත්',
+                    nameEn: 'Medicine and Vitamins',
+                    nameSi: 'බෙහෙත් සහ විටමින්',
                     dbPath: 'medicine',
                     hasBuySell: true,
                   ),
@@ -3308,7 +3588,7 @@ class CategoryManager {
                     dbPath: 'layers',
                     items: [
                       DeepCategoryData(
-                        nameEn: 'Calf',
+                        nameEn: 'Chiks',
                         nameSi: 'පැටව්',
                         dbPath: 'calf',
                         items: [
@@ -3379,6 +3659,24 @@ class CategoryManager {
                             dbPath: 'black',
                             hasBuySell: true,
                           ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Plymouth Rock",
+                            nameSi: 'පොහොර',
+                            dbPath: 'plymouth_rock',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Other",
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
                         ],
                       ),
                       ItemData(
@@ -3407,7 +3705,7 @@ class CategoryManager {
                     dbPath: 'broilers',
                     items: [
                       DeepCategoryData(
-                        nameEn: 'Calf',
+                        nameEn: 'Chiks',
                         nameSi: 'පැටව්',
                         dbPath: 'calf',
                         items: [
@@ -3482,11 +3780,48 @@ class CategoryManager {
                     nameSi: 'පේරන්ට්ස්',
                     dbPath: 'parents',
                     items: [
-                      ItemData(
-                        nameEn: 'Calf',
+                      DeepCategoryData(
+                        nameEn: 'Chiks',
                         nameSi: 'පැටව්',
                         dbPath: 'calf',
-                        hasBuySell: true,
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Plymouth Rock",
+                            nameSi: 'පොහොර',
+                            dbPath: 'plymouth_rock',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Other",
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
+                        ],
                       ),
                       ItemData(
                         nameEn: 'Eggs',
@@ -3494,11 +3829,48 @@ class CategoryManager {
                         dbPath: 'eggs',
                         hasBuySell: true,
                       ),
-                      ItemData(
+                      DeepCategoryData(
                         nameEn: 'Adult Animals',
                         nameSi: 'වැඩුණු සතුන්',
                         dbPath: 'adult_animals',
-                        hasBuySell: true,
+                        items: [
+                          ItemData(
+                            nameEn: "Red",
+                            nameSi: 'රතු',
+                            dbPath: 'red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "White",
+                            nameSi: 'සුදු',
+                            dbPath: 'white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Plymouth Rock",
+                            nameSi: 'පොහොර',
+                            dbPath: 'plymouth_rock',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Other",
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
+                        ],
                       ),
                       ItemData(
                         nameEn: 'Feed',
@@ -3526,7 +3898,7 @@ class CategoryManager {
                     dbPath: 'cockres',
                     items: [
                       DeepCategoryData(
-                        nameEn: 'Calf',
+                        nameEn: 'Chiks',
                         nameSi: 'පැටව්',
                         dbPath: 'calf',
                         items: [
@@ -3546,6 +3918,24 @@ class CategoryManager {
                             nameEn: "Black",
                             nameSi: 'කළු',
                             dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Plymouth Rock",
+                            nameSi: 'පොහොර',
+                            dbPath: 'plymouth_rock',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Other",
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
                             hasBuySell: true,
                           ),
                         ],
@@ -3574,6 +3964,24 @@ class CategoryManager {
                             dbPath: 'black',
                             hasBuySell: true,
                           ),
+                          ItemData(
+                            nameEn: "Black",
+                            nameSi: 'කළු',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Plymouth Rock",
+                            nameSi: 'පොහොර',
+                            dbPath: 'plymouth_rock',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: "Other",
+                            nameSi: 'වෙනත්',
+                            dbPath: 'other',
+                            hasBuySell: true,
+                          ),
                         ],
                       ),
                       ItemData(
@@ -3600,27 +4008,275 @@ class CategoryManager {
               ),
               DeepCategoryData(
                 nameEn: 'Turkey',
-                nameSi: 'කළුකොං',
+                nameSi: 'කළුකොං',
                 dbPath: 'turkey',
                 items: [
-                  ItemData(
+                  SubCategoryData(
                     nameEn: 'Calf',
                     nameSi: 'පැටව්',
                     dbPath: 'calf',
-                    hasBuySell: true,
+                    items: [
+                      DeepCategoryData(
+                        nameEn: "Male",
+                        nameSi: "පිරිමි",
+                        dbPath: "male",
+                        items: [
+                          ItemData(
+                            nameEn: 'Midget White',
+                            nameSi: 'මිඩ්ල් වයිට්',
+                            dbPath: 'midget_white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bourbon Red',
+                            nameSi: 'බෝබන් රෙඩ්',
+                            dbPath: 'bourbon_red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bronze',
+                            nameSi: 'බ්‍රොන්ස්',
+                            dbPath: 'bronze',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Norfolk Black',
+                            nameSi: 'නෝෆොක් බැක්',
+                            dbPath: 'norfolk_black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Narragansett',
+                            nameSi: 'න(අ)ගසන්සෙට්',
+                            dbPath: 'narragansett',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Blue Slate',
+                            nameSi: 'බ්ලූස්ලේට්',
+                            dbPath: 'blue_slate',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Royal palm',
+                            nameSi: 'රෝයල්ප(අ)ල්ම්',
+                            dbPath: 'royal_palm',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Black',
+                            nameSi: 'බ්ලැක්',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Other',
+                            nameSi: 'වෙනත්',
+                            dbPath: 'Other',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      DeepCategoryData(
+                        nameEn: "Female",
+                        nameSi: "ගැහැණු",
+                        dbPath: "female",
+                        items: [
+                          ItemData(
+                            nameEn: 'Midget White',
+                            nameSi: 'මිඩ්ල් වයිට්',
+                            dbPath: 'midget_white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bourbon Red',
+                            nameSi: 'බෝබන් රෙඩ්',
+                            dbPath: 'bourbon_red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bronze',
+                            nameSi: 'බ්‍රොන්ස්',
+                            dbPath: 'bronze',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Norfolk Black',
+                            nameSi: 'නෝෆොක් බැක්',
+                            dbPath: 'norfolk_black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Narragansett',
+                            nameSi: 'න(අ)ගසන්සෙට්',
+                            dbPath: 'narragansett',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Blue Slate',
+                            nameSi: 'බ්ලූස්ලේට්',
+                            dbPath: 'blue_slate',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Royal palm',
+                            nameSi: 'රෝයල්ප(අ)ල්ම්',
+                            dbPath: 'royal_palm',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Black',
+                            nameSi: 'බ්ලැක්',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Other',
+                            nameSi: 'වෙනත්',
+                            dbPath: 'Other',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+
                   ItemData(
                     nameEn: 'Eggs',
                     nameSi: 'බිත්තර',
                     dbPath: 'eggs',
                     hasBuySell: true,
                   ),
-                  ItemData(
-                    nameEn: 'Adult Animals',
-                    nameSi: 'වැඩුණු සතුන්',
-                    dbPath: 'adult_animals',
-                    hasBuySell: true,
+                  SubCategoryData(
+                    nameEn: "Adult Animals",
+                    nameSi: "වැඩුණු සතුන්",
+                    dbPath: "adult_animals",
+                    items: [
+                      DeepCategoryData(
+                        nameEn: "Male",
+                        nameSi: "පිරිමි",
+                        dbPath: "male",
+                        items: [
+                          ItemData(
+                            nameEn: 'Midget White',
+                            nameSi: 'මිඩ්ල් වයිට්',
+                            dbPath: 'midget_white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bourbon Red',
+                            nameSi: 'බෝබන් රෙඩ්',
+                            dbPath: 'bourbon_red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bronze',
+                            nameSi: 'බ්‍රොන්ස්',
+                            dbPath: 'bronze',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Norfolk Black',
+                            nameSi: 'නෝෆොක් බැක්',
+                            dbPath: 'norfolk_black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Narragansett',
+                            nameSi: 'න(අ)ගසන්සෙට්',
+                            dbPath: 'narragansett',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Blue Slate',
+                            nameSi: 'බ්ලූස්ලේට්',
+                            dbPath: 'blue_slate',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Royal palm',
+                            nameSi: 'රෝයල්ප(අ)ල්ම්',
+                            dbPath: 'royal_palm',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Black',
+                            nameSi: 'බ්ලැක්',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Other',
+                            nameSi: 'වෙනත්',
+                            dbPath: 'Other',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                      DeepCategoryData(
+                        nameEn: "Female",
+                        nameSi: "ගැහැණු",
+                        dbPath: "female",
+                        items: [
+                          ItemData(
+                            nameEn: 'Midget White',
+                            nameSi: 'මිඩ්ල් වයිට්',
+                            dbPath: 'midget_white',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bourbon Red',
+                            nameSi: 'බෝබන් රෙඩ්',
+                            dbPath: 'bourbon_red',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Bronze',
+                            nameSi: 'බ්‍රොන්ස්',
+                            dbPath: 'bronze',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Norfolk Black',
+                            nameSi: 'නෝෆොක් බැක්',
+                            dbPath: 'norfolk_black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Narragansett',
+                            nameSi: 'න(අ)ගසන්සෙට්',
+                            dbPath: 'narragansett',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Blue Slate',
+                            nameSi: 'බ්ලූස්ලේට්',
+                            dbPath: 'blue_slate',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Royal palm',
+                            nameSi: 'රෝයල්ප(අ)ල්ම්',
+                            dbPath: 'royal_palm',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Black',
+                            nameSi: 'බ්ලැක්',
+                            dbPath: 'black',
+                            hasBuySell: true,
+                          ),
+                          ItemData(
+                            nameEn: 'Other',
+                            nameSi: 'වෙනත්',
+                            dbPath: 'Other',
+                            hasBuySell: true,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+
                   ItemData(
                     nameEn: 'Feed',
                     nameSi: 'ආහාර',
@@ -5128,6 +5784,12 @@ class CategoryManager {
                     dbPath: 'beer',
                     hasBuySell: true,
                   ),
+                  ItemData(
+                    nameEn: 'Other',
+                    nameSi: 'වෙනත්',
+                    dbPath: 'other',
+                    hasBuySell: true,
+                  ),
                 ],
               ),
               ItemData(
@@ -5450,18 +6112,18 @@ class CategoryManager {
             ],
           ),
 
-          // SubCategoryData(
-          //   nameEn: 'Tea Related products',
-          //   nameSi: 'තේ ආශ්‍රිත නිෂ්පාදන',
-          //   dbPath: 'tea_related_products',
-          //   hasBuySell: true,
-          // ),
-          // SubCategoryData(
-          //   nameEn: 'Rubber Related products',
-          //   nameSi: 'රබර් ආශ්‍රිත නිෂ්පාදන',
-          //   dbPath: 'rubber_related_products',
-          //   hasBuySell: true,
-          // ),
+          SubCategoryData(
+            nameEn: 'Tea Related products',
+            nameSi: 'තේ ආශ්‍රිත නිෂ්පාදන',
+            dbPath: 'tea_related_products',
+            hasBuySell: true,
+          ),
+          SubCategoryData(
+            nameEn: 'Rubber Related products',
+            nameSi: 'රබර් ආශ්‍රිත නිෂ්පාදන',
+            dbPath: 'rubber_related_products',
+            hasBuySell: true,
+          ),
           // SubCategoryData(
           //   nameEn: 'Vegetables Related products',
           //   nameSi: 'එළවළු ආශ්‍රිත නිෂ්පාදන',
@@ -6200,46 +6862,7 @@ class CategoryManager {
             nameEn: 'Veterinary Doctors',
             nameSi: 'සත්ව වෛද්‍යවරුන්',
             dbPath: 'veterinary_doctors',
-            items: [
-              DeepCategoryData(
-                nameEn: "Trained",
-                nameSi: "පුහුනු",
-                dbPath: "trained",
-                items: [
-                  ItemData(
-                    nameEn: "Male",
-                    nameSi: "පිරිමි",
-                    dbPath: "male",
-                    hasBuySell: true,
-                  ),
-                  ItemData(
-                    nameEn: "Female",
-                    nameSi: "ගැහැණු",
-                    dbPath: "female",
-                    hasBuySell: true,
-                  ),
-                ],
-              ),
-              DeepCategoryData(
-                nameEn: "Untrained",
-                nameSi: "නුපුහුනු",
-                dbPath: "untrained",
-                items: [
-                  ItemData(
-                    nameEn: "Male",
-                    nameSi: "පිරිමි",
-                    dbPath: "male",
-                    hasBuySell: true,
-                  ),
-                  ItemData(
-                    nameEn: "Female",
-                    nameSi: "ගැහැණු",
-                    dbPath: "female",
-                    hasBuySell: true,
-                  ),
-                ],
-              ),
-            ],
+            hasBuySell: true,
           ),
           SubCategoryData(
             nameEn: 'Veterinary Technicians',
@@ -6291,6 +6914,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6302,6 +6944,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6344,6 +7005,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6355,6 +7035,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6396,6 +7095,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6407,6 +7125,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6448,6 +7185,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6459,6 +7215,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6500,6 +7275,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6511,6 +7305,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6552,6 +7365,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6563,6 +7395,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6604,6 +7455,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6615,6 +7485,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6656,6 +7545,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6682,6 +7590,25 @@ class CategoryManager {
                   ),
                 ],
               ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
             ],
           ),
           SubCategoryData(
@@ -6693,6 +7620,25 @@ class CategoryManager {
                 nameEn: "Trained",
                 nameSi: "පුහුනු",
                 dbPath: "trained",
+                items: [
+                  ItemData(
+                    nameEn: "Male",
+                    nameSi: "පිරිමි",
+                    dbPath: "male",
+                    hasBuySell: true,
+                  ),
+                  ItemData(
+                    nameEn: "Female",
+                    nameSi: "ගැහැණු",
+                    dbPath: "female",
+                    hasBuySell: true,
+                  ),
+                ],
+              ),
+              DeepCategoryData(
+                nameEn: "Untrained",
+                nameSi: "නුපුහුනු",
+                dbPath: "untrained",
                 items: [
                   ItemData(
                     nameEn: "Male",
@@ -6811,9 +7757,9 @@ class CategoryManager {
             dbPath: 'land_preparation_equipment',
             items: [
               ItemData(
-                nameEn: 'Plough',
-                nameSi: 'නගුල්',
-                dbPath: 'plough',
+                nameEn: 'Binkunda',
+                nameSi: 'බිංකුන්ඩා',
+                dbPath: 'binkunda',
                 hasBuySell: true,
               ),
               ItemData(
@@ -7201,8 +8147,14 @@ class CategoryManager {
             items: [
               ItemData(
                 nameEn: 'Plough',
-                nameSi: 'නගුල්',
+                nameSi: 'නඟුල්',
                 dbPath: 'plough',
+                hasBuySell: true,
+              ),
+              ItemData(
+                nameEn: 'Other',
+                nameSi: 'වෙනත්',
+                dbPath: 'other',
                 hasBuySell: true,
               ),
             ],
