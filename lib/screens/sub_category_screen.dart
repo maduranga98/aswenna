@@ -4,6 +4,7 @@ import 'package:aswenna/data/model/category_model.dart';
 import 'package:aswenna/data/model/hierarchy_model.dart';
 import 'package:aswenna/data/model/item_model.dart';
 import 'package:aswenna/screens/item_list_screen.dart';
+import 'package:aswenna/widgets/banner_ad_widget.dart';
 
 class SubCategoryScreen extends StatelessWidget {
   final dynamic category;
@@ -368,6 +369,11 @@ class SubCategoryScreen extends StatelessWidget {
                 return _buildItemCard(context, item);
               }, childCount: items.length),
             ),
+          ),
+
+          // Banner Ad at the bottom
+          SliverToBoxAdapter(
+            child: const BannerAdWidget(),
           ),
         ],
       ),

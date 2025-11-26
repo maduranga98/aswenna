@@ -10,6 +10,7 @@ import 'package:aswenna/features/items%20view/item_view.dart';
 import 'package:aswenna/l10n/app_localizations.dart';
 import 'package:aswenna/providers/items_provider.dart';
 import 'package:aswenna/widgets/filterBottomSheet.dart';
+import 'package:aswenna/widgets/banner_ad_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -663,6 +664,9 @@ class _ItemListScreenState extends State<ItemListScreen>
             },
           ),
         ),
+
+        // Banner Ad at the bottom
+        const BannerAdWidget(),
       ],
     );
   }
