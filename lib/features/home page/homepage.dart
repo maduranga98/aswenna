@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:aswenna/data/managers/category_manager.dart';
 import 'package:aswenna/screens/sub_category_screen.dart';
 import 'package:aswenna/core/utils/color_utils.dart';
+import 'package:aswenna/core/services/ad_service.dart';
+import 'package:aswenna/widgets/banner_ad_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +18,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final AdService _adService = AdService();
+  bool _hasShownInterstitial = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load interstitial ad for home page
+    _adService.loadInterstitialAd(onAdLoaded: () {
+      // Show interstitial ad after a short delay when page opens
+      if (!_hasShownInterstitial && mounted) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (mounted && !_hasShownInterstitial) {
+            _adService.showInterstitialAd();
+            _hasShownInterstitial = true;
+          }
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   Widget _buildMenuCard({
     required String title,
@@ -219,82 +245,90 @@ class _HomePageState extends State<HomePage> {
         iconTheme: const IconThemeData(color: AppColors.surface),
         actions: [LanguageSelector()],
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: _buildHeader(context)),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1.1,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              delegate: SliverChildListDelegate([
-                _buildMenuCard(
-                  title: localization.land,
-                  imagePath: 'lands',
-                  categoryPath: 'lands',
-                  icon: Icons.landscape_outlined,
+      body: Column(
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: _buildHeader(context)),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.1,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
+                    delegate: SliverChildListDelegate([
+                      _buildMenuCard(
+                        title: localization.land,
+                        imagePath: 'lands',
+                        categoryPath: 'lands',
+                        icon: Icons.landscape_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.harvest,
+                        imagePath: 'harvest',
+                        categoryPath: 'harvest',
+                        icon: Icons.eco_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.seeds,
+                        imagePath: 'harvest',
+                        categoryPath: 'seeds_plants_and_planting_material',
+                        icon: Icons.local_florist_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.animals,
+                        imagePath: 'farms',
+                        categoryPath: 'animal_control',
+                        icon: Icons.pets_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.productions,
+                        imagePath: 'productions',
+                        categoryPath: 'processed_productions',
+                        icon: Icons.inventory_2_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.labour,
+                        imagePath: 'productions',
+                        categoryPath: 'service_providers',
+                        icon: Icons.engineering_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.vehicle,
+                        imagePath: 'vehicles',
+                        categoryPath: 'vehicles',
+                        icon: Icons.agriculture_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.machineries,
+                        imagePath: 'machineries',
+                        categoryPath: 'machineries',
+                        icon: Icons.precision_manufacturing_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.agriEquipment,
+                        imagePath: 'equipments',
+                        categoryPath: 'agricultural_equipment',
+                        icon: Icons.build_outlined,
+                      ),
+                      _buildMenuCard(
+                        title: localization.fertilizers,
+                        imagePath: 'fertilizers',
+                        categoryPath: 'fertilizer',
+                        icon: Icons.sanitizer_outlined,
+                      ),
+                    ]),
+                  ),
                 ),
-                _buildMenuCard(
-                  title: localization.harvest,
-                  imagePath: 'harvest',
-                  categoryPath: 'harvest',
-                  icon: Icons.eco_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.seeds,
-                  imagePath: 'harvest',
-                  categoryPath: 'seeds_plants_and_planting_material',
-                  icon: Icons.local_florist_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.animals,
-                  imagePath: 'farms',
-                  categoryPath: 'animal_control',
-                  icon: Icons.pets_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.productions,
-                  imagePath: 'productions',
-                  categoryPath: 'processed_productions',
-                  icon: Icons.inventory_2_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.labour,
-                  imagePath: 'productions',
-                  categoryPath: 'service_providers',
-                  icon: Icons.engineering_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.vehicle,
-                  imagePath: 'vehicles',
-                  categoryPath: 'vehicles',
-                  icon: Icons.agriculture_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.machineries,
-                  imagePath: 'machineries',
-                  categoryPath: 'machineries',
-                  icon: Icons.precision_manufacturing_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.agriEquipment,
-                  imagePath: 'equipments',
-                  categoryPath: 'agricultural_equipment',
-                  icon: Icons.build_outlined,
-                ),
-                _buildMenuCard(
-                  title: localization.fertilizers,
-                  imagePath: 'fertilizers',
-                  categoryPath: 'fertilizer',
-                  icon: Icons.sanitizer_outlined,
-                ),
-              ]),
+              ],
             ),
           ),
+          // Banner Ad at the bottom
+          const BannerAdWidget(),
         ],
       ),
     );

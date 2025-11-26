@@ -8,6 +8,8 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:aswenna/core/services/ad_service.dart';
+import 'package:aswenna/widgets/banner_ad_widget.dart';
 
 class ItemViewPage extends StatefulWidget {
   final String? documentId;
@@ -57,6 +59,7 @@ class ItemViewPage extends StatefulWidget {
 
 class _ItemViewPageState extends State<ItemViewPage> {
   final FirestoreService _firestoreService = FirestoreService();
+  final AdService _adService = AdService();
   bool isLoading = false;
   bool isImageViewVisible = false;
   Map<String, dynamic> itemData = {};
@@ -65,11 +68,24 @@ class _ItemViewPageState extends State<ItemViewPage> {
   List<String> imageUrls = [];
   int currentImageIndex = 0;
   bool isOwner = false;
+  bool _hasShownInterstitial = false;
 
   @override
   void initState() {
     super.initState();
     _initData();
+    // Load interstitial ad for item view page
+    _adService.loadInterstitialAd(onAdLoaded: () {
+      // Show interstitial ad after a short delay when page opens
+      if (!_hasShownInterstitial && mounted) {
+        Future.delayed(const Duration(milliseconds: 800), () {
+          if (mounted && !_hasShownInterstitial) {
+            _adService.showInterstitialAd();
+            _hasShownInterstitial = true;
+          }
+        });
+      }
+    });
   }
 
   Future<void> _initData() async {
@@ -1189,6 +1205,13 @@ class _ItemViewPageState extends State<ItemViewPage> {
 
                   // 3. OWNER DETAILS SECTION (LAST)
                   _buildOwnerDetailsSection(),
+
+                  SizedBox(height: 16),
+
+                  // Banner Ad
+                  const BannerAdWidget(isLarge: true),
+
+                  SizedBox(height: 16),
                 ],
               ),
             ),
