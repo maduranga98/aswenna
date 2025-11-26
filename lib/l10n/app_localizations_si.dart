@@ -1432,6 +1432,10 @@ class AppLocalizationsSi extends AppLocalizations {
   String get amountofseedsinapacket => 'පැකට්ටුවේ බීජ ප්‍රමාණය';
 
   @override
+  String get hintamountofseedsinapacket =>
+      'පැකට්ටුවේ බීජ ප්‍රමාණය ඇතුළත් කරන්න.';
+
+  @override
   String get numberofpackets => 'පැකට් ගණන';
 
   @override
@@ -1546,10 +1550,10 @@ class AppLocalizationsSi extends AppLocalizations {
   String get hintpriceofaanimal => 'සතෙකු සඳහා මිල ඇතුළත් කරන්න.';
 
   @override
-  String get hintbusal => 'බුෂල් ප්‍රමාණය ඇතුළත් කරන්න';
+  String get hintbusal => 'බුසල් ප්‍රමාණය ඇතුළත් කරන්න';
 
   @override
-  String get hintbusalprice => 'බුෂෙල් එකක මිල ඇතුළත් කරන්න';
+  String get hintbusalprice => 'බුසල් එකක මිල ඇතුළත් කරන්න';
 
   @override
   String get hintpriceofaroll => 'රෝල් එකක මිල ඇතුළත් කරන්න';
@@ -1638,16 +1642,22 @@ class AppLocalizationsSi extends AppLocalizations {
   String get hintitemname => 'අයිතමයේ නම ඇතුළත් කරන්න';
 
   @override
-  String get plantsQuantity => 'ශාක ප්‍රමාණය';
+  String get plantsQuantity => 'පැල ගනන';
 
   @override
-  String get hintplantsQuantity => 'ශාක ප්‍රමාණය ඇතුළත් කරන්න';
+  String get hintplantsQuantity => 'පැල ගනන ඇතුළත් කරන්න';
 
   @override
-  String get plantPrice => 'ශාකයක මිල';
+  String get plantPrice => 'පැලයක මිල';
 
   @override
-  String get hintPlantPrice => 'ශාකයක මිල ඇතුළත් කරන්න.';
+  String get hintPlantPrice => 'පැලයක මිල ඇතුළත් කරන්න.';
+
+  @override
+  String get planttype => 'පැලයේ වර්ගය';
+
+  @override
+  String get hintpalnttype => 'පැලයේ වර්ගය ඇතුළත් කරන්න.';
 
   @override
   String get give => 'ලබා දීමට';
@@ -1695,7 +1705,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get year => 'නිෂ්පාදක වර්ෂය';
 
   @override
-  String get manufacturer => 'නිෂ්පාදක';
+  String get manufacturer => 'නිෂ්පාදක ආයතනය';
 
   @override
   String get noOfOwners => 'හිමිකරුවන් ගණන';
@@ -1710,7 +1720,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get hintyear => 'වසර ඇතුළත් කරන්න';
 
   @override
-  String get hintmanufacturer => 'නිෂ්පාදකයා ඇතුළත් කරන්න';
+  String get hintmanufacturer => 'නිෂ්පදක ආයතනය ඇතුළත් කරන්න';
 
   @override
   String get hintnoofowners => 'හිමිකරුවන් ගණන ඇතුළත් කරන්න';
@@ -1807,4 +1817,58 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get hintseedpacket => 'පැකට් එකක අඩංගු බීජ  ප්‍රමාණය';
+
+  @override
+  String get fertilizerbags => 'පොහොර මිටි ගනන';
+
+  @override
+  String get hintfertlizerbags => 'පොහොර මිටි ගනන ඇතුළත් කරන්න';
+
+  @override
+  String get fertilizerbagsize => 'පොහොර මිටියක ප්‍රමාණය (kg)';
+
+  @override
+  String get hintfertilizerbagsize => 'පොහොර මිටියක ප්‍රමාණය ඇතුළත් කරන්න';
+
+  @override
+  String get fertilizerbagprice => 'පොහොර මිටියක මිල';
+
+  @override
+  String get hintfertilizerbagprice => 'පොහොර මිටියක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get qubic => 'කියුබික් අඩි ගනන';
+
+  @override
+  String get hintqubic => 'කියුබික් අඩි ගනන ඇතුළත් කරන්න';
+
+  @override
+  String get qubicprice => 'කියුබික් අඩියක මිල';
+
+  @override
+  String get hintqubicprice => 'කියුබික් අඩියක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get flower => 'මල් ගනන';
+
+  @override
+  String get hintflower => 'මල් ගනන ඇතුළත් කරන්න';
+
+  @override
+  String get flowerprice => 'මලක මිල';
+
+  @override
+  String get hintflowerprice => 'මලක මිල ඇතුළත් කරන්න';
+
+  @override
+  String get calf => 'පැටව් ගනන';
+
+  @override
+  String get hintcalf => 'පැටව් ගනන ඇතුළත් කරන්න';
+
+  @override
+  String get calfprice => 'පැටවකුගේ මිල';
+
+  @override
+  String get hintcalfprice => 'පැටවකුගේ මිල ඇතුළත් කරන්න';
 }

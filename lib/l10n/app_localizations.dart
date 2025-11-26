@@ -2930,6 +2930,12 @@ abstract class AppLocalizations {
   /// **'Amount of seends in a packet'**
   String get amountofseedsinapacket;
 
+  /// No description provided for @hintamountofseedsinapacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount of seeds in the packet.'**
+  String get hintamountofseedsinapacket;
+
   /// No description provided for @numberofpackets.
   ///
   /// In en, this message translates to:
@@ -3356,6 +3362,18 @@ abstract class AppLocalizations {
   /// **'Enter price for a plant'**
   String get hintPlantPrice;
 
+  /// No description provided for @planttype.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant type'**
+  String get planttype;
+
+  /// No description provided for @hintpalnttype.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the plant type'**
+  String get hintpalnttype;
+
   /// No description provided for @give.
   ///
   /// In en, this message translates to:
@@ -3449,7 +3467,7 @@ abstract class AppLocalizations {
   /// No description provided for @manufacturer.
   ///
   /// In en, this message translates to:
-  /// **'Manufacturer'**
+  /// **'Manufacturing company'**
   String get manufacturer;
 
   /// No description provided for @noOfOwners.
@@ -3673,6 +3691,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The amount of seeds in a packet'**
   String get hintseedpacket;
+
+  /// No description provided for @fertilizerbags.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of fertilizer bags'**
+  String get fertilizerbags;
+
+  /// No description provided for @hintfertlizerbags.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of fertilizer bags'**
+  String get hintfertlizerbags;
+
+  /// No description provided for @fertilizerbagsize.
+  ///
+  /// In en, this message translates to:
+  /// **'Size of a fertilizer bag(kg)'**
+  String get fertilizerbagsize;
+
+  /// No description provided for @hintfertilizerbagsize.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter size of a fertilizer bag'**
+  String get hintfertilizerbagsize;
+
+  /// No description provided for @fertilizerbagprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of a fertilizer bag'**
+  String get fertilizerbagprice;
+
+  /// No description provided for @hintfertilizerbagprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of a fertilizer bag'**
+  String get hintfertilizerbagprice;
+
+  /// No description provided for @qubic.
+  ///
+  /// In en, this message translates to:
+  /// **'No of Cubic feet'**
+  String get qubic;
+
+  /// No description provided for @hintqubic.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter no of cubic feet'**
+  String get hintqubic;
+
+  /// No description provided for @qubicprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price per cubic foot'**
+  String get qubicprice;
+
+  /// No description provided for @hintqubicprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price per cubic foot'**
+  String get hintqubicprice;
+
+  /// No description provided for @flower.
+  ///
+  /// In en, this message translates to:
+  /// **'Flower Count'**
+  String get flower;
+
+  /// No description provided for @hintflower.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter flower count'**
+  String get hintflower;
+
+  /// No description provided for @flowerprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Flower price'**
+  String get flowerprice;
+
+  /// No description provided for @hintflowerprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter flower price'**
+  String get hintflowerprice;
+
+  /// No description provided for @calf.
+  ///
+  /// In en, this message translates to:
+  /// **'Calf count'**
+  String get calf;
+
+  /// No description provided for @hintcalf.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter calf count'**
+  String get hintcalf;
+
+  /// No description provided for @calfprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Calf price'**
+  String get calfprice;
+
+  /// No description provided for @hintcalfprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter calf price'**
+  String get hintcalfprice;
 }
 
 class _AppLocalizationsDelegate
