@@ -13,17 +13,13 @@ class AdService {
   static const int maxFailedLoadAttempts = 3;
 
   // Toggle this to use test ads during development
-  static const bool _forceTestAds = false;
+  static const bool _forceTestAds = true;
 
   // Your real Ad Unit IDs
   static const String _realBannerAndroid =
       'ca-app-pub-4314688595118324/6648060596';
-  static const String _realBannerIOS =
-      'ca-app-pub-4314688595118324/6648060596'; // TODO: Add iOS-specific banner ad unit ID
   static const String _realInterstitialAndroid =
       'ca-app-pub-4314688595118324/7515130143';
-  static const String _realInterstitialIOS =
-      'ca-app-pub-4314688595118324/7515130143'; // TODO: Add iOS-specific interstitial ad unit ID
 
   // Google's official test Ad Unit IDs
   static const String _testBannerAndroid =
@@ -41,7 +37,7 @@ class AdService {
     if (Platform.isAndroid) {
       return _realBannerAndroid;
     } else if (Platform.isIOS) {
-      return _realBannerIOS;
+      return _realBannerAndroid; // Add your iOS banner ID when ready
     }
     throw UnsupportedError('Unsupported platform');
   }
@@ -55,7 +51,7 @@ class AdService {
     if (Platform.isAndroid) {
       return _realInterstitialAndroid;
     } else if (Platform.isIOS) {
-      return _realInterstitialIOS;
+      return ''; // Add your iOS interstitial ID when ready
     }
     throw UnsupportedError('Unsupported platform');
   }

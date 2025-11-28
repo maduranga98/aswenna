@@ -271,7 +271,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get otherdetails => 'වෙනත් තොරතුරු';
 
   @override
-  String get eravurPattu => 'Eravur Pattu';
+  String get eravurPattu => 'එරාවුර් පත්තුව';
 
   @override
   String get eravurTown => 'එරාවුර් නගරය';
@@ -1445,7 +1445,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get priceofanut => 'ගෙඩියක මිල';
 
   @override
-  String get noofnuts => 'No of Nuts';
+  String get noofnuts => 'ගෙඩි ගණන';
 
   @override
   String get priceof1kgofseeds => 'බීජ කිලෝග්‍රෑම් 1 ක මිල';
@@ -1801,7 +1801,7 @@ class AppLocalizationsSi extends AppLocalizations {
   String get priceroot => 'මුල් කැබැල්ලක මිල';
 
   @override
-  String get hitnpricerrot => 'Enter price of a root pieces';
+  String get hitnpricerrot => 'මුල් කැබැල්ලක මිල ඇතුළත් කරන්න';
 
   @override
   String get priceshoots => 'කරටි කැබැල්ලක මිල';
