@@ -85,7 +85,7 @@
      "perches":"පර්චස්",
      "price":"මිල",
      "otherdetails":"වෙනත් තොරතුරු",
-     "eravurpattu": "එරාවුර් පත්තුව",
+     "eravurPattu": "එරාවුර් පත්තුව",
       "eravurTown": "එරාවුර් නගරය",
       "kattankudy": "කාත්තන්කුඩි",
       "koralaiPattu": "කෝරළයි පත්තුව",
@@ -634,5 +634,7 @@
     "calf" : "පැටව් ගනන",
     "hintcalf" : "පැටව් ගනන ඇතුළත් කරන්න",
     "calfprice" : "පැටවකුගේ මිල" ,
-    "hintcalfprice" : "පැටවකුගේ මිල ඇතුළත් කරන්න"
+    "hintcalfprice" : "පැටවකුගේ මිල ඇතුළත් කරන්න",
+    "noofnuts" : "ගෙඩි ගණන",
+     "hitnpricerrot" : "මුල් කැබැල්ලක මිල ඇතුළත් කරන්න"
 }

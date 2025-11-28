@@ -8,62 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:169576315366:android:97d2653cbf05f711097e27",
+        "mobilesdk_app_id": "1:169576315366:android:d233c8186c571f0b097e27",
         "android_client_info": {
-          "package_name": "com.example.aswanna"
+          "package_name": "com.lumoraventures.aswenna"
         }
       },
       "oauth_client": [
         {
-          "client_id": "169576315366-a5r5ok5sl620i01fcgjk2gg0sa2nlhi6.apps.googleusercontent.com",
+          "client_id": "169576315366-0lvt29pmvlsdmqa35atkth3qu708n3rt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.aswanna",
-            "certificate_hash": "c407b745dc95b3019071be230d00999c3a89d5e8"
-          }
-        },
-        {
-          "client_id": "169576315366-hass6npe2emblf7e4ejn2e04ivo1r7om.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCza4eio70YW1T13vtWZG0or2q75m6lhH4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "169576315366-hass6npe2emblf7e4ejn2e04ivo1r7om.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "169576315366-4v16nml2fc16eaq5514ja4kp0o2gg5hl.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.aswenna"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:169576315366:android:655f1551a7d23ef7097e27",
-        "android_client_info": {
-          "package_name": "com.example.aswenna"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "169576315366-cubrpu7j5abnt53chr31s4tj04op77sk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.aswenna",
-            "certificate_hash": "c407b745dc95b3019071be230d00999c3a89d5e8"
+            "package_name": "com.lumoraventures.aswenna",
+            "certificate_hash": "c2f747c31dfbf239758e84a45ec0c46915e80517"
           }
         },
         {

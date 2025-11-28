@@ -493,7 +493,7 @@
       "numberofpackets": "Number of packets",
       "priceforapack" : "Price for a packet",
       "priceofanut" : "Price of a nut",
-      "noofnuts" : "No of Nuts",
+      "noofnuts" : "No of Nuts", 
       "priceof1kgofseeds" : "Price of 1kg of Seeds",
       "numberofseedkg" : "Number of seeds kg",
       "hintpriceof1kgofseeds" : "Enter the price of 1 kg of seeds",
@@ -636,8 +636,4 @@
       "hintcalf" : "Enter calf count",
       "calfprice" : "Calf price" ,
       "hintcalfprice" : "Enter calf price"
-
-      
-
-
     }
