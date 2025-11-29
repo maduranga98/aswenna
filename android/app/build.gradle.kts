@@ -60,10 +60,6 @@ android {
     }
 }
 
-configurations.all {
-    exclude(group = "com.google.android.play", module = "core-common")
-}
-
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
@@ -72,7 +68,6 @@ dependencies {
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.android.play:core:1.10.3")
 }
 
 flutter {
