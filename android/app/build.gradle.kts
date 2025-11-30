@@ -70,7 +70,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     // Android 14-compatible Play Core libraries for Flutter's deferred components
     implementation("com.google.android.play:feature-delivery:2.1.0")
-    implementation("com.google.android.play:review:2.0.1")  // Provides tasks API
+    implementation("com.google.android.play:core-common:2.0.3")  // Provides tasks API
 }
 
 flutter {
