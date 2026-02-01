@@ -117,7 +117,7 @@ class _ItemViewPageState extends State<ItemViewPage> {
       if (docSnap != null && docSnap.exists) {
         setState(() {
           itemData = docSnap.data() as Map<String, dynamic>;
-          print(itemData);
+          // Item data loaded
           isOwner = itemData['userId'] == _firestoreService.currentUserId;
           _extractImageUrls();
         });

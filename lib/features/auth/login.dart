@@ -481,14 +481,7 @@ class _LoginPageState extends State<LoginPage> {
       height: 52,
       child: OutlinedButton.icon(
         onPressed: _isLoading ? null : _handleGoogleLogin,
-        icon: Image.asset(
-          'assets/google_icon.png',
-          width: 20,
-          height: 20,
-          errorBuilder: (context, error, stackTrace) {
-            return const Icon(Icons.g_mobiledata, size: 20);
-          },
-        ),
+        icon: Icon(Icons.g_mobiledata, color: AppColors.accent, size: 24),
         label: const Text(
           'Sign in with Google',
           style: TextStyle(

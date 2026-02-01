@@ -83,9 +83,7 @@ class _CustomSellingPageState extends State<CustomSellingPage>
       vsync: this,
     );
     _fadeController.forward();
-    print(
-      "Selling Page: Main Name: ${widget.mainNameE} firstName: ${widget.firstLNameE} secondLName: ${widget.secondLNameE} tabName: ${widget.tabNameE}",
-    );
+    // Debug: selling page data logged
   }
 
   @override
