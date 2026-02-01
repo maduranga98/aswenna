@@ -20,9 +20,6 @@
               android:resource="@style/NormalTheme"
               />
             <meta-data
-                android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-4314688595118324~6832711660"/>
-            <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />    
             <intent-filter>
@@ -34,10 +31,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <!-- AdMob App ID -->
+        <!-- AdMob App ID (Production) -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-4314688595118324~6832711660"/>
     </application>
     
     <!-- Queries section - this is where the fix is needed -->

@@ -27,7 +27,7 @@ class _IntroScreenState extends State<IntroScreen> {
         height: imageSize ?? 250.0,
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.accent, // Changed from white to golden accent for logo visibility
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

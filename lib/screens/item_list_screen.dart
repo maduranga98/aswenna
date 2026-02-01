@@ -298,7 +298,7 @@ class _ItemListScreenState extends State<ItemListScreen>
               }
             });
           } catch (e) {
-            print("Error parsing filter data: $e");
+            // Error parsing filter data
             _showErrorSnackbar('Error applying filters');
           }
         },
@@ -358,7 +358,7 @@ class _ItemListScreenState extends State<ItemListScreen>
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    print(widget.parentPath);
+    // Debug: parentPath logged
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -1317,21 +1317,21 @@ class _ItemListScreenState extends State<ItemListScreen>
 
   Widget _buildSafeNetworkImage(String imageUrl) {
     // Log the image URL for debugging
-    print('Loading image: $imageUrl');
+    // Loading image from URL
 
     // Check if URL is valid
     bool isValidUrl = Uri.tryParse(imageUrl)?.hasAbsolutePath ?? false;
     if (!isValidUrl) {
-      print('Invalid image URL format: $imageUrl');
+      // Invalid image URL format
       return _buildImageError();
     }
 
     // Handle different URL protocols
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      print('URL needs http/https protocol: $imageUrl');
+      // URL needs http/https protocol
       // Try adding https if missing
       imageUrl = 'https://${imageUrl.replaceAll(RegExp(r'^(\/\/|:\/\/)'), '')}';
-      print('Modified URL: $imageUrl');
+      // Modified URL to include https
     }
 
     try {

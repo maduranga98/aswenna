@@ -228,7 +228,7 @@ class _LoadingPageState extends State<LoadingPage>
             height: 200,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.black, // Changed to black
+              color: AppColors.accent, // Golden accent color for better logo visibility
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(

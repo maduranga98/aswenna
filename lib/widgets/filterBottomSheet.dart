@@ -980,7 +980,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
           // Convert to JSON string to pass back to the parent widget
           final jsonStr = jsonEncode(filterData.toJson());
-          print("Filter Data: $jsonStr");
+          // Debug: Filter Data logged
 
           widget.onFilterChanged(jsonStr);
           Navigator.pop(context);

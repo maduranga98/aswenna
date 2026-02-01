@@ -831,7 +831,7 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    print(widget.paths);
+    // Debug: paths logged
     return Scaffold(
       backgroundColor: AppColors.background.withValues(alpha: 0.5),
       appBar: AppBar(
