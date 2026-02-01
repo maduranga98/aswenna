@@ -208,7 +208,7 @@ class AppLocalizationsSi extends AppLocalizations {
       'ඔබගේ පෞද්ගලික තොරතුරු කිසිවකු අතට පත් නොවන අතර ඔබගේ නම, දුරකථන අංකය, සහ ඔබ පදිංචි ප්‍රදේශය පමණක් ඔබගේ ගැනුම්කරුවන් හට පෙන්වයි.එමගින් ඔබ සහ ගැනුම්කරුවා අතර සම්බන්තාව ඇතිකරනු ඇත.';
 
   @override
-  String get labour => 'සේවා සපයන්නන්';
+  String get labour => 'උපදේශන හා සේවා සපයන්නන්';
 
   @override
   String get intro1_topic => 'මොකක්ද මේ ඇප් එක?';
@@ -1387,6 +1387,9 @@ class AppLocalizationsSi extends AppLocalizations {
   String get eggprice => 'බිත්තරයක මිල';
 
   @override
+  String get hinteggprice => 'බිත්තරයක මිල ඇතුළත් කරන්න.';
+
+  @override
   String get colonyprice => 'ජනපදයක මිල';
 
   @override
@@ -1437,6 +1440,9 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get numberofpackets => 'පැකට් ගණන';
+
+  @override
+  String get hintnumberofpackets => 'පැකට් ගණන ඇතුළත් කරන්න.';
 
   @override
   String get priceforapack => 'පැකට්ටුවක මිල';
@@ -1621,7 +1627,7 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get instructionPara2 =>
-      'මෙම යෙදුම ප්‍රධාන වශයෙන් අවධානය යොමු කරන්නේ විකුණුම් සහ ගැනුම් ක්‍රියාකාරකම් දෙකටය.';
+      'මෙම යෙදුම ප්‍රධාන වශයෙන් අවධානය යොමු කරන්නේ විකුණුම් සහ මිලදීගැනීම් ක්‍රියාකාරකම් දෙකටය.';
 
   @override
   String get instructionPoint1 =>
@@ -1762,16 +1768,16 @@ class AppLocalizationsSi extends AppLocalizations {
   String get hintpricefrond => 'පොල් අත්තක මිල ඇතුළත් කරන්න.';
 
   @override
-  String get bundleprice => 'මිටියක මිල';
+  String get bundleprice => 'බෑගයක මිල';
 
   @override
-  String get hintpricebundle => 'මිටියක මිල ඇතුළත් කරන්න';
+  String get hintpricebundle => 'බෑගයක මිල ඇතුළත් කරන්න';
 
   @override
-  String get hintnumberofbundles => 'මිටි ගණන ඇතුළත් කරන්න';
+  String get hintnumberofbundles => 'බෑග් ගණන ඇතුළත් කරන්න';
 
   @override
-  String get numberofbundles => 'මිටි ගණන';
+  String get numberofbundles => 'බෑග් ගණන';
 
   @override
   String get betelquantity => 'බුලත් කොළ ගණන';
@@ -1871,4 +1877,16 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get hintcalfprice => 'පැටවකුගේ මිල ඇතුළත් කරන්න';
+
+  @override
+  String get priceforhour => 'පැයකට මිල';
+
+  @override
+  String get hintpriceforhour => 'පැයකට මිල ඇතුළත් කරන්න';
+
+  @override
+  String get servicename => 'සේවාව';
+
+  @override
+  String get hintserviceName => 'සේවාවේ නාමය ඇතුළත් කරන්න';
 }
