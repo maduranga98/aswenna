@@ -69,7 +69,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get agriEquipment => 'Agricultural Equipment';
 
   @override
-  String get animals => 'Animal Control and Productions';
+  String get animals => 'Animal Husbandry and Productions';
 
   @override
   String get transport => 'Transport';
@@ -197,7 +197,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get intro1 =>
-      'Register in this \'Aswanna\' app to get all the inforamtion for your farming and enjoy theire benefits.';
+      'Register in this \'Aswanna\' app to get all the inforamtion for your farming and enjoy their benifits.';
 
   @override
   String get intro2 =>
@@ -208,7 +208,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'All your personal information will not go into the hands of thirdpatry, except your phone number, name and your area. Only your buyers and suppliers will contact you.';
 
   @override
-  String get labour => 'Service Providers';
+  String get labour => 'Consultancy and service providers';
 
   @override
   String get intro1_topic => 'What is this app?';
@@ -1387,6 +1387,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eggprice => 'An Egg Price';
 
   @override
+  String get hinteggprice => 'Enter price of an egg';
+
+  @override
   String get colonyprice => 'The price of a colony';
 
   @override
@@ -1437,6 +1440,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get numberofpackets => 'Number of packets';
+
+  @override
+  String get hintnumberofpackets => 'EnterNumber of packets';
 
   @override
   String get priceforapack => 'Price for a packet';
@@ -1762,16 +1768,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintpricefrond => 'Enter the price of a coconut Frond.';
 
   @override
-  String get bundleprice => 'Price of a bundle';
+  String get bundleprice => 'Price of a Bag';
 
   @override
-  String get hintpricebundle => 'Enter the Price of a bundle';
+  String get hintpricebundle => 'Enter the Price of a bag';
 
   @override
-  String get hintnumberofbundles => 'Enter the number of bundle';
+  String get hintnumberofbundles => 'Enter the number of bags';
 
   @override
-  String get numberofbundles => 'Number of bundles';
+  String get numberofbundles => 'Number of bags';
 
   @override
   String get betelquantity => 'Number of betel leaves';
@@ -1871,4 +1877,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hintcalfprice => 'Enter calf price';
+
+  @override
+  String get priceforhour => 'Price for a hour';
+
+  @override
+  String get hintpriceforhour => 'Enter price for a hour';
+
+  @override
+  String get servicename => 'Service Name';
+
+  @override
+  String get hintserviceName => 'Enter the name of the service.';
 }

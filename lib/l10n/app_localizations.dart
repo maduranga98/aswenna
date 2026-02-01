@@ -221,7 +221,7 @@ abstract class AppLocalizations {
   /// No description provided for @animals.
   ///
   /// In en, this message translates to:
-  /// **'Animal Control and Productions'**
+  /// **'Animal Husbandry and Productions'**
   String get animals;
 
   /// No description provided for @transport.
@@ -473,7 +473,7 @@ abstract class AppLocalizations {
   /// No description provided for @intro1.
   ///
   /// In en, this message translates to:
-  /// **'Register in this \'Aswanna\' app to get all the inforamtion for your farming and enjoy theire benefits.'**
+  /// **'Register in this \'Aswanna\' app to get all the inforamtion for your farming and enjoy their benifits.'**
   String get intro1;
 
   /// No description provided for @intro2.
@@ -491,7 +491,7 @@ abstract class AppLocalizations {
   /// No description provided for @labour.
   ///
   /// In en, this message translates to:
-  /// **'Service Providers'**
+  /// **'Consultancy and service providers'**
   String get labour;
 
   /// No description provided for @intro1_topic.
@@ -2840,6 +2840,12 @@ abstract class AppLocalizations {
   /// **'An Egg Price'**
   String get eggprice;
 
+  /// No description provided for @hinteggprice.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price of an egg'**
+  String get hinteggprice;
+
   /// No description provided for @colonyprice.
   ///
   /// In en, this message translates to:
@@ -2941,6 +2947,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Number of packets'**
   String get numberofpackets;
+
+  /// No description provided for @hintnumberofpackets.
+  ///
+  /// In en, this message translates to:
+  /// **'EnterNumber of packets'**
+  String get hintnumberofpackets;
 
   /// No description provided for @priceforapack.
   ///
@@ -3581,25 +3593,25 @@ abstract class AppLocalizations {
   /// No description provided for @bundleprice.
   ///
   /// In en, this message translates to:
-  /// **'Price of a bundle'**
+  /// **'Price of a Bag'**
   String get bundleprice;
 
   /// No description provided for @hintpricebundle.
   ///
   /// In en, this message translates to:
-  /// **'Enter the Price of a bundle'**
+  /// **'Enter the Price of a bag'**
   String get hintpricebundle;
 
   /// No description provided for @hintnumberofbundles.
   ///
   /// In en, this message translates to:
-  /// **'Enter the number of bundle'**
+  /// **'Enter the number of bags'**
   String get hintnumberofbundles;
 
   /// No description provided for @numberofbundles.
   ///
   /// In en, this message translates to:
-  /// **'Number of bundles'**
+  /// **'Number of bags'**
   String get numberofbundles;
 
   /// No description provided for @betelquantity.
@@ -3799,6 +3811,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter calf price'**
   String get hintcalfprice;
+
+  /// No description provided for @priceforhour.
+  ///
+  /// In en, this message translates to:
+  /// **'Price for a hour'**
+  String get priceforhour;
+
+  /// No description provided for @hintpriceforhour.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price for a hour'**
+  String get hintpriceforhour;
+
+  /// No description provided for @servicename.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Name'**
+  String get servicename;
+
+  /// No description provided for @hintserviceName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the name of the service.'**
+  String get hintserviceName;
 }
 
 class _AppLocalizationsDelegate

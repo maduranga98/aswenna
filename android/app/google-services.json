@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "169576315366-qk2v0049ecrmg30h6gbq9aqujrquljal.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lumoraventures.aswenna",
+            "certificate_hash": "adb0ed6e770984d61a5b179f085ee7e53dad31bb"
+          }
+        },
+        {
           "client_id": "169576315366-hass6npe2emblf7e4ejn2e04ivo1r7om.apps.googleusercontent.com",
           "client_type": 3
         }
