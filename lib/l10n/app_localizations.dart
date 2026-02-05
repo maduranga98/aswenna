@@ -365,7 +365,7 @@ abstract class AppLocalizations {
   /// No description provided for @kg.
   ///
   /// In en, this message translates to:
-  /// **'No of KG'**
+  /// **'Kilograms'**
   String get kg;
 
   /// No description provided for @priceForOnekg.
@@ -2921,19 +2921,19 @@ abstract class AppLocalizations {
   /// No description provided for @priceofbushal.
   ///
   /// In en, this message translates to:
-  /// **'Price of a bushal'**
+  /// **'Price of a Busal'**
   String get priceofbushal;
 
   /// No description provided for @numberofbushal.
   ///
   /// In en, this message translates to:
-  /// **'No. of bushal'**
+  /// **'No. of Busal'**
   String get numberofbushal;
 
   /// No description provided for @amountofseedsinapacket.
   ///
   /// In en, this message translates to:
-  /// **'Amount of seends in a packet'**
+  /// **'Amount of seeds in a packet'**
   String get amountofseedsinapacket;
 
   /// No description provided for @hintamountofseedsinapacket.
@@ -3179,13 +3179,13 @@ abstract class AppLocalizations {
   /// No description provided for @hintbusal.
   ///
   /// In en, this message translates to:
-  /// **'Enter the Bushal quantity'**
+  /// **'Enter the Busal quantity'**
   String get hintbusal;
 
   /// No description provided for @hintbusalprice.
   ///
   /// In en, this message translates to:
-  /// **'Enter price for a Bushal'**
+  /// **'Enter price for a Busal'**
   String get hintbusalprice;
 
   /// No description provided for @hintpriceofaroll.
@@ -3527,13 +3527,13 @@ abstract class AppLocalizations {
   /// No description provided for @countnuts.
   ///
   /// In en, this message translates to:
-  /// **'Count the Nuts'**
+  /// **'No of Nuts'**
   String get countnuts;
 
   /// No description provided for @hintnunts.
   ///
   /// In en, this message translates to:
-  /// **'Enter the number of nut'**
+  /// **'Enter No of nut'**
   String get hintnunts;
 
   /// No description provided for @hintnuntsprice.
@@ -3551,7 +3551,7 @@ abstract class AppLocalizations {
   /// No description provided for @priceofhusk.
   ///
   /// In en, this message translates to:
-  /// **'Price of a husks'**
+  /// **'Price of a Husk'**
   String get priceofhusk;
 
   /// No description provided for @hintnumberofhusk.
@@ -3563,7 +3563,7 @@ abstract class AppLocalizations {
   /// No description provided for @hintpriceofahusk.
   ///
   /// In en, this message translates to:
-  /// **'Enter price of a husks'**
+  /// **'Enter price of a Husk'**
   String get hintpriceofahusk;
 
   /// No description provided for @numberoffronds.

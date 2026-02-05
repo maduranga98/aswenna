@@ -141,7 +141,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get itemAddAlert => 'You have added a new item.';
 
   @override
-  String get kg => 'No of KG';
+  String get kg => 'Kilograms';
 
   @override
   String get priceForOnekg => 'Price for 1KG';
@@ -1426,13 +1426,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lifeweight => 'Live weight of a animal';
 
   @override
-  String get priceofbushal => 'Price of a bushal';
+  String get priceofbushal => 'Price of a Busal';
 
   @override
-  String get numberofbushal => 'No. of bushal';
+  String get numberofbushal => 'No. of Busal';
 
   @override
-  String get amountofseedsinapacket => 'Amount of seends in a packet';
+  String get amountofseedsinapacket => 'Amount of seeds in a packet';
 
   @override
   String get hintamountofseedsinapacket =>
@@ -1556,10 +1556,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintpriceofaanimal => 'Enter price for a animal';
 
   @override
-  String get hintbusal => 'Enter the Bushal quantity';
+  String get hintbusal => 'Enter the Busal quantity';
 
   @override
-  String get hintbusalprice => 'Enter price for a Bushal';
+  String get hintbusalprice => 'Enter price for a Busal';
 
   @override
   String get hintpriceofaroll => 'Enter price of a roll';
@@ -1735,10 +1735,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintvehicleprice => 'Enter the price of a vehicle';
 
   @override
-  String get countnuts => 'Count the Nuts';
+  String get countnuts => 'No of Nuts';
 
   @override
-  String get hintnunts => 'Enter the number of nut';
+  String get hintnunts => 'Enter No of nut';
 
   @override
   String get hintnuntsprice => 'Enter the Price of a nut';
@@ -1747,13 +1747,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get numberofhusks => 'Number of husks';
 
   @override
-  String get priceofhusk => 'Price of a husks';
+  String get priceofhusk => 'Price of a Husk';
 
   @override
   String get hintnumberofhusk => 'Enter number of husks';
 
   @override
-  String get hintpriceofahusk => 'Enter price of a husks';
+  String get hintpriceofahusk => 'Enter price of a Husk';
 
   @override
   String get numberoffronds => 'Number of coconut Fronds';

@@ -1429,7 +1429,33 @@ class _ItemsAddPageState extends State<ItemsAddPage> {
                           hint: l10n.hintprice,
                           keyboardType: TextInputType.number,
                         ),
+                      ] else if (widget.paths.contains('fresh_water') &&
+                          widget.paths.contains('medicine_vitamins')) ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
+                        _buildInputField(
+                          controller: kgController,
+                          label: l10n.kg,
+                          hint: l10n.hintKg,
+                          keyboardType: TextInputType.number,
+                        ),
+                        _buildInputField(
+                          controller: priceController,
+                          label: l10n.priceforapack,
+                          hint: l10n.hintprice,
+                          keyboardType: TextInputType.number,
+                        ),
                       ] else ...[
+                        _buildInputField(
+                          controller: nameController,
+                          label: l10n.itemname,
+                          hint: l10n.hintitemname,
+                          keyboardType: TextInputType.text,
+                        ),
                         _buildInputField(
                           controller: qunatityController,
                           label: l10n.quantity,

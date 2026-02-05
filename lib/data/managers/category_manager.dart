@@ -78,7 +78,7 @@ class CategoryManager {
             dbPath: 'paddy',
             items: [
               DeepCategoryData(
-                nameEn: 'Local',
+                nameEn: 'Indigenous',
                 nameSi: 'දේශීය',
                 dbPath: 'local',
                 items: [
@@ -248,7 +248,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Millet',
+                nameEn: 'Meneri',
                 nameSi: 'මෙනේරි',
                 dbPath: 'items',
                 hasBuySell: true,
@@ -266,7 +266,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Soya Beans',
+                nameEn: 'Soya Bean',
                 nameSi: 'සෝයාබෝංචි',
                 dbPath: 'items',
                 hasBuySell: true,
@@ -303,13 +303,13 @@ class CategoryManager {
                     hasBuySell: true,
                   ),
                   ItemData(
-                    nameEn: 'Husked Coconut-fresh',
+                    nameEn: 'Husked Fresh Coconut',
                     nameSi: 'කටු පොල්',
                     hasBuySell: true,
                     dbPath: 'husked_coconut_fresh',
                   ),
                   ItemData(
-                    nameEn: 'Husked Coconut-Dried',
+                    nameEn: 'Fresh Ccoconut',
                     nameSi: 'මාළු පොල්',
                     hasBuySell: true,
                     dbPath: 'husked_coconut_dried',
@@ -354,13 +354,13 @@ class CategoryManager {
               //   dbPath: 'polkatu',
               // ),
               ItemData(
-                nameEn: 'Coconut Fronds',
+                nameEn: 'Coconut leaves',
                 nameSi: 'පොල් අතු',
                 hasBuySell: true,
                 dbPath: 'coconut_fronds',
               ),
               ItemData(
-                nameEn: 'Coconut Flakes (Firewood)',
+                nameEn: 'Coconut scraps (Firewood)',
                 nameSi: 'පොල් පතුරු (දර)',
                 hasBuySell: true,
                 dbPath: 'coconut_flakes',
@@ -415,7 +415,7 @@ class CategoryManager {
             dbPath: 'vegetables',
             items: [
               ItemData(
-                nameEn: 'Eggplant',
+                nameEn: 'Brinjols',
                 nameSi: 'වම්බටු',
                 dbPath: 'eggplant',
                 hasBuySell: true,
@@ -439,7 +439,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Me',
+                nameEn: 'Mea',
                 nameSi: 'මෑ කරල්',
                 dbPath: 'me',
                 hasBuySell: true,
@@ -523,7 +523,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Tibatu',
+                nameEn: 'Tibbatu',
                 nameSi: 'තිබ්බටු',
                 dbPath: 'tibatu',
                 hasBuySell: true,
@@ -560,7 +560,7 @@ class CategoryManager {
               ),
               ItemData(
                 nameEn: 'Batana',
-                nameSi: 'බටානා',
+                nameSi: 'වටානා',
                 dbPath: 'batana',
                 hasBuySell: true,
               ),
@@ -601,7 +601,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Ambrella',
+                nameEn: 'Ambarella',
                 nameSi: 'ඇම්බරැල්ලා',
                 dbPath: 'ambrella',
                 hasBuySell: true,
@@ -906,7 +906,7 @@ class CategoryManager {
               ),
               ItemData(
                 nameEn: 'Vala Varaka',
-                nameSi: 'වැල',
+                nameSi: 'වැල වරකා',
                 dbPath: 'vala_varaka',
                 hasBuySell: true,
               ),
@@ -923,7 +923,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Bael Fruit',
+                nameEn: 'Beli',
                 nameSi: 'බෙලි',
                 dbPath: 'bael_fruit',
                 hasBuySell: true,
@@ -953,8 +953,8 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Sapodilla',
-                nameSi: 'සැපදිල්ල',
+                nameEn: 'Sapadilla',
+                nameSi: 'සැපදිල්ලා ',
                 dbPath: 'sapodilla',
                 hasBuySell: true,
               ),
@@ -983,7 +983,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Tamarind',
+                nameEn: 'Galsiyambala',
                 nameSi: 'ගල්සියඹලා',
                 dbPath: 'tamarind',
                 hasBuySell: true,
@@ -1062,7 +1062,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Nutmeg',
+                nameEn: 'Sadikka',
                 nameSi: 'සාදික්කා',
                 dbPath: 'nutmeg',
                 hasBuySell: true,
@@ -1110,7 +1110,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Citarella',
+                nameEn: 'Citronella',
                 nameSi: 'සිට්‍රනෙල්ලා',
                 dbPath: 'citarella',
                 hasBuySell: true,
@@ -1360,7 +1360,7 @@ class CategoryManager {
               ),
               ItemData(
                 nameEn: 'Tulip',
-                nameSi: 'ටියලිප්',
+                nameSi: 'ටියුලිප්',
                 dbPath: 'tulip',
                 hasBuySell: true,
               ),
@@ -1383,7 +1383,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Dahilia',
+                nameEn: 'Dahlia',
                 nameSi: 'ඩේලියා',
                 dbPath: 'dahilia',
                 hasBuySell: true,
@@ -1413,7 +1413,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Lilies',
+                nameEn: 'Water lilies',
                 nameSi: 'මානෙල්',
                 dbPath: 'lilies',
                 hasBuySell: true,
@@ -1515,8 +1515,8 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Sansavaria',
-                nameSi: 'සැනිසවේරියා',
+                nameEn: 'Sansevieria',
+                nameSi: 'සැන්සවේරියා',
                 dbPath: 'sansavaria',
                 hasBuySell: true,
               ),
@@ -1625,7 +1625,7 @@ class CategoryManager {
                     dbPath: 'paddy_seeds',
                     items: [
                       DeepCategoryData(
-                        nameEn: 'Local',
+                        nameEn: 'Indigenous',
                         nameSi: 'දේශීය',
                         dbPath: 'local',
                         items: [
@@ -1795,7 +1795,7 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Nutmeg',
+                        nameEn: 'Sadikka',
                         nameSi: 'සාදික්කා',
                         dbPath: 'nutmeg',
                         hasBuySell: true,
@@ -2003,7 +2003,7 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Nutmeg',
+                        nameEn: 'Sadikka',
                         nameSi: 'සාදික්කා',
                         dbPath: 'nutmeg_plants',
                         hasBuySell: true,
@@ -2212,7 +2212,7 @@ class CategoryManager {
                     dbPath: 'paddy_seeds',
                     items: [
                       DeepCategoryData(
-                        nameEn: 'Local',
+                        nameEn: 'Indigenous',
                         nameSi: 'දේශීය',
                         dbPath: 'local',
                         items: [
@@ -2382,7 +2382,7 @@ class CategoryManager {
                         hasBuySell: true,
                       ),
                       ItemData(
-                        nameEn: 'Nutmeg',
+                        nameEn: 'Sadikka',
                         nameSi: 'සාදික්කා',
                         dbPath: 'nutmeg',
                         hasBuySell: true,
@@ -7054,7 +7054,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Millet',
+                nameEn: 'Meneri',
                 nameSi: 'මෙනේරි',
                 dbPath: 'items',
                 hasBuySell: true,
@@ -7072,7 +7072,7 @@ class CategoryManager {
                 hasBuySell: true,
               ),
               ItemData(
-                nameEn: 'Soya Beans',
+                nameEn: 'Soya Bean',
                 nameSi: 'සෝයාබෝංචි',
                 dbPath: 'items',
                 hasBuySell: true,
